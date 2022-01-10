@@ -1,9 +1,9 @@
 exports.READ_USERS_BY_ADMIN_ID = `
-select u.id, u.name, username, mail, count(u.name) as groups, u.active
+select u.id, u.name, username, mail, count(u.name) as 'groups', u.active
 from adm_accounts a, adm_users u, adm_users_reports_groups rp
 where u.id_adm_accounts = a.id
 and u.id = rp.id_adm_users
-and a.id = ?
+and a.id = 1
 group by a.id, u.name, u.username, u.mail, u.active, u.id
 order by a.id;
 `
