@@ -30,7 +30,7 @@ export const setLoading = () => dispatch => {
 export const readReportGroupsHeadersByAdmin = () => async dispatch => {
   setLoading()(dispatch)
   try {
-    const res = await axios.get('/api/reports/headers')
+    const res = await axios.get('/reports/headers')
     dispatch({
       type: READ_REPORT_GROUPS_HEADERS_BY_ADMIN,
       payload: res.data,
@@ -43,7 +43,7 @@ export const readReportGroupsHeadersByAdmin = () => async dispatch => {
 export const readReportsByAdmin = () => async dispatch => {
   setLoading()(dispatch)
   try {
-    const res = await axios.get('/api/reports')
+    const res = await axios.get('/reports')
     dispatch({
       type: READ_REPORTS_BY_ADMIN,
       payload: res.data,
@@ -56,7 +56,7 @@ export const readReportsByAdmin = () => async dispatch => {
 export const readAccountReportsByAdmin = () => async dispatch => {
   setLoading()(dispatch)
   try {
-    const res = await axios.get('/api/reports/account')
+    const res = await axios.get('/reports/account')
     dispatch({
       type: READ_ACCOUNT_REPORTS_BY_ADMIN,
       payload: res.data,
@@ -69,7 +69,7 @@ export const readAccountReportsByAdmin = () => async dispatch => {
 export const readUsersReportsByAdmin = () => async dispatch => {
   setLoading()(dispatch)
   try {
-    const res = await axios.get('/api/reports/users')
+    const res = await axios.get('/reports/users')
     dispatch({
       type: READ_USERS_REPORTS_BY_ADMIN,
       payload: res.data,
@@ -85,7 +85,7 @@ export const updateReportActiveStateByAdmin =
 
     try {
       const res = await axios.put(
-        `/api/reports/toggleActive/${reportId}`,
+        `/reports/toggleActive/${reportId}`,
         { active },
         config
       )

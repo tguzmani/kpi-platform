@@ -20,7 +20,13 @@ connection.connect()
 app.use(express.json({ extended: false }))
 app.use(morgan('dev'))
 app.use(cookieParser())
-app.use(cors())
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true,
+    methods: ['POST', 'PUT', 'GET', 'OPTIONS', 'HEAD', 'DELETE'],
+  })
+)
 app.use(
   session({
     secret: process.env.SESSION_SECRET,

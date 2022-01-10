@@ -22,7 +22,7 @@ export const updateLogo = (logoFile, userName) => async dispatch => {
   data.append('image', logoFile, userName)
 
   try {
-    const res = await axios.put(`/api/admins/logo`, data, {
+    const res = await axios.put(`/admins/logo`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },

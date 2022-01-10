@@ -26,7 +26,10 @@ export const signIn = credentials => async dispatch => {
   setLoading()(dispatch)
 
   try {
-    const res = await axios.post('/api/auth/signIn', credentials, config)
+    const res = await axios.post(`/auth/signIn`, credentials, {
+      ...config,
+      withCredentials: true,
+    })
     dispatch({ type: SIGN_IN, payload: res.data })
   } catch (error) {
     console.log(error.response.data.message)
@@ -38,7 +41,7 @@ export const readProfile = () => async dispatch => {
   setLoading()(dispatch)
 
   try {
-    const res = await axios.get(`/api/admins/profile`)
+    const res = await axios.get(`/admins/profile`)
     dispatch({ type: READ_PROFILE, payload: res.data })
   } catch (error) {
     dispatch({ type: ERROR, payload: error.response.data.message })
@@ -49,7 +52,7 @@ export const readLogo = () => async dispatch => {
   setLoading()(dispatch)
 
   try {
-    const res = await axios.get(`/api/admins/logo`)
+    const res = await axios.get(`/admins/logo`)
     dispatch({ type: READ_LOGO, payload: res.data })
   } catch (error) {
     dispatch({ type: ERROR, payload: error.response.data.message })
@@ -60,7 +63,7 @@ export const signOut = () => async dispatch => {
   setLoading()(dispatch)
 
   try {
-    await axios.post(`/api/auth/signOut`)
+    await axios.post(`/auth/signOut`)
     dispatch({ type: SIGN_OUT })
   } catch (error) {
     dispatch({ type: ERROR, payload: error.response.data.message })
