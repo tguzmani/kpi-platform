@@ -1,8 +1,7 @@
+.env
+.idea
 node_modules
 misc
 testing.js
-.env
 framework
 dev.*
-.idea
-queries
