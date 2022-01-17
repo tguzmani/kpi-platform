@@ -28,7 +28,7 @@ where a.id = gh.id_adm_accounts and gh.id = gb.id_pbi_reports_groups_headers
 and a.id = 1;
 
 -- READ admin account / reportes
-select wr.id, w.name as workspace, wr.name as name, wr.active
+select wr.id, w.name as workspace, wr.name as name, wr.active, w.id_pbi as groupId, wr.id_pbi as reportId
 from pbi_reports_groups_headers gh, adm_accounts a,
      pbi_reports_groups_body gb, pbi_workspaces_reports_sections rs,
      pbi_workspaces_reports wr, pbi_workspaces w

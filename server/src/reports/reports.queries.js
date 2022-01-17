@@ -21,7 +21,7 @@ and a.id = ?;
 `
 
 exports.READ_ACCOUNT_REPORTS_BY_ADMIN = `
-select wr.id, w.name as workspace, wr.name as name, wr.active
+select wr.id, w.name as workspace, wr.name as name, wr.active, w.id_pbi as groupId, wr.id_pbi as reportId
 from pbi_reports_groups_headers gh, adm_accounts a,
      pbi_reports_groups_body gb, pbi_workspaces_reports_sections rs,
      pbi_workspaces_reports wr, pbi_workspaces w

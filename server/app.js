@@ -35,7 +35,7 @@ app.use(
 )
 
 // Routes Middleware
-routes = ['auth', 'admins', 'users', 'reports']
+routes = ['auth', 'admins', 'users', 'reports', 'powerbi']
 routes.forEach(route => useRoute(route))
 
 // Serve static assets in production
