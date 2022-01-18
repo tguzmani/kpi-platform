@@ -30,12 +30,12 @@ case $1 in
     ;;
 
   -h)
-    echo -b \t build frontend
-    echo -d \t goto directory
-    echo -p \t make git pull request
-    echo -r \t run server
-    echo -t \t stop server
-    echo -w \t show server status
+    echo -e '-b \t build frontend'
+    echo -e '-d \t goto directory'
+    echo -e '-p \t make git pull request'
+    echo -e '-r \t run server'
+    echo -e '-t \t stop server'
+    echo -e '-w \t show server status'
     ;;
   
   *)
