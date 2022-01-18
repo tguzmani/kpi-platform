@@ -31,7 +31,7 @@ async function readByName(name) {
 
 async function updateLogo(logoAddress, adminId) {
   connection.query(
-    adminQueries.READ_BY_NAME,
+    adminQueries.UPDATE_LOGO,
     [logoAddress, adminId],
     async (error, rows) => {
       if (error) throw reject(error)

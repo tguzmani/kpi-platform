@@ -39,9 +39,6 @@ const authReducer = (state = initialState, action) => {
         isAuthenticated: true,
       }
 
-    case READ_LOGO:
-      return { ...state, userLogo: action.payload }
-
     case CLEAR_MESSAGE:
       return { ...state, message: null }
 

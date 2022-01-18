@@ -8,24 +8,27 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
 import ImageSearchIcon from '@mui/icons-material/ImageSearch'
 import { updateLogo } from './../../state/admins/adminsActions'
+import { readLogo } from './../../state/auth/authActions'
 
 const LogoPanel = () => {
   const fileLoadElement = useRef()
   const dispatch = useDispatch()
   const [logo, setLogo] = useState(null)
-  const { user, userLogo } = useSelector(state => state.auth)
+  const { user } = useSelector(state => state.auth)
+  const { userLogo } = useSelector(state => state.admins)
 
   const handleSelectLogo = e => {
     setLogo(e.target.files[0])
   }
 
+  const handleUploadLogo = async e => {
+    dispatch(updateLogo(logo, user.name))
+    clearLogo()
+  }
+
   const clearLogo = e => {
     setLogo(null)
     fileLoadElement.current.value = ''
-  }
-
-  const handleUploadLogo = async e => {
-    dispatch(updateLogo(logo, user.name))
   }
 
   return (

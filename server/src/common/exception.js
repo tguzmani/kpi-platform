@@ -1,8 +1,8 @@
 class Exception extends Error {
-  constructor(name, message, description = undefined, code = 400) {
+  constructor(domain, message, description = undefined, code = 400) {
+    super()
     this.message = message
     this.description = description
-    this.name = 'AuthException'
   }
 }
 

@@ -26,13 +26,13 @@ const Alerts = () => {
 
   return (
     <>
-      <Collapse in={alerts.length > 0}>
+      {/* <Collapse in={alerts.length > 0}>
         <Box my={2}>
           <Stack alignItems='center'>
             <MuiAlert severity='error'>{alerts[0]?.message}</MuiAlert>
           </Stack>
         </Box>
-      </Collapse>
+      </Collapse> */}
     </>
   )
 }

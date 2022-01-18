@@ -6,10 +6,7 @@ const storage = multer.diskStorage({
   },
 
   filename: (req, file, callback) => {
-    const fileExtension = file.mimetype.replace('image/', '')
-
-    console.log('file', file)
-    callback(null, `${req.userId}-${file.originalname}-logo.${fileExtension}`)
+    callback(null, file.originalname)
   },
 })
 

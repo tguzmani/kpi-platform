@@ -2,4 +2,5 @@ export const ERROR = 'ADMIN/ERROR'
 export const LOADING = 'ADMIN/LOADING'
 export const CLEAR_MESSAGE = 'ADMIN/CLEAR_MESSAGE'
 
+export const READ_LOGO = 'AUTH/READ_LOGO'
 export const UPDATE_LOGO = 'ADMIN/UPDATE_LOGO'

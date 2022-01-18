@@ -22,9 +22,13 @@ async function readLogo(req, res) {
 
 async function updateLogo(req, res) {
   try {
-    res.send({ message: 'Logo actualizado con éxito' })
+    const file = req.files[0]
+
+    const logo = await adminService.updateLogo(file.filename, req.userId)
+
+    res.send({ message: 'Logo actualizado con éxito', logo })
   } catch (error) {
-    return res.status(400).send(error.stack)
+    return res.status(400).send(error)
   }
 }
 

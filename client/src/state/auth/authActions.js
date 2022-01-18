@@ -48,17 +48,6 @@ export const readProfile = () => async dispatch => {
   }
 }
 
-export const readLogo = () => async dispatch => {
-  setLoading()(dispatch)
-
-  try {
-    const res = await axios.get(`/admins/logo`)
-    dispatch({ type: READ_LOGO, payload: res.data })
-  } catch (error) {
-    dispatch({ type: ERROR, payload: error.response.data.message })
-  }
-}
-
 export const signOut = () => async dispatch => {
   setLoading()(dispatch)
 
