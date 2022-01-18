@@ -2,41 +2,36 @@ option=$1
 kpi_dir=~/kpi-platform
 
 case $1 in
-  -b)
+  build)
     cd $kpi_dir/client
     bash build.sh
     ;;
 
-  -d)
-    cd $kpi_dir
-    ;;
-
-  -p)
+  pull)
     cd $kpi_dir
     git pull
     ;;
 
-  -r)
+  server)
     cd $kpi_dir/server
     screen -S server -d -m npm run server
     ;;
 
-  -t)
+  stop)
     screen -X -S server quit
     ;;
 
-  -w)
+  show)
     screen -r server
     ;;
 
   -h)
     echo Available options:
-    echo -e '-b \t build frontend'
-    echo -e '-d \t goto directory'
-    echo -e '-p \t make git pull request'
-    echo -e '-r \t run server'
-    echo -e '-t \t stop server'
-    echo -e '-w \t show server status'
+    echo -e 'build \t build frontend'
+    echo -e 'pull \t make git pull request'
+    echo -e 'server \t run server'
+    echo -e 'stop \t stop server'
+    echo -e 'show \t show server status'
     ;;
   
   *)
