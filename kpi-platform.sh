@@ -30,6 +30,7 @@ case $1 in
     ;;
 
   -h)
+    echo Available options:
     echo -e '-b \t build frontend'
     echo -e '-d \t goto directory'
     echo -e '-p \t make git pull request'
