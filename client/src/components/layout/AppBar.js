@@ -16,7 +16,7 @@ const ApplicationBar = () => {
   }
 
   return (
-    <AppBar position='static'>
+    <AppBar position='sticky' color='light'>
       <Toolbar>
         <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
           KPI Managers

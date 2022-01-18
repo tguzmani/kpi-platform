@@ -15,68 +15,75 @@ import store from './store'
 import CreateUser from './components/users/CreateUser'
 import UpdateUser from './components/users/UpdateUser'
 
+import { ThemeProvider } from '@mui/material/styles'
+import theme from './theme'
+import GlobalStyles from '@mui/material/GlobalStyles'
+
 function App() {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path='/login' element={<LoginPage />} />
-          <Route
-            path='/'
-            element={
-              <PrivateRoute>
-                <ReportGroupsPage />
-              </PrivateRoute>
-            }
-          />
-
-          <Route
-            path='/users'
-            element={
-              <PrivateRoute>
-                <UsersPage />
-              </PrivateRoute>
-            }
-          />
-
-          <Route
-            path='/users/create'
-            element={
-              <PrivateRoute>
-                <CreateUser />
-              </PrivateRoute>
-            }
-          />
-
-          <Route
-            path='/users/:userId'
-            element={
-              <PrivateRoute>
-                <UpdateUser />
-              </PrivateRoute>
-            }
-          />
-
-          <Route
-            path='/reports'
-            element={
-              <PrivateRoute>
-                <ReportsPage />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path='/account'
-            element={
-              <PrivateRoute>
-                <AccountPage />
-              </PrivateRoute>
-            }
-          />
-          <Route path='*' element={<NotFoundPage />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles
+        styles={{
+          body: { backgroundColor: '#FFFCFA' },
+        }}
+      />
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/login' element={<LoginPage />} />
+            <Route
+              path='/'
+              element={
+                <PrivateRoute>
+                  <ReportGroupsPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path='/users'
+              element={
+                <PrivateRoute>
+                  <UsersPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path='/users/create'
+              element={
+                <PrivateRoute>
+                  <CreateUser />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path='/users/:userId'
+              element={
+                <PrivateRoute>
+                  <UpdateUser />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path='/reports'
+              element={
+                <PrivateRoute>
+                  <ReportsPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path='/account'
+              element={
+                <PrivateRoute>
+                  <AccountPage />
+                </PrivateRoute>
+              }
+            />
+            <Route path='*' element={<NotFoundPage />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
   )
 }
 
