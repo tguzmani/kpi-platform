@@ -6,15 +6,11 @@ function fetchLogo(logoName) {
   return `./public/${logoName}`
 }
 
-function validateLogo(logo) {
+function areLogoDimensionsValid(logo) {
   const sizeOf = require('image-size')
   const { width, height } = sizeOf(fetchLogo(logo))
 
-  if (width > 300 || height > 70)
-    throw new Exception(
-      'AdminsException',
-      'El logo no debe ser mayor que 300x70 píxiles.'
-    )
+  return width <= 300 && height <= 70
 }
 
 async function readProfile(adminId) {
@@ -37,9 +33,13 @@ async function readLogo(adminId) {
 }
 
 async function updateLogo(filename, adminId) {
-  await adminsRepository.updateLogo(filename, adminId)
+  if (!areLogoDimensionsValid(filename))
+    throw new Exception(
+      'AdminsException',
+      'El logo no debe ser mayor que 300x70 píxiles.'
+    )
 
-  validateLogo(filename)
+  await adminsRepository.updateLogo(filename, adminId)
 
   const logo = imageToBase64(fetchLogo(filename))
 
