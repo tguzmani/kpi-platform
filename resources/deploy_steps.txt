@@ -1,0 +1,9 @@
+Deploy:
+
+1) Git push
+2) Abrir VM 
+3) kpi stop
+4) kpi pull
+5) kpi build
+6) meter password
+7) kpi server
