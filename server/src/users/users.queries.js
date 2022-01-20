@@ -36,3 +36,14 @@ where a.id = u.id_adm_accounts
 and a.id = ?
 group by rp.id_adm_users, rp.id_pbi_reports_groups_headers;
 `
+
+exports.READ_PROFILE = `
+select id, username, name, mail, password, active
+from adm_users
+where id = ?
+`
+exports.READ_BY_NAME = `
+select id, username, name, mail, password, active
+from adm_users
+where username = ?
+`

@@ -1,6 +1,34 @@
 const connection = require('../../database')
 const usersQueries = require('./users.queries')
 
+async function readProfile(userId) {
+  return new Promise(resolve => {
+    connection.query(usersQueries.READ_PROFILE, [userId], (error, result) => {
+      if (error) throw error
+
+      const user = result.pop()
+
+      return resolve(user)
+    })
+  })
+}
+
+async function readByName(name) {
+  return new Promise((resolve, reject) =>
+    connection.query(
+      usersQueries.READ_BY_NAME,
+      [name],
+      async (error, result) => {
+        if (error) throw reject(error)
+
+        const user = result.pop()
+
+        return resolve(user)
+      }
+    )
+  )
+}
+
 async function readUsersByAdminId(adminId) {
   return new Promise(resolve => {
     connection.query(
@@ -71,7 +99,9 @@ async function deleteConnectionUserToReportGroups(userId) {
   )
 }
 
-module.exports = {
+const userFunctions = { readProfile, readByName }
+
+const adminFunctions = {
   readUsersByAdminId,
   readUsersReportsGroupsByAdmin,
   createUserByAdmin,
@@ -79,3 +109,5 @@ module.exports = {
   updateUser,
   deleteConnectionUserToReportGroups,
 }
+
+module.exports = { ...userFunctions, ...adminFunctions }

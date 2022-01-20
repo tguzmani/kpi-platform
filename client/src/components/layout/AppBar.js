@@ -6,13 +6,16 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
+import { useNavigate } from 'react-router-dom'
 
 const ApplicationBar = () => {
   const { user, isAuthenticated } = useSelector(state => state.auth)
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const handleSignOut = () => {
-    dispatch(signOut())
+    navigate('/login')
+    dispatch(signOut(user?.role))
   }
 
   return (

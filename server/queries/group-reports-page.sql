@@ -17,7 +17,8 @@ and a.id = 1
 group by code, gh.id;
 
 -- grupos de reportes page (contenido de accordion)
-select gb.id, gh.id as reportGroupId, code, w.name as workspace, wr.name as report, rs.name as section, wr.active
+select *
+-- select gb.id, gh.id as reportGroupId, code, w.name as workspace, w.id_pbi as workspaceId, wr.name as report, rs.name as section, wr.active
 from pbi_reports_groups_headers gh, adm_accounts a,
      pbi_reports_groups_body gb, pbi_workspaces_reports_sections rs,
      pbi_workspaces_reports wr, pbi_workspaces w

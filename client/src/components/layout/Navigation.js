@@ -4,10 +4,10 @@ import NavItem from './NavItem'
 
 const Navigation = () => {
   const links = [
-    { name: 'Grupos de reporte', to: '/' },
-    { name: 'Usuarios', to: '/users' },
-    { name: 'Reportes', to: '/reports' },
-    { name: 'Cuenta', to: '/account' },
+    { name: 'Grupos de reporte', to: '/admins/reports/groups' },
+    { name: 'Usuarios', to: '/admins/users' },
+    { name: 'Reportes', to: '/admins/reports' },
+    { name: 'Cuenta', to: '/admins/account' },
   ]
 
   return (

@@ -22,11 +22,11 @@ export const setLoading = () => dispatch => {
   return dispatch({ type: LOADING })
 }
 
-export const signIn = credentials => async dispatch => {
+export const signIn = (userType, credentials) => async dispatch => {
   setLoading()(dispatch)
 
   try {
-    const res = await axios.post(`/auth/signIn`, credentials, {
+    const res = await axios.post(`/${userType}/signIn`, credentials, {
       ...config,
       withCredentials: true,
     })
@@ -37,22 +37,22 @@ export const signIn = credentials => async dispatch => {
   }
 }
 
-export const readProfile = () => async dispatch => {
+export const readProfile = userType => async dispatch => {
   setLoading()(dispatch)
 
   try {
-    const res = await axios.get(`/admins/profile`)
+    const res = await axios.get(`/${userType}/profile`)
     dispatch({ type: READ_PROFILE, payload: res.data })
   } catch (error) {
     dispatch({ type: ERROR, payload: error.response.data.message })
   }
 }
 
-export const signOut = () => async dispatch => {
+export const signOut = userType => async dispatch => {
   setLoading()(dispatch)
 
   try {
-    await axios.post(`/auth/signOut`)
+    await axios.post(`/${userType}/signOut`)
     dispatch({ type: SIGN_OUT })
   } catch (error) {
     dispatch({ type: ERROR, payload: error.response.data.message })

@@ -1,16 +1,20 @@
 const adminsRepository = require('./admins.repository')
 const imageToBase64 = require('image-to-base64')
-const Exception = require('../common/exception')
+const AdminsException = require('./admins.exception')
+const sizeOf = require('image-size')
+const roles = require('./../constants/roles')
+
+const MAX_LOGO_WIDTH = 300
+const MAX_LOGO_HEIGHT = 70
 
 function fetchLogo(logoName) {
   return `./public/${logoName}`
 }
 
 function areLogoDimensionsValid(logo) {
-  const sizeOf = require('image-size')
   const { width, height } = sizeOf(fetchLogo(logo))
 
-  return width <= 300 && height <= 70
+  return width <= MAX_LOGO_WIDTH && height <= MAX_LOGO_HEIGHT
 }
 
 async function readProfile(adminId) {
@@ -19,6 +23,8 @@ async function readProfile(adminId) {
   profile.password = undefined
 
   profile.logoAddress = undefined
+
+  profile.role = roles.ADMIN
 
   return profile
 }
@@ -34,10 +40,7 @@ async function readLogo(adminId) {
 
 async function updateLogo(filename, adminId) {
   if (!areLogoDimensionsValid(filename))
-    throw new Exception(
-      'AdminsException',
-      'El logo no debe ser mayor que 300x70 píxiles.'
-    )
+    throw new AdminsException('El logo no debe ser mayor que 300x70 píxiles.')
 
   await adminsRepository.updateLogo(filename, adminId)
 

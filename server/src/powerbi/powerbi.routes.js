@@ -2,9 +2,9 @@ const express = require('express')
 const router = express.Router()
 const powerbiController = require('./powerbi.controller')
 
-const { auth } = require('../middleware/auth')
+const hasToken = require('../middleware/hasToken')
 
-router.get('/token', auth, powerbiController.getAccessToken)
-router.post('/reportData', auth, powerbiController.getReportData)
+router.get('/token', hasToken, powerbiController.getAccessToken)
+router.post('/reportData', hasToken, powerbiController.getReportData)
 
 module.exports = router

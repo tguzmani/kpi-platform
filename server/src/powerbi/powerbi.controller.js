@@ -18,6 +18,8 @@ async function getReportData(req, res) {
   try {
     const { groupId, reportId } = req.body
 
+    console.log('culo', groupId, 'xdd', reportId)
+
     const accessToken = await powerbiServices.getAccessToken()
 
     const embedUrl = await powerbiServices.getEmbedUrl(

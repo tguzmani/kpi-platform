@@ -5,6 +5,7 @@ import usersReducer from './users/usersReducer'
 import reportsReducer from './reports/reportsReducer'
 import adminsReducer from './admins/adminsReducer'
 import powerbiReducer from './powerbi/powerbiReducer'
+import workspacesReducer from './workspaces/workspacesReducer'
 
 export default combineReducers({
   auth: authReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   reports: reportsReducer,
   admins: adminsReducer,
   powerbi: powerbiReducer,
+  workspaces: workspacesReducer,
 })

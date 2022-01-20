@@ -1,5 +1,15 @@
 const usersServices = require('./users.services')
 
+async function readProfile(req, res) {
+  try {
+    const users = await usersServices.readProfile(req.userId)
+
+    res.send(users)
+  } catch (error) {
+    return res.status(400).send(error)
+  }
+}
+
 async function readUsersByAdminId(req, res) {
   try {
     const users = await usersServices.readUsersByAdminId(req.userId)
@@ -55,6 +65,7 @@ async function updateUser(req, res) {
 }
 
 module.exports = {
+  readProfile,
   readUsersByAdminId,
   createUserByAdmin,
   updateUser,

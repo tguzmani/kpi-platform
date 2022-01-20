@@ -18,6 +18,35 @@ import UpdateUser from './components/users/UpdateUser'
 import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme'
 import GlobalStyles from '@mui/material/GlobalStyles'
+import AdminRoute from './components/routing/AdminRoute'
+import UserReportsPage from './pages/UserReportsPage'
+
+const adminsRoutes = [
+  {
+    path: '/reports/groups',
+    element: ReportGroupsPage,
+  },
+  {
+    path: '/users',
+    element: UsersPage,
+  },
+  {
+    path: '/users/create',
+    element: CreateUser,
+  },
+  {
+    path: '/users/update/:userId',
+    element: UpdateUser,
+  },
+  {
+    path: '/reports',
+    element: ReportsPage,
+  },
+  {
+    path: '/account',
+    element: AccountPage,
+  },
+]
 
 function App() {
   return (
@@ -31,54 +60,28 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/login' element={<LoginPage />} />
+
+            {adminsRoutes.map(route => (
+              <Route
+                key={route.path}
+                path={'/admins' + route.path}
+                element={
+                  <AdminRoute>
+                    <route.element />
+                  </AdminRoute>
+                }
+              />
+            ))}
+
             <Route
               path='/'
               element={
                 <PrivateRoute>
-                  <ReportGroupsPage />
+                  <UserReportsPage />
                 </PrivateRoute>
               }
             />
-            <Route
-              path='/users'
-              element={
-                <PrivateRoute>
-                  <UsersPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path='/users/create'
-              element={
-                <PrivateRoute>
-                  <CreateUser />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path='/users/:userId'
-              element={
-                <PrivateRoute>
-                  <UpdateUser />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path='/reports'
-              element={
-                <PrivateRoute>
-                  <ReportsPage />
-                </PrivateRoute>
-              }
-            />
-            <Route
-              path='/account'
-              element={
-                <PrivateRoute>
-                  <AccountPage />
-                </PrivateRoute>
-              }
-            />
+
             <Route path='*' element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>

@@ -15,54 +15,68 @@ import AppBar from './../components/layout/AppBar'
 import { signIn } from './../state/auth/authActions'
 import useForm from '../hooks/useForm'
 import Alerts from './../components/layout/Alerts'
+import { Tabs, Tab } from '@mui/material'
+import roles from './../constants/roles'
+
+const testAdmin = {
+  name: 'TestClient',
+  password: 'testclient',
+}
+
+const testUser = {
+  name: 'TestUser',
+  password: 'testuser',
+}
 
 const LoginPage = () => {
   const dispatch = useDispatch()
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+  const navigate = useNavigate()
 
-  const [credentials, bindField, areFieldsEmpty] = useForm({
-    name: 'TestClient',
-    password: 'testclient',
-  })
+  const { user, isAuthenticated } = useSelector(state => state.auth)
 
-  const [userType, setUserType] = useState('admin')
+  const [credentials, bindField, areFieldsEmpty] = useForm({})
+
+  const [userType, setUserType] = useState(roles.ADMIN)
 
   const handleLoginAdmin = () => {
-    console.log('admin login', credentials)
-    dispatch(signIn(credentials))
+    dispatch(signIn(roles.ADMIN, testAdmin))
   }
 
   const handleLoginUser = () => {
-    console.log('user login', credentials)
+    dispatch(signIn(roles.USER, testUser))
   }
 
   const handleLogin = e => {
     e.preventDefault()
-    if (userType === 'admin') handleLoginAdmin()
+    if (userType === roles.ADMIN) handleLoginAdmin()
     else handleLoginUser()
   }
 
-  const navigate = useNavigate()
-
   useEffect(() => {
-    const navigateToHome = () => navigate('/')
-
-    if (isAuthenticated) {
-      navigateToHome()
-      console.log(1)
-    }
+    if (isAuthenticated)
+      userType === roles.ADMIN
+        ? navigate('/admins/reports/groups')
+        : navigate('/')
   }, [isAuthenticated, navigate])
+
+  const handleTabChange = e => {
+    if (userType === roles.ADMIN) setUserType(roles.USER)
+    else setUserType(roles.ADMIN)
+  }
 
   return (
     <>
       <AppBar />
-      <Alerts />
 
       <Grid justifyContent='center' alignItems='center' container mt={4}>
         <Grid item xs={3}>
           <Card>
             <CardContent>
-              <Typography variant='h5' my={1} align='center'>
+              <Tabs value={userType} onChange={handleTabChange}>
+                <Tab value={roles.USER} label='Usuarios' />
+                <Tab value={roles.ADMIN} label='Administradores' />
+              </Tabs>
+              <Typography variant='h5' mb={2} mt={5} align='center'>
                 Iniciar sesión
               </Typography>
               <TextField

@@ -9,7 +9,7 @@ group by code, gh.id;
 `
 
 exports.READ_REPORTS_BY_ADMIN = `
-select gb.id, gh.id as reportGroupId, code, w.name as workspace, wr.name as name, rs.name as section, wr.active
+select gb.id, gh.id as reportGroupId, code, w.name as workspace, w.id_pbi as groupIdPBI, wr.name as name, wr.id_pbi as reportIdPBI, rs.name as section, wr.active
 from pbi_reports_groups_headers gh, adm_accounts a,
      pbi_reports_groups_body gb, pbi_workspaces_reports_sections rs,
      pbi_workspaces_reports wr, pbi_workspaces w

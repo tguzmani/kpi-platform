@@ -1,11 +1,26 @@
 const usersRepository = require('./users.repository')
 const UsersException = require('./users.exception')
+const roles = require('./../constants/roles')
 
 function reportGroupsByUser(reportGroups, userId) {
   return reportGroups
     .filter(reportGroup => reportGroup.userId === userId)
     .map(reportGroup => reportGroup.reportGroupId)
 }
+
+// users functions
+
+async function readProfile(userId) {
+  const profile = await usersRepository.readProfile(userId)
+
+  profile.password = undefined
+
+  profile.role = roles.USER
+
+  return profile
+}
+
+// admin functions
 
 async function readUsersByAdminId(adminId) {
   const users = await usersRepository.readUsersByAdminId(adminId)
@@ -39,10 +54,16 @@ async function updateUser(user) {
   await usersRepository.updateUser(user)
 }
 
-module.exports = {
+const userFunctions = {
+  readProfile,
+}
+
+const adminFunctions = {
   readUsersByAdminId,
   createUserByAdmin,
   connectUserToReportGroups,
   updateConnectionUserToReportGroup,
   updateUser,
 }
+
+module.exports = { ...userFunctions, ...adminFunctions }
