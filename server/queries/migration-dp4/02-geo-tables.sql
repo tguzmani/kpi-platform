@@ -1,3 +1,6 @@
+-- Estas son regiones de Chile para los contratos,
+-- Ya las tablas estaban creadas y hacía falta hacerle los inserts
+
 INSERT INTO `geo_countries` (id, name)
 VALUES (1, 'Chile');
 

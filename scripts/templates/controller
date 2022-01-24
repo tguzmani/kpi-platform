@@ -1,0 +1,10 @@
+
+async function FUNCTION(req, res) {
+  try {
+    await ENTITYServices.FUNCTION(PARAMS)
+
+    res.send(RESPONSE)
+  } catch (error) {
+    return res.status(400).send(error)
+  }
+}

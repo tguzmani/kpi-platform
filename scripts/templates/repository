@@ -1,0 +1,12 @@
+
+async function FUNCTION() {
+  connection.query(
+    ENTITYQueries.QUERY,
+    [VALUES],
+    
+    (error, result) => {
+      if (error) throw error
+      return resolve(result)
+    }
+  )
+}

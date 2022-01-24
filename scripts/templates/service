@@ -1,0 +1,4 @@
+
+async function FUNCTION(PARAMS) {
+  await ENTITYRepository.FUNCTION(PARAMS)
+}

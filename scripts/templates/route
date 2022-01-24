@@ -1,0 +1,2 @@
+
+router.HTTP('ROUTE', [hasToken, isAdmin], ENTITYController.FUNCTION)

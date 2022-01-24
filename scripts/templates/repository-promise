@@ -1,0 +1,14 @@
+
+async function FUNCTION() {
+  return new Promise(resolve => {
+    connection.query(
+      ENTITYQueries.QUERY,
+      [VALUES],
+      (error, result) => {
+        if (error) throw error
+
+        return resolve(result)
+      }
+    )
+  })
+}

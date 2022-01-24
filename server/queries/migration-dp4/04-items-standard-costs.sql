@@ -1,3 +1,5 @@
+-- Revisar este archvio porque es posible que haya un problema de análisis para esto
+
 create function generate_date(days int)
 returns datetime
 begin
