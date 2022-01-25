@@ -8,7 +8,7 @@ import {
   TableRow,
 } from '@mui/material'
 import React from 'react'
-import ReportsTableRow from './ReportsGroupsTableRow'
+import ReportsTableRow from './ReportsGroupsTableRow.bak'
 
 const ReportsGroupsTable = ({ reportsGroups }) => {
   const headers = ['Código', 'Nombre', 'Secciones', 'Activo']

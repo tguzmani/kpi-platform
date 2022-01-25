@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import ReportsGroupsTable from '../components/reports/ReportsGroupsTable'
+import ReportsGroups from '../components/reports/ReportGroups'
 import {
   readReportGroupsHeadersByAdmin,
   readReportsByAdmin,
@@ -14,7 +14,7 @@ const ReportGroupsPage = () => {
 
   return (
     <>
-      <ReportsGroupsTable reports={reports} reportsGroups={reportsGroups} />
+      <ReportsGroups reports={reports} reportsGroups={reportsGroups} />
     </>
   )
 }

@@ -1,6 +1,6 @@
 const redisClient = require('../../redis')
 
-const SESSION_DURATION = 600
+const SESSION_DURATION = 3600
 
 class RedisRepository {
   constructor(entity) {
