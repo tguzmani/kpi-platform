@@ -16,6 +16,8 @@ async function isUser(req, res, next) {
     if (!isUserIsLoggedIn || !isUser) {
       return res.status(401).json({ message: 'No autorizado' })
     }
+
+    usersAuthServices.refreshSession(decoded.id)
   } catch (error) {
     return res
       .status(401)

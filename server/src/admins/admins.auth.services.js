@@ -1,5 +1,4 @@
 const adminsRepository = require('./admins.repository')
-
 const adminsRedisRepository = require('./admins.redis.repository')
 const AdminsException = require('./admins.exception')
 
@@ -28,4 +27,8 @@ async function signOut(adminId) {
   await adminsRedisRepository.removeById(adminId)
 }
 
-module.exports = { signIn, signOut, isAdminLoggedIn }
+async function refreshSession(adminId) {
+  await adminsRedisRepository.setExpirationById(adminId)
+}
+
+module.exports = { signIn, signOut, isAdminLoggedIn, refreshSession }

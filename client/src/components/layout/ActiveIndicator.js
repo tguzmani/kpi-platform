@@ -1,11 +1,11 @@
 import React from 'react'
-import CheckIcon from '@mui/icons-material/Check'
-import ClearIcon from '@mui/icons-material/Clear'
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline'
+import HighlightOffIcon from '@mui/icons-material/HighlightOff'
 
 const ActiveIndicator = ({ active }) => {
-  if (active === 1) return <CheckIcon color='success' />
+  if (active === 1) return <CheckCircleOutlineIcon color='success' />
 
-  return <ClearIcon color='error' />
+  return <HighlightOffIcon color='error' />
 }
 
 export default ActiveIndicator

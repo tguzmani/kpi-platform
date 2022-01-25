@@ -48,7 +48,11 @@ const adminsRoutes = [
   },
 ]
 
-function App() {
+const App = () => {
+  React.useEffect(() => {
+    document.title = 'KPI Platform'
+  }, [])
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles

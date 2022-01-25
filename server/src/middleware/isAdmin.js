@@ -16,6 +16,8 @@ async function isAdmin(req, res, next) {
     if (!isAdminIsLoggedIn || !isAdmin) {
       return res.status(401).json({ message: 'No autorizado' })
     }
+
+    adminsAuthServices.refreshSession(decoded.id)
   } catch (error) {
     return res
       .status(401)

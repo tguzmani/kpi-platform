@@ -9,7 +9,7 @@ const UsersTableActions = ({ userId }) => {
     <Grid container justifyContent='center' spacing={1}>
       <Grid item>
         <Tooltip title='Editar usuario'>
-          <IconButton component={NavLink} to={`/users/${userId}`}>
+          <IconButton component={NavLink} to={`/admins/users/update/${userId}`}>
             <EditIcon color='primary' />
           </IconButton>
         </Tooltip>

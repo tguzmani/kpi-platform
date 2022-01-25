@@ -3,8 +3,8 @@ const usersRepository = require('./users.repository')
 const usersRedisRepository = require('./users.redis.repository')
 const UsersException = require('./users.exception')
 
-async function isUserLoggedIn(adminId) {
-  return await usersRedisRepository.getById(adminId)
+async function isUserLoggedIn(userId) {
+  return await usersRedisRepository.getById(userId)
 }
 
 async function signIn(name, password) {
@@ -24,8 +24,12 @@ async function signIn(name, password) {
   return user.id
 }
 
-async function signOut(adminId) {
-  await usersRedisRepository.removeById(adminId)
+async function signOut(userId) {
+  await usersRedisRepository.removeById(userId)
 }
 
-module.exports = { signIn, signOut, isUserLoggedIn }
+async function refreshSession(userId) {
+  await adminsRedisRepository.setExpirationById(userId)
+}
+
+module.exports = { signIn, signOut, isUserLoggedIn, refreshSession }
