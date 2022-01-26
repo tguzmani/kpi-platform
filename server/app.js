@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 const connect = require('./database')
+const { monitor, csv } = require('./logger')
 
 require('dotenv').config()
 
@@ -15,7 +16,8 @@ const app = express()
 
 // Middleware
 app.use(express.json({ extended: false }))
-app.use(morgan('common'))
+app.use(monitor)
+app.use(csv)
 app.use(cookieParser())
 app.use(
   cors({

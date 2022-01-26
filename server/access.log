@@ -1,0 +1,1 @@
+2022-01-26T12:23:21-04:00, ::1, GET, /api/admins/logoBySubdomain?subdomain=testclient, HTTP/1.1, 304, 7.357
