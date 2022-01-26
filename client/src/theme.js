@@ -10,6 +10,12 @@ const theme = createTheme({
     secondary: { main: orange[500], dark: orange[700] },
   },
 
+  typography: {
+    body1: {
+      fontSize: '0.875rem',
+    },
+  },
+
   components: {
     MuiListItem: {
       styleOverrides: {

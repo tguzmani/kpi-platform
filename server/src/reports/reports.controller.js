@@ -49,7 +49,11 @@ async function updateReportActiveStateByAdmin(req, res) {
       req.params.reportId
     )
 
-    res.send('Reporte actualizado con éxito')
+    const adminReports = await reportsServices.readAccountReportsByAdmin(
+      req.userId
+    )
+
+    res.send(adminReports)
   } catch (error) {
     return res.status(400).send(error)
   }

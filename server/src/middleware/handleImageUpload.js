@@ -2,11 +2,13 @@ const multer = require('multer')
 
 const storage = multer.diskStorage({
   destination: function (req, file, callback) {
-    callback(null, 'public')
+    callback(null, 'public/tmp')
   },
 
   filename: (req, file, callback) => {
-    callback(null, file.originalname)
+    const extension = file.mimetype.replace('image/', '')
+
+    callback(null, `${req.userId}-logo.${extension}`)
   },
 })
 

@@ -4,6 +4,7 @@ import {
   CLEAR_MESSAGE,
   UPDATE_LOGO,
   READ_LOGO,
+  READ_LOGO_BY_SUBDOMAIN,
 } from './adminsTypes'
 
 import axios from 'axios'
@@ -30,7 +31,20 @@ export const readLogo = () => async dispatch => {
   }
 }
 
-export const updateLogo = (logoFile, userName) => async dispatch => {
+export const readLogoBySubdomain = subdomain => async dispatch => {
+  setLoading()(dispatch)
+
+  try {
+    const res = await axios.get(
+      `/admins/logoBySubdomain?subdomain=${subdomain}`
+    )
+    dispatch({ type: READ_LOGO_BY_SUBDOMAIN, payload: res.data })
+  } catch (error) {
+    dispatch({ type: ERROR, payload: error.response.data.message })
+  }
+}
+
+export const updateLogo = logoFile => async dispatch => {
   setLoading()(dispatch)
 
   let data = new FormData()

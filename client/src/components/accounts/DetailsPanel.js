@@ -21,13 +21,13 @@ const DetailsPanel = () => {
         {details.map(detail => (
           <>
             <Grid item xs={6}>
-              <Typography variant='body' display='block ' align='right'>
+              <Typography variant='body1' display='block ' align='right'>
                 {detail.name}
               </Typography>
             </Grid>
 
             <Grid item xs={6}>
-              <Typography variant='body'>{detail.value}</Typography>
+              <Typography variant='body1'>{detail.value}</Typography>
             </Grid>
           </>
         ))}

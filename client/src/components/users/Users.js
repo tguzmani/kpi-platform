@@ -1,18 +1,19 @@
 import React from 'react'
-import ListItem from '@mui/material/ListItem'
-import List from '@mui/material/List'
-import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
+import List from '@mui/material/List'
 import Grid from '@mui/material/Grid'
-import ListItemText from '@mui/material/ListItemText'
+import Typography from '@mui/material/Typography'
+import UsersItem from './UsersItem'
+import { useSelector } from 'react-redux'
 
-import ReportGroupsItem from './ReportGroupsItem'
+const Users = () => {
+  const { users } = useSelector(state => state.users)
 
-const ReportsGroups = ({ reportsGroups }) => {
   const headers = [
-    { xs: 4, header: 'Código' },
-    { xs: 4, header: 'Nombre' },
-    { xs: 2, header: 'Secciones' },
+    { xs: 3, header: 'Nombre' },
+    { xs: 3, header: 'Usuario' },
+    { xs: 3, header: 'E-Mail' },
+    { xs: 1, header: 'Grupos' },
     { xs: 1, header: 'Activo' },
     { xs: 1, header: 'Acciones' },
   ]
@@ -29,12 +30,12 @@ const ReportsGroups = ({ reportsGroups }) => {
             </Grid>
           ))}
         </Grid>
-        {reportsGroups.map(reportsGroup => (
-          <ReportGroupsItem reportsGroup={reportsGroup} />
+        {users.map(user => (
+          <UsersItem user={user} key={user.id} />
         ))}
       </List>
     </Paper>
   )
 }
 
-export default ReportsGroups
+export default Users

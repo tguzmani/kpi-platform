@@ -17,6 +17,8 @@ router.put(
   adminsController.updateLogo
 )
 
+router.get('/logoBySubdomain', adminsController.readLogoBySubdomain)
+
 // Auth
 router.post('/signIn', adminsAuthController.signIn)
 router.post('/signOut', hasToken, adminsAuthController.signOut)

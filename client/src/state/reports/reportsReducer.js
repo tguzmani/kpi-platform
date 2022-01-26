@@ -33,7 +33,7 @@ const reportReducer = (state = initialState, action) => {
       return { ...state, loading: false, usersReports: action.payload }
 
     case UPDATE_REPORT_ACTIVE_STATE_BY_ADMIN:
-      return { ...state, loading: false, message: action.payload }
+      return { ...state, loading: false, accountReports: action.payload }
 
     case CLEAR_MESSAGE:
       return { ...state, message: null }

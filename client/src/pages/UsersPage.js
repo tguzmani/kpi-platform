@@ -1,5 +1,5 @@
 import React from 'react'
-import UsersTable from '../components/users/UsersTable'
+import Users from '../components/users/Users'
 import { readUsers } from '../state/users/usersActions'
 import {
   readReportGroupsHeadersByAdmin,
@@ -13,7 +13,7 @@ const UsersPage = () => {
 
   return (
     <>
-      <UsersTable />
+      <Users />
       <Link to='/users/create'>Crear</Link>
     </>
   )

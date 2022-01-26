@@ -23,8 +23,7 @@ const getAccessToken = async () => {
 
       (err, accessToken) => {
         if (!err) {
-          resolve(accessToken.accessToken) // Returns access token.
-          // makeApiCall(accessToken.accessToken) // --> This is my actual API call.
+          resolve(accessToken.accessToken)
         } else {
           reject(err)
         }

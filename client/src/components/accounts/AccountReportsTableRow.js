@@ -1,11 +1,13 @@
 import React from 'react'
-
-import { TableCell, TableRow, Switch } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { TableCell, TableRow, Switch, CircularProgress } from '@mui/material'
 import { updateReportActiveStateByAdmin } from '../../state/reports/reportsActions'
 import { useDispatch } from 'react-redux'
+import { readAccountReportsByAdmin } from './../../state/reports/reportsActions'
 
 const AccountReportsTableRow = ({ report }) => {
   const [checked, setChecked] = React.useState(report.active === 1)
+  const { loading } = useSelector(state => state.reports)
   const dispatch = useDispatch()
 
   const handleChange = event => {

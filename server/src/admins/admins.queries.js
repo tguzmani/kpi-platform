@@ -13,3 +13,9 @@ update adm_accounts
 set logo_address = ?
 where id = ?;
 `
+
+exports.READ_LOGO_BY_SUBDOMAIN = `
+select logo_address as logoAddress
+from adm_accounts
+where sub_domain = ?
+`

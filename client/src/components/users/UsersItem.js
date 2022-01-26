@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 import React from 'react'
 import {
   Grid,
@@ -8,15 +9,14 @@ import {
   Typography,
   ListItemSecondaryAction,
 } from '@mui/material'
+
+import KeyIcon from '@mui/icons-material/Key'
+import EditIcon from '@mui/icons-material/Edit'
+import UserReportsTable from './UserReportsTable'
 import ActiveIndicator from '../layout/ActiveIndicator'
 import VisibilityIcon from '@mui/icons-material/Visibility'
-import EditIcon from '@mui/icons-material/Edit'
-import ReportsTable from './ReportsTable'
-import { useSelector } from 'react-redux'
 
-const ReportsGroupsTableRow = ({ reportsGroup }) => {
-  const { reports } = useSelector(state => state.reports)
-
+const UsersTableRow = ({ user }) => {
   const [open, setOpen] = React.useState(false)
 
   const handleToggleCollapse = () => {
@@ -27,32 +27,37 @@ const ReportsGroupsTableRow = ({ reportsGroup }) => {
     console.log('edit reportsGroup')
   }
 
-  const thisGroupReports = reports.filter(
-    report => report.reportGroupId === reportsGroup.id
-  )
+  const handleChangePassword = () => {
+    console.log('change user password')
+  }
 
   return (
     <>
       <ListItem dense>
         <Grid container alignItems='center' justifyContent='center'>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <ListItemText>
-              <Typography variant='body1'>{reportsGroup.code}</Typography>
+              <Typography variant='body1'>{user.name}</Typography>
             </ListItemText>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <ListItemText>
-              <Typography variant='body1'>{reportsGroup.name}</Typography>
+              <Typography variant='body1'>{user.username}</Typography>
             </ListItemText>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={3}>
             <ListItemText>
-              <Typography variant='body1'>{reportsGroup.sections}</Typography>
+              <Typography variant='body1'>{user.mail}</Typography>
             </ListItemText>
           </Grid>
           <Grid item xs={1}>
             <ListItemText>
-              <ActiveIndicator active={reportsGroup.active} />
+              <Typography variant='body1'>{user.groups}</Typography>
+            </ListItemText>
+          </Grid>
+          <Grid item xs={1}>
+            <ListItemText>
+              <ActiveIndicator active={user.active} />
             </ListItemText>
           </Grid>
           <Grid item xs={1}>
@@ -64,16 +69,19 @@ const ReportsGroupsTableRow = ({ reportsGroup }) => {
               <IconButton onClick={handleEdit}>
                 <EditIcon color='success' />
               </IconButton>
+
+              <IconButton onClick={handleChangePassword}>
+                <KeyIcon color='error' />
+              </IconButton>
             </ListItemSecondaryAction>
           </Grid>
         </Grid>
       </ListItem>
 
       <Collapse in={open} timeout='auto' unmountOnExit>
-        <ReportsTable reports={thisGroupReports} />
+        <UserReportsTable userId={user.id} />
       </Collapse>
     </>
   )
 }
-
-export default ReportsGroupsTableRow
+export default UsersTableRow

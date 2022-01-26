@@ -24,12 +24,24 @@ async function updateLogo(req, res) {
   try {
     const file = req.files[0]
 
-    const logo = await adminService.updateLogo(file.filename, req.userId)
+    await adminService.updateLogo(file.filename, req.userId)
+
+    const logo = await adminService.readLogo(req.userId)
 
     res.send({ message: 'Logo actualizado con éxito', logo })
   } catch (error) {
-    return res.status(400).send(error)
+    return res.status(400).send(error.stack)
   }
 }
 
-module.exports = { readProfile, readLogo, updateLogo }
+async function readLogoBySubdomain(req, res) {
+  try {
+    const logo = await adminService.readLogoBySubdomain(req.query.subdomain)
+
+    res.send(logo)
+  } catch (error) {
+    return res.status(400).send(error.message)
+  }
+}
+
+module.exports = { readProfile, readLogo, updateLogo, readLogoBySubdomain }
