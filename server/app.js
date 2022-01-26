@@ -41,7 +41,6 @@ app.listen(port, () => {
 
 function keepMySQLAlive() {
   connect.connect()
-  console.log('Ping MySQL')
 }
 
 const ONE_SECOND = 1000
