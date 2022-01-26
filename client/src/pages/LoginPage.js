@@ -106,6 +106,11 @@ const LoginPage = () => {
           </Card>
         </Grid>
       </Grid>
+
+      <Typography>
+        Solo hay que hacer clic en ingresar, no hace falta llenar los
+        credenciales mientras se está en QA
+      </Typography>
     </>
   )
 }
