@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
+const connect = require('./database')
 
 require('dotenv').config()
 
@@ -37,3 +38,12 @@ const port = process.env.PORT || 5000
 app.listen(port, () => {
   console.log(`Server running on port ${port}`)
 })
+
+function keepMySQLAlive() {
+  connect.connect()
+  console.log('Ping MySQL')
+}
+
+const ONE_SECOND = 1000
+
+setInterval(keepMySQLAlive, ONE_SECOND * 10)
