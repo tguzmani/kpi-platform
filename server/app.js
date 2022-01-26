@@ -15,7 +15,7 @@ const app = express()
 
 // Middleware
 app.use(express.json({ extended: false }))
-app.use(morgan('dev'))
+app.use(morgan('common'))
 app.use(cookieParser())
 app.use(
   cors({
