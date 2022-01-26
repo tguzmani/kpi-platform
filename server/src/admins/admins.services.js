@@ -49,9 +49,9 @@ async function readProfile(adminId) {
 
 async function readLogo(adminId) {
   // esto se deberia llamar logo_filename en la BD
-  const { logoAddress } = await adminsRepository.readProfile(adminId)
 
   try {
+    const { logoAddress } = await adminsRepository.readProfile(adminId)
     return await fetchLogo(logoAddress)
   } catch (error) {
     return await fetchLogo('fallback-logo.png')
@@ -60,9 +60,11 @@ async function readLogo(adminId) {
 
 async function readLogoBySubdomain(subdomain) {
   // esto se deberia llamar logo_filename en la BD
-  const { logoAddress } = await adminsRepository.readLogoBySubdomain(subdomain)
 
   try {
+    const { logoAddress } = await adminsRepository.readLogoBySubdomain(
+      subdomain
+    )
     return await fetchLogo(logoAddress)
   } catch (error) {
     return await fetchLogo('fallback-logo.png')
