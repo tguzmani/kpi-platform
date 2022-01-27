@@ -2,7 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
-const connect = require('./database')
+const connection = require('./database')
 const { monitor, csv } = require('./logger')
 
 require('dotenv').config()
@@ -31,7 +31,17 @@ app.use(
 )
 
 // Routes Middleware
-routes = ['admins', 'users', 'reports', 'powerbi', 'workspaces', 'contracts']
+routes = [
+  'admins',
+  'users',
+  'reports',
+  'powerbi',
+  'workspaces',
+  'contracts',
+  'sections',
+  'locations',
+  'currencies',
+]
 routes.forEach(route => useRoute(route))
 
 // Listen
@@ -42,7 +52,10 @@ app.listen(port, () => {
 })
 
 function keepMySQLAlive() {
-  connect.connect()
+  connection.query('select 1', [], (error, result) => {
+    if (error) throw error
+    console.log(`Ping to MySQL (${result})`)
+  })
 }
 
 const ONE_SECOND = 1000

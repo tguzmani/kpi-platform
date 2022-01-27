@@ -2,21 +2,43 @@ import { createTheme } from '@mui/material'
 import { orange, grey } from '@mui/material/colors'
 
 const white = 'white'
-const muiTheme = createTheme()
+const fontSize = '0.875rem'
+const palette = {
+  light: { main: white, contrastText: '#000' },
+  secondary: { main: orange[500], dark: orange[700] },
+}
+
+const muiTheme = createTheme({ palette })
 
 const theme = createTheme({
-  palette: {
-    light: { main: white, contrastText: '#000' },
-    secondary: { main: orange[500], dark: orange[700] },
-  },
+  palette,
 
   typography: {
     body1: {
-      fontSize: '0.875rem',
+      fontSize,
+    },
+
+    h6: {
+      fontSize: '1rem',
+      lineHeight: '1.2',
+      color: grey[600],
+      fontWeight: 'bold',
+    },
+
+    accent: {
+      color: muiTheme.palette.secondary.main,
     },
   },
 
   components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          '&.container': { padding: '3em' },
+        },
+      },
+    },
+
     MuiListItem: {
       styleOverrides: {
         root: {

@@ -10,3 +10,9 @@ where r.id = z.id_geo_region;
 -- selecciona countries
 select *
 from geo_countries;
+
+select id, id_geo_countries as countryId, name
+from geo_region;
+
+select id, id_geo_region as regionId, name
+from geo_zone;

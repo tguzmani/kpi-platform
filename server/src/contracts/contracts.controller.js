@@ -1,5 +1,15 @@
 const contractsServices = require('./contracts.services')
 
+async function readContractByAdmin(req, res) {
+  try {
+    const contract = await contractsServices.readContractByAdmin(req.userId)
+
+    res.send(contract)
+  } catch (error) {
+    return res.status(400).send(error)
+  }
+}
+
 async function createContractByAdmin(req, res) {
   try {
     const {
@@ -70,4 +80,5 @@ module.exports = {
   createContractByAdmin,
   updateContractByAdmin,
   updateContractDetailByAdmin,
+  readContractByAdmin,
 }

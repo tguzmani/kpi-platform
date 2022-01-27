@@ -67,10 +67,51 @@ async function updateReportActiveStateByAdmin(active, reportId) {
   )
 }
 
+async function createReportsGroupHeaderByAdmin(adminId, code, name, active) {
+  return new Promise(resolve => {
+    connection.query(
+      reportsQueries.CREATE_REPORTS_GROUP_HEADER_BY_ADMIN,
+      [adminId, code, name, active],
+      (error, result) => {
+        if (error) throw error
+
+        return resolve(result.insertId)
+      }
+    )
+  })
+}
+
+async function readReportsGroupsHeadersSections() {
+  return new Promise(resolve => {
+    connection.query(
+      reportsQueries.READ_REPORTS_GROUPS_HEADERS_SECTIONS,
+      [],
+      (error, result) => {
+        if (error) throw error
+
+        return resolve(result)
+      }
+    )
+  })
+}
+
+async function createReportsGroupBodyByAdmin(reportsGroupHeaderId, sectionId) {
+  connection.query(
+    reportsQueries.CREATE_REPORTS_GROUP_BODY_BY_ADMIN,
+    [reportsGroupHeaderId, sectionId, sectionId],
+    (error, result) => {
+      if (error) throw error
+    }
+  )
+}
+
 module.exports = {
   readReportGroupsHeadersByAdmin,
   readReportsByAdmin,
   readAccountReportsByAdmin,
   readUsersReportsByAdmin,
   updateReportActiveStateByAdmin,
+  createReportsGroupHeaderByAdmin,
+  createReportsGroupBodyByAdmin,
+  readReportsGroupsHeadersSections,
 }

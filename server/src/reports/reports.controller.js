@@ -59,10 +59,28 @@ async function updateReportActiveStateByAdmin(req, res) {
   }
 }
 
+async function createReportsGroupByAdmin(req, res) {
+  try {
+    const { code, name, active, sections } = req.body
+    await reportsServices.createReportsGroupByAdmin(
+      req.userId,
+      code,
+      name,
+      active,
+      sections
+    )
+
+    res.send({ message: 'Grupo de reportes creado exitosamente' })
+  } catch (error) {
+    return res.status(400).send(error)
+  }
+}
+
 module.exports = {
   readReportGroupsHeadersByAdmin,
   readReportsByAdmin,
   readAccountReportsByAdmin,
   readUsersReportsByAdmin,
   updateReportActiveStateByAdmin,
+  createReportsGroupByAdmin,
 }

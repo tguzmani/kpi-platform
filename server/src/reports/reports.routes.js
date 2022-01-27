@@ -28,4 +28,10 @@ router.put(
   reportsController.updateReportActiveStateByAdmin
 )
 
+router.post(
+  '/',
+  [hasToken, isAdmin],
+  reportsController.createReportsGroupByAdmin
+)
+
 module.exports = router

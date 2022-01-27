@@ -9,7 +9,7 @@ group by code, gh.id;
 `
 
 exports.READ_REPORTS_BY_ADMIN = `
-select gb.id, gh.id as reportGroupId, code, w.name as workspace, w.id_pbi as groupIdPBI, wr.name as name, wr.id_pbi as reportIdPBI, rs.name as section, wr.active
+select wr.id, gb.id as reportGroupBodyId, gh.id as reportGroupId, code, w.name as workspace, w.id_pbi as groupIdPBI, wr.name as name, wr.id_pbi as reportIdPBI, rs.name as section, wr.active
 from pbi_reports_groups_headers gh, adm_accounts a,
      pbi_reports_groups_body gb, pbi_workspaces_reports_sections rs,
      pbi_workspaces_reports wr, pbi_workspaces w
@@ -17,7 +17,7 @@ where a.id = gh.id_adm_accounts and gh.id = gb.id_pbi_reports_groups_headers
   and rs.id = gb.id_pbi_workspaces_reports_sections and wr.id = rs.id_pbi_workspaces_reports
   and w.id = wr.id_pbi_workspaces
 
-and a.id = ?;
+and a.id = ? and wr.active = 1;
 `
 
 exports.READ_ACCOUNT_REPORTS_BY_ADMIN = `
@@ -53,4 +53,20 @@ where a.id = u.id_adm_accounts and u.id = rp.id_adm_users and rp.id_pbi_reports_
 
 and a.id = ?
 group by u.id, gh.id, wr.active;
+`
+
+exports.CREATE_REPORTS_GROUP_HEADER_BY_ADMIN = `
+insert into pbi_reports_groups_headers (id_adm_accounts, code, name, active)
+values (?, ?, ?, ?)
+`
+
+exports.CREATE_REPORTS_GROUP_BODY_BY_ADMIN = `
+insert into pbi_reports_groups_body (id_pbi_reports_groups_headers, id_pbi_workspaces_reports_sections, id_adm_accounts_reports) 
+values (?, ?, fn_get_id_adm_account_reports_by_section_id(?))
+`
+
+exports.READ_REPORTS_GROUPS_HEADERS_SECTIONS = `
+select s.id, gh.id as reportsGroupHeaderId
+from pbi_reports_groups_headers gh, pbi_reports_groups_body gb, pbi_workspaces_reports_sections s
+where gh.id = gb.id_pbi_reports_groups_headers and s.id = gb.id_pbi_workspaces_reports_sections
 `

@@ -19,7 +19,7 @@ const Users = () => {
   ]
 
   return (
-    <Paper sx={{ padding: '3rem' }}>
+    <Paper className='container'>
       <List>
         <Grid container alignItems='center' justifyContent='center' mb={3}>
           {headers.map(header => (

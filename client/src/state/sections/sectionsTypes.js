@@ -1,0 +1,10 @@
+export const ERROR = 'SECTION/ERROR'
+export const LOADING = 'SECTION/LOADING'
+export const CLEAR_MESSAGE = 'SECTION/CLEAR_MESSAGE'
+
+export const READ_SECTIONS_BY_ADMIN = 'SECTION/READ_SECTIONS_BY_ADMIN'
+
+export const CREATE = 'SECTION/CREATE'
+export const READ = 'SECTION/READ'
+export const UPDATE = 'SECTION/UPDATE'
+export const DELETE = 'SECTION/DELETE'

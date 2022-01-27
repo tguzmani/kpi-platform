@@ -25,8 +25,8 @@ const CreateUser = () => {
 
   const [user, bindField, areFieldsEmpty] = useForm({
     username: '',
-    name: '',
     mail: '',
+    name: '',
     confirmMail: '',
     password: '',
     confirmPassword: '',

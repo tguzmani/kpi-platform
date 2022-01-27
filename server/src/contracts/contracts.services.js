@@ -1,6 +1,10 @@
 const contractsRepository = require('./contracts.repository')
 const ContractException = require('./contracts.exception')
 
+async function readContractByAdmin(adminId) {
+  return await contractsRepository.readContractByAdmin(adminId)
+}
+
 async function createContractByAdmin(
   adminId,
   identityDocumentId,
@@ -56,4 +60,5 @@ module.exports = {
   updateContractByAdmin,
   createContractDetailsByAdmin,
   updateContractDetailByAdmin,
+  readContractByAdmin,
 }

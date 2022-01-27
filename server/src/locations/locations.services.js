@@ -1,7 +1,15 @@
 const locationsRepository = require('./locations.repository')
 
-async function readCountries(PARAMS) {
-  await locationsRepository.readCountries(PARAMS)
+async function readCountries() {
+  return await locationsRepository.readCountries()
 }
 
-module.exports = { readCountries }
+async function readRegions() {
+  return await locationsRepository.readRegions()
+}
+
+async function readZones() {
+  return await locationsRepository.readZones()
+}
+
+module.exports = { readCountries, readRegions, readZones }

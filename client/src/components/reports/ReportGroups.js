@@ -1,10 +1,7 @@
 import React from 'react'
-import ListItem from '@mui/material/ListItem'
 import List from '@mui/material/List'
 import Typography from '@mui/material/Typography'
-import Paper from '@mui/material/Paper'
 import Grid from '@mui/material/Grid'
-import ListItemText from '@mui/material/ListItemText'
 
 import ReportGroupsItem from './ReportGroupsItem'
 
@@ -18,22 +15,20 @@ const ReportsGroups = ({ reportsGroups }) => {
   ]
 
   return (
-    <Paper sx={{ padding: '3rem' }}>
-      <List>
-        <Grid container alignItems='center' justifyContent='center' mb={3}>
-          {headers.map(header => (
-            <Grid item xs={header.xs}>
-              <Typography sx={{ fontWeight: 'bold' }} variant='body1'>
-                {header.header}
-              </Typography>
-            </Grid>
-          ))}
-        </Grid>
-        {reportsGroups.map(reportsGroup => (
-          <ReportGroupsItem reportsGroup={reportsGroup} />
+    <List>
+      <Grid container alignItems='center' justifyContent='center' mb={3}>
+        {headers.map(header => (
+          <Grid item xs={header.xs}>
+            <Typography sx={{ fontWeight: 'bold' }} variant='body1'>
+              {header.header}
+            </Typography>
+          </Grid>
         ))}
-      </List>
-    </Paper>
+      </Grid>
+      {reportsGroups.map(reportsGroup => (
+        <ReportGroupsItem reportsGroup={reportsGroup} />
+      ))}
+    </List>
   )
 }
 

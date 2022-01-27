@@ -62,9 +62,24 @@ async function updateContractDetailByAdmin(contractDetailId, quantity) {
   )
 }
 
+async function readContractByAdmin(adminId) {
+  return new Promise(resolve => {
+    connection.query(
+      contractsQueries.READ_CONTRACT_BY_ADMIN,
+      [adminId],
+      (error, result) => {
+        if (error) throw error
+
+        return resolve(result.pop())
+      }
+    )
+  })
+}
+
 module.exports = {
   createContractByAdmin,
   updateContractByAdmin,
   createContractDetailsByAdmin,
   updateContractDetailByAdmin,
+  readContractByAdmin,
 }

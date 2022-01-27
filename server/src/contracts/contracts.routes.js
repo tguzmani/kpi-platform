@@ -5,6 +5,7 @@ const contractsController = require('./contracts.controller')
 const hasToken = require('../middleware/hasToken')
 const isAdmin = require('../middleware/isAdmin')
 
+router.get('/', [hasToken, isAdmin], contractsController.readContractByAdmin)
 router.post('/', [hasToken, isAdmin], contractsController.createContractByAdmin)
 router.put(
   '/:contractId',

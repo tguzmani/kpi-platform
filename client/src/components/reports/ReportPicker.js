@@ -77,7 +77,7 @@ const ReportPicker = () => {
           </FormControl>
         </Grid>
 
-        {/* <Grid item xs={4}>
+        <Grid item xs={4}>
           <FormControl fullWidth>
             <InputLabel>Sección</InputLabel>
             <Select label='Sección' {...bindDropdowns('section')}>
@@ -88,7 +88,7 @@ const ReportPicker = () => {
               ))}
             </Select>
           </FormControl>
-        </Grid> */}
+        </Grid>
       </Grid>
 
       {embedUrl && dropdowns.report !== '' && (

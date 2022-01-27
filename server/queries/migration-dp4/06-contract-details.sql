@@ -40,4 +40,3 @@ values
 update adm_account_contract_detail
 set quantity = 6.5
 where id = 1;
-

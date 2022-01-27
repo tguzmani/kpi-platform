@@ -13,9 +13,11 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import EditIcon from '@mui/icons-material/Edit'
 import ReportsTable from './ReportsTable'
 import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const ReportsGroupsTableRow = ({ reportsGroup }) => {
   const { reports } = useSelector(state => state.reports)
+  const navigate = useNavigate()
 
   const [open, setOpen] = React.useState(false)
 
@@ -24,7 +26,7 @@ const ReportsGroupsTableRow = ({ reportsGroup }) => {
   }
 
   const handleEdit = () => {
-    console.log('edit reportsGroup')
+    navigate(`/admins/reports/update/${reportsGroup.id}`)
   }
 
   const thisGroupReports = reports.filter(

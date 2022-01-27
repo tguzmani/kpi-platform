@@ -1,3 +1,8 @@
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import useForm from '../hooks/useForm'
+
 import {
   Grid,
   Button,
@@ -7,16 +12,15 @@ import {
   TextField,
   Typography,
   Box,
+  Tabs,
+  Tab,
 } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+
 import AppBar from './../components/layout/AppBar'
-import { signIn } from './../state/auth/authActions'
-import useForm from '../hooks/useForm'
 import Alerts from './../components/layout/Alerts'
-import { Tabs, Tab } from '@mui/material'
 import roles from './../constants/roles'
+
+import { signIn } from './../state/auth/authActions'
 
 const testAdmin = {
   name: 'TestClient',
@@ -67,7 +71,7 @@ const LoginPage = () => {
   return (
     <>
       <AppBar />
-
+      <Alerts />
       <Grid justifyContent='center' alignItems='center' container mt={4}>
         <Grid item xs={3}>
           <Card>
