@@ -59,12 +59,12 @@ CREATE TABLE IF NOT EXISTS `adm_items_standar_costs` (
   INDEX `geo_countries_idx` (`id_geo_countries` ASC),
   CONSTRAINT `int_items`
     FOREIGN KEY (`id_int_items`)
-    REFERENCES `reporteria-test`.`int_items` (`id`)
+    REFERENCES `int_items` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `geo_countries`
     FOREIGN KEY (`id_geo_countries`)
-    REFERENCES `reporteria-test`.`geo_countries` (`id`)
+    REFERENCES `geo_countries` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
@@ -84,12 +84,12 @@ CREATE TABLE IF NOT EXISTS `adm_account_contract_detail` (
   INDEX `int_items_idx` (`id_int_items` ASC),
   CONSTRAINT `adm_account_contract_detail`
     FOREIGN KEY (`id_adm_account_contract`)
-    REFERENCES `reporteria-test`.`adm_account_contract` (`id`)
+    REFERENCES `adm_account_contract` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `int_items_detail`
     FOREIGN KEY (`id_int_items`)
-    REFERENCES `reporteria-test`.`int_items` (`id`)
+    REFERENCES `int_items` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
@@ -107,16 +107,16 @@ CREATE TABLE IF NOT EXISTS `adm_invoices_body` (
   INDEX `adm_account_contract_detail_idx` (`id_adm_account_contract_detail` ASC),
   CONSTRAINT `adm_invoices_header`
     FOREIGN KEY (`id_adm_invoices_header`)
-    REFERENCES `reporteria-test`.`adm_invoices_header` (`id`)
+    REFERENCES `adm_invoices_header` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `int_items_body`
     FOREIGN KEY (`id_int_items`)
-    REFERENCES `reporteria-test`.`int_items` (`id`)
+    REFERENCES `int_items` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `adm_account_contract_detail_body`
     FOREIGN KEY (`id_adm_account_contract_detail`)
-    REFERENCES `reporteria-test`.`adm_account_contract_detail` (`id`)
+    REFERENCES `adm_account_contract_detail` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
