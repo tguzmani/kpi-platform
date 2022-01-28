@@ -7,12 +7,12 @@ alter table adm_account_contract
     change adress address varchar(100),
 
     -- drop foreign key fk__adm_accounts_billings__adm_account,
-    drop foreign key fk__adm_accounts_billings__adm_money__monthly,
-    drop foreign key fk__adm_accounts_billings__adm_money__inactive_user,
-    drop foreign key fk__adm_accounts_billings__adm_money__active_user,
-    drop foreign key fk__adm_accounts_billings__adm_money__monthly,
-    drop foreign key fk__adm_accounts_billings__int_id_type,
-    drop foreign key fk__adm_accounts_billings__geo_zone,
+    -- drop foreign key fk__adm_accounts_billings__adm_money__monthly,
+    -- drop foreign key fk__adm_accounts_billings__adm_money__inactive_user,
+    -- drop foreign key fk__adm_accounts_billings__adm_money__active_user,
+    -- drop foreign key fk__adm_accounts_billings__adm_money__monthly,
+    -- drop foreign key fk__adm_accounts_billings__int_id_type,
+    -- drop foreign key fk__adm_accounts_billings__geo_zone,
 
     drop monthly_value,
     drop id_adm_money_monthly_value,
