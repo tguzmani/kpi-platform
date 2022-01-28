@@ -1,4 +1,5 @@
 -- elimina el not null para contract_cost
+SET FOREIGN_KEY_CHECKS = 0;
 alter table adm_account_contract_detail
     change contract_cost contract_cost decimal(15, 3),
     change active active tinyint not null default 1;
@@ -42,3 +43,4 @@ values
 update adm_account_contract_detail
 set quantity = 6.5
 where id = 1;
+SET FOREIGN_KEY_CHECKS = 1;
