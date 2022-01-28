@@ -15,6 +15,3 @@ values
 update int_id_type
 set id_adm_money = 1
 where id = 1;
-
-alter table int_id_type
-add constraint fk__int_id_type__adm_money foreign key (id_adm_money) references adm_money(id);
