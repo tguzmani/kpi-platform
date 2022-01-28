@@ -1,13 +1,13 @@
 -- Revisar este archvio porque es posible que haya un problema de análisis para esto
+DELIMITER $$
 
-CREATE FUNCTION generate_date(days int)
+create function generate_date(days int)
     returns datetime
+begin
+    return date_add(now(), interval days day);
+end;
 
-BEGIN
-
-    RETURN date_add(now(), interval days day);
-    
-END;
+DELIMITER;
 
 -- el producto 1 tiene dos precios, pero justamente uno ya venció
 -- el producto igual
