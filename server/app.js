@@ -17,7 +17,6 @@ const app = express()
 // Middleware
 app.use(express.json({ extended: false }))
 app.use(monitor)
-app.use(csv)
 app.use(cookieParser())
 app.use(
   cors({
