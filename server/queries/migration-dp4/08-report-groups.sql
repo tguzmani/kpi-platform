@@ -1,3 +1,5 @@
+delimiter $$
+
 create function fn_get_id_adm_account_reports_by_section_id(section_id int)
     returns int
 begin
@@ -13,5 +15,6 @@ begin
       and s.id = section_id;
 
     return id_adm_account_reports;
-end
-;
+end $$
+
+delimiter ;
