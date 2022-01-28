@@ -24,8 +24,6 @@ const ContractDetail = ({ contract }) => {
 
   const { contractDetails, loading } = useSelector(state => state.contracts)
 
-  if (loading) <div>Loading...</div>
-
   const contractTotal = () =>
     contractDetails
       .map(contractDetail => contractDetail.quantity * contractDetail.cost)
