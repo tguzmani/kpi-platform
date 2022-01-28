@@ -1,10 +1,13 @@
 -- Revisar este archvio porque es posible que haya un problema de análisis para esto
 
-create function generate_date(days int)
+CREATE FUNCTION generate_date(days int)
     returns datetime
-begin
-    return date_add(now(), interval days day);
-end;
+
+BEGIN
+
+    RETURN date_add(now(), interval days day);
+    
+END;
 
 -- el producto 1 tiene dos precios, pero justamente uno ya venció
 -- el producto igual
