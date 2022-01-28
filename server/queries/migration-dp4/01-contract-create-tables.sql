@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `int_items` (
   PRIMARY KEY (`id`));
 
 -- adm_items_standar_costs
-CREATE TABLE IF NOT EXISTS `adm_items_standar_costs` (
+CREATE TABLE IF NOT EXISTS `adm_items_standard_costs` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `id_int_items` INT NOT NULL,
   `id_geo_countries` INT NULL,

@@ -1,7 +1,7 @@
 -- Revisar este archvio porque es posible que haya un problema de análisis para esto
 
 create function generate_date(days int)
-returns datetime
+    returns datetime
 begin
     return date_add(now(), interval days day);
 end;
@@ -11,16 +11,15 @@ end;
 -- faltan productos desde id = 8 hasta id = 11, lo cual es adrede
 -- el producto 6 no se debe cargar porque no esta activo
 insert into adm_items_standard_costs (id_int_items, id_geo_countries, up_date, down_date, standard_cost)
-values
-    (1, 1, generate_date(-30), generate_date(-10), 1.25),
-    (1, 1, generate_date(0), generate_date(30), 5),
-    (2, 1, generate_date(-10), generate_date(30), 1),
-    (3, 1, generate_date(-10), generate_date(30), 0.3),
-    (4, 1, generate_date(-10), generate_date(30), 3),
-    (4, 1, generate_date(-30), generate_date(-10), 5),
-    (5, 1, generate_date(-30), generate_date(30), 2),
-    (6, 1, generate_date(-30), generate_date(30), 2.5),
-    (7, 1, generate_date(-30), generate_date(30), 0.75);
+values (1, 1, generate_date(-30), generate_date(-10), 1.25),
+       (1, 1, generate_date(0), generate_date(30), 5),
+       (2, 1, generate_date(-10), generate_date(30), 1),
+       (3, 1, generate_date(-10), generate_date(30), 0.3),
+       (4, 1, generate_date(-10), generate_date(30), 3),
+       (4, 1, generate_date(-30), generate_date(-10), 5),
+       (5, 1, generate_date(-30), generate_date(30), 2),
+       (6, 1, generate_date(-30), generate_date(30), 2.5),
+       (7, 1, generate_date(-30), generate_date(30), 0.75);
 
 insert into adm_money (code, name, active)
 values ('UF', 'Unidad de fomento', 1);

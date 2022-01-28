@@ -1,8 +1,12 @@
 -- Estas son regiones de Chile para los contratos,
 -- Ya las tablas estaban creadas y hacía falta hacerle los inserts
 
+SET FOREIGN_KEY_CHECKS = 0;
+
 alter table geo_countries
 change id id int(11) auto_increment not null;
+
+SET FOREIGN_KEY_CHECKS = 1;
 
 INSERT INTO `geo_countries` (id, name)
 VALUES (1, 'Chile');
