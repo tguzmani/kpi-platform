@@ -43,7 +43,7 @@ where gz.id = c.id_geo_zone
   and gc.id = gr.id_geo_countries
   and gc.id = id_doc.id_int_countries
   and mo.id = id_doc.id_adm_money
-  and id_adm_accounts = 1
+  and id_adm_accounts = ?;
 `
 
 exports.READ_CONTRACT_DETAILS_BY_ADMIN = `

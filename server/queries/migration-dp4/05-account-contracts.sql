@@ -31,8 +31,11 @@ alter table adm_account_contract
     add constraint fk__account_contract__int_id_type foreign key (id_int_id_type) references int_id_type (id),
     add constraint fk__account_contract__geo_zone foreign key (id_geo_zone) references geo_zone (id);
 
+SET FOREIGN_KEY_CHECKS = 0;
 insert into adm_account_contract (id_adm_accounts, id_int_id_type, int_id_type_value, address, id_geo_zone, name)
 values (1, 1, '28615208', 'Calle A, Altos de B, Edificio C', 72, 'Contrato ABC');
+SET FOREIGN_KEY_CHECKS = 1;
+
 
 delimiter $$
 create trigger tr__adm_account_contract__set_dates

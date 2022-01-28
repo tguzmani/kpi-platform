@@ -22,12 +22,14 @@ const ContractDetail = ({ contract }) => {
     dispatch(readContractDetailsByAdmin(contract))
   }, [])
 
-  const { contractDetails } = useSelector(state => state.contracts)
+  const { contractDetails, loading } = useSelector(state => state.contracts)
+
+  if (loading) <div>Loading...</div>
 
   const contractTotal = () =>
     contractDetails
       .map(contractDetail => contractDetail.quantity * contractDetail.cost)
-      .reduce((acc, value) => acc + value)
+      .reduce((acc, value) => acc + value, 0)
 
   const headers = ['Item', 'Valor Un.', 'Cantidad', 'Valor Total']
 
