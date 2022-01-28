@@ -9,7 +9,8 @@ case $1 in
 
   db)
     mysql -u root -p -D reporteria_test
-    
+    ;;
+
   pull)
     cd $kpi_dir/server
     rm access.log
