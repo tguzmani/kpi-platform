@@ -14,21 +14,23 @@ alter table adm_invoices_body
     add constraint adm_account_contract_detail_body foreign key (id_adm_account_contract_detail)
     references adm_account_contract_detail(id);
 
+delimiter $$
 create trigger tr__amd_account_contract_detail__add_up_date
     before insert on adm_account_contract_detail for each row
     begin
         set new.up_date = current_date();
-    end;
+    end $$
+delimiter ;
 
+delimiter $$
 create trigger tr__amd_account_contract_detail__update_contract_date
     before update on adm_account_contract_detail for each row
     begin
         update adm_account_contract
         set updated_at = current_date()
         where id = new.id_adm_account_contract;
-    end;
-
-drop trigger tr__amd_account_contract_detail__update_contract_date;
+    end $$
+delimiter ;
 
 insert into adm_account_contract_detail (id_adm_account_contract, id_int_items, quantity)
 values
