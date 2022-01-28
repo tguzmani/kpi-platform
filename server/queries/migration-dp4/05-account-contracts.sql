@@ -34,15 +34,19 @@ alter table adm_account_contract
 insert into adm_account_contract (id_adm_accounts, id_int_id_type, int_id_type_value, address, id_geo_zone, name)
 values (1, 1, '28615208', 'Calle A, Altos de B, Edificio C', 72, 'Contrato ABC');
 
+delimiter $$
 create trigger tr__adm_account_contract__set_dates
     before insert on adm_account_contract for each row
     begin
         set new.created_at = current_date();
         set new.updated_at = current_date();
-    end;
+    end $$
+delimiter ;
 
+delimiter $$
 create trigger tr__adm_account_contract__set_updated_at
     before update on adm_account_contract for each row
     begin
         set new.updated_at = current_date();
-    end;
+    end $$
+delimiter ;
