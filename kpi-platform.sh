@@ -4,11 +4,13 @@ kpi_dir=~/kpi-platform
 case $1 in
   build)
     cd $kpi_dir/client
-    bash build.sh
+    npm run build
     ;;
 
   pull)
-    cd $kpi_dir
+    cd $kpi_dir/server
+    rm access.log
+    cd ..
     git pull
     ;;
 
