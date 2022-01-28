@@ -15,6 +15,7 @@ case $1 in
     ;;
 
   server)
+    killall -9 node
     cd $kpi_dir/server
     screen -S server -m npm run server
     ;;
