@@ -1,7 +1,7 @@
 -- Revisar este archvio porque es posible que haya un problema de análisis para esto
 DELIMITER $$
 
-create function generate_date(days int)
+create function DEFINER=procadmin@% generate_date(days int)
     returns datetime
 begin
     return date_add(now(), interval days day);
