@@ -16,7 +16,7 @@ case $1 in
 
   server)
     cd $kpi_dir/server
-    screen -S server -d -m npm run server
+    screen -S server -m npm run server
     ;;
 
   stop)
