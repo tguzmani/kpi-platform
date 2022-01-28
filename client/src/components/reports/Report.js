@@ -7,7 +7,7 @@ import { PowerBIEmbed } from 'powerbi-client-react'
 const Report = ({ groupId, reportId }) => {
   const { accessToken, embedUrl, loading } = useSelector(state => state.powerbi)
 
-  if (!accessToken || !embedUrl || loading) return <div>Loading...</div>
+  if (!accessToken || !embedUrl || loading) return <div>Cargando...</div>
 
   return (
     <>

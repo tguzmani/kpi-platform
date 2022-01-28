@@ -22,6 +22,11 @@ import roles from './../constants/roles'
 
 import { signIn } from './../state/auth/authActions'
 
+const initialCredentials = {
+  name: '',
+  password: '',
+}
+
 const testAdmin = {
   name: 'TestClient',
   password: 'testclient',
@@ -38,7 +43,7 @@ const LoginPage = () => {
 
   const { user, isAuthenticated } = useSelector(state => state.auth)
 
-  const [credentials, bindField, areFieldsEmpty] = useForm({})
+  const [credentials, bindField, areFieldsEmpty, setCredentials] = useForm({})
 
   const [userType, setUserType] = useState(roles.ADMIN)
 
@@ -66,6 +71,8 @@ const LoginPage = () => {
   const handleTabChange = e => {
     if (userType === roles.ADMIN) setUserType(roles.USER)
     else setUserType(roles.ADMIN)
+
+    setCredentials(initialCredentials)
   }
 
   return (

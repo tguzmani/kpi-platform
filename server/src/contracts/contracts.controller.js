@@ -10,6 +10,18 @@ async function readContractByAdmin(req, res) {
   }
 }
 
+async function readContractDetailsByAdmin(req, res) {
+  try {
+    const contractDetails = await contractsServices.readContractDetailsByAdmin(
+      req.params.contractId
+    )
+
+    res.send(contractDetails)
+  } catch (error) {
+    return res.status(400).send(error)
+  }
+}
+
 async function createContractByAdmin(req, res) {
   try {
     const {
@@ -57,7 +69,9 @@ async function updateContractByAdmin(req, res) {
       req.params.contractId
     )
 
-    res.send({ message: 'Contrato actualizado de forma exitosa' })
+    const contract = await contractsServices.readContractByAdmin(req.userId)
+
+    res.send(contract)
   } catch (error) {
     return res.status(400).send(error)
   }
@@ -65,6 +79,7 @@ async function updateContractByAdmin(req, res) {
 
 async function updateContractDetailByAdmin(req, res) {
   try {
+    console.log('req.body', req.body)
     await contractsServices.updateContractDetailByAdmin(
       req.params.contractDetailId,
       req.body.quantity
@@ -81,4 +96,5 @@ module.exports = {
   updateContractByAdmin,
   updateContractDetailByAdmin,
   readContractByAdmin,
+  readContractDetailsByAdmin,
 }

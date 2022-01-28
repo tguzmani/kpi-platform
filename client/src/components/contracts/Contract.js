@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import useForm from './../../hooks/useForm'
 import DayJS from 'react-dayjs'
 
@@ -8,19 +8,47 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
+import CheckIcon from '@mui/icons-material/Check'
 
 import FormField from './../layout/FormField'
 
 import SaveIcon from '@mui/icons-material/Save'
 
+import { updateContract } from '../../state/contracts/contractsActions'
+
+import useTimeout from '../../hooks/useTimeout'
+import ContractDetail from './ContractDetail'
+
 const Contract = () => {
+  const dispatch = useDispatch()
   const { countries, regions, zones } = useSelector(state => state.locations)
+  const { currencies, loading: currenciesLoading } = useSelector(
+    state => state.currencies
+  )
+  const { identificationDocuments, loading: identificationDocumentsLoading } =
+    useSelector(state => state.identificationDocuments)
 
-  const { contract } = useSelector(state => state.contracts)
+  const { contract, loading: contractsLoading } = useSelector(
+    state => state.contracts
+  )
 
-  const [contractFields, bindField, areFieldsEmpty] = useForm({
-    ...contract,
+  const [contractFields, bindField, areFieldsEmpty, setFields] = useForm({
+    countryId: '',
+    regionId: '',
+    zoneId: '',
   })
+
+  const [feedback, activateFeedback] = useTimeout()
+
+  React.useEffect(() => {
+    setFields(contract)
+  }, [contract])
+
+  if (!contract || currenciesLoading) return <div>Cargando...</div>
+
+  const thisContractCurrency = currencies.find(
+    currency => currency.id === contract.currencyId
+  )
 
   const thisCountryRegions = regions.filter(
     region => region.countryId === contractFields.countryId
@@ -29,20 +57,38 @@ const Contract = () => {
     zone => zone.regionId === contractFields.regionId
   )
 
-  console.log('contractFields', contractFields)
+  const thisCountryIdentificationDocument = identificationDocuments.find(
+    identificationDocument =>
+      identificationDocument.countryId === contractFields.countryId
+  )
+
+  console.log('identificationDocuments', identificationDocuments)
+
+  const handleUpdateContract = () => {
+    dispatch(
+      updateContract({ ...contractFields, contractName: contractFields.name })
+    )
+
+    console.log(feedback)
+    activateFeedback()
+  }
 
   return (
     <>
-      <Grid container spacing={3}>
+      <Grid container spacing={8}>
         <Grid lg={5} md={12} item>
           <Grid container alignItems='center'>
             <FormField label='País'>
               <FormField.Select
-                fieldValue={contractFields.countryId}
                 {...bindField('countryId')}
                 options={countries}
-                value='id'
+                optionValue='id'
                 display='name'
+              />
+            </FormField>
+            <FormField label={thisCountryIdentificationDocument?.type}>
+              <FormField.TextField
+                {...bindField('identificationDocumentValue')}
               />
             </FormField>
             <FormField label='Empresa'>
@@ -53,25 +99,23 @@ const Contract = () => {
             </FormField>
             <FormField label='Región'>
               <FormField.Select
-                fieldValue={contractFields.regionId}
                 {...bindField('regionId')}
                 options={thisCountryRegions}
-                value='id'
+                optionValue='id'
                 display='name'
               />
             </FormField>
             <FormField label='Comuna'>
               <FormField.Select
-                fieldValue={contractFields.zoneId}
                 {...bindField('zoneId')}
                 options={thisRegionZones}
-                value='id'
+                optionValue='id'
                 display='name'
               />
             </FormField>
           </Grid>
         </Grid>
-        <Grid lg={7} md={12} item>
+        <Grid lg={7} md={12} item mt={2}>
           <Grid container>
             <Grid item xs={12} md>
               <Stack>
@@ -96,19 +140,34 @@ const Contract = () => {
             <Grid item xs={12} md>
               <Stack direction='row' spacing={2}>
                 <Typography variant='accent'>Moneda:</Typography>
-                <Typography variant='body1'>[MONEDA]</Typography>
+                <Typography variant='body1'>
+                  {thisContractCurrency?.code}
+                </Typography>
               </Stack>
             </Grid>
+          </Grid>
+          <Grid item xs={12}>
+            <ContractDetail contract={contract} />
           </Grid>
         </Grid>
       </Grid>
 
       <Grid container justifyContent='flex-end'>
-        <Tooltip title='Guardar cambios'>
-          <IconButton>
-            <SaveIcon fontSize='large' color='success' />
-          </IconButton>
-        </Tooltip>
+        <Stack alignItems='center' direction='row' spacing={1}>
+          {feedback && (
+            <>
+              <CheckIcon color='success' />
+              <Typography variant='body1' color='success'>
+                Guardado
+              </Typography>
+            </>
+          )}
+          <Tooltip title='Guardar cambios'>
+            <IconButton onClick={handleUpdateContract}>
+              <SaveIcon fontSize='large' color='success' />
+            </IconButton>
+          </Tooltip>
+        </Stack>
       </Grid>
     </>
   )

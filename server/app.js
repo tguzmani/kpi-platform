@@ -41,6 +41,7 @@ routes = [
   'sections',
   'locations',
   'currencies',
+  'identificationDocuments',
 ]
 routes.forEach(route => useRoute(route))
 

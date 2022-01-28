@@ -25,3 +25,12 @@ ORDER BY
 -- muestra un log detallado del motor
 -- util para leer más de cualquier error
 SHOW ENGINE INNODB STATUS
+
+select id, type, validate_function as validateFunction, id_int_countries as countryId, id_adm_money as currencyId
+from int_id_type;
+
+-- cuando hay errores de cambio de columnas a raazon de fks
+-- err 1833
+SET FOREIGN_KEY_CHECKS = 0;
+/* DO WHAT YOU NEED HERE */
+SET FOREIGN_KEY_CHECKS = 1;

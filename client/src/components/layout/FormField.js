@@ -11,19 +11,13 @@ const TextField = props => (
   <MuiTextField margin='normal' fullWidth variant='outlined' {...props} />
 )
 
-const Select = ({ options, value, display, fieldValue, ...props }) => {
-  if (!options) return <div>Loading...</div>
+const Select = ({ options, optionValue, display, fieldValue, ...props }) => {
+  if (!options) return <div>Cargando...</div>
 
   return (
-    <MuiTextField
-      margin='normal'
-      select
-      fullWidth
-      {...props}
-      value={fieldValue}
-    >
+    <MuiTextField margin='normal' select fullWidth {...props}>
       {options.map(option => (
-        <MenuItem key={option.id} value={option[value]}>
+        <MenuItem key={option.id} value={option[optionValue]}>
           {option[display]}
         </MenuItem>
       ))}

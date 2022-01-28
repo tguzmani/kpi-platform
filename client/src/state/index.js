@@ -9,6 +9,8 @@ import workspacesReducer from './workspaces/workspacesReducer'
 import sectionsReducer from './sections/sectionsReducer'
 import contractsReducer from './contracts/contractsReducer'
 import locationsReducer from './locations/locationsReducer'
+import identificationDocumentsReducer from './identificationDocuments/identificationDocumentsReducer'
+import currenciesReducer from './currencies/currenciesReducer'
 
 export default combineReducers({
   auth: authReducer,
@@ -20,4 +22,6 @@ export default combineReducers({
   sections: sectionsReducer,
   contracts: contractsReducer,
   locations: locationsReducer,
+  identificationDocuments: identificationDocumentsReducer,
+  currencies: currenciesReducer,
 })

@@ -4,6 +4,8 @@ import useRead from './../hooks/useRead'
 import { readAccountReportsByAdmin } from './../state/reports/reportsActions'
 import { readLogo } from './../state/admins/adminsActions'
 import { readContractByAdmin } from './../state/contracts/contractsActions'
+import { readIdentificationDocuments } from './../state/identificationDocuments/identificationDocumentsActions'
+import { readCurrencies } from './../state/currencies/currenciesActions'
 import {
   readCountries,
   readRegions,
@@ -17,7 +19,9 @@ const AccountPage = () => {
     readContractByAdmin,
     readCountries,
     readRegions,
-    readZones
+    readZones,
+    readCurrencies,
+    readIdentificationDocuments
   )
 
   return <AdminAccount />

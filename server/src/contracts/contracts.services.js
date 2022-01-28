@@ -5,6 +5,10 @@ async function readContractByAdmin(adminId) {
   return await contractsRepository.readContractByAdmin(adminId)
 }
 
+async function readContractDetailsByAdmin(contractId) {
+  return await contractsRepository.readContractDetailsByAdmin(contractId)
+}
+
 async function createContractByAdmin(
   adminId,
   identityDocumentId,
@@ -61,4 +65,5 @@ module.exports = {
   createContractDetailsByAdmin,
   updateContractDetailByAdmin,
   readContractByAdmin,
+  readContractDetailsByAdmin,
 }

@@ -76,10 +76,31 @@ async function readContractByAdmin(adminId) {
   })
 }
 
+async function readContractDetailsByAdmin(contractId) {
+  return new Promise(resolve => {
+    connection.query(
+      contractsQueries.READ_CONTRACT_DETAILS_BY_ADMIN,
+      [contractId],
+      (error, results) => {
+        if (error) throw error
+
+        const contractDetails = results.map(result => ({
+          ...result,
+          quantity: parseInt(result.quantity),
+          cost: parseFloat(result.cost),
+        }))
+
+        return resolve(contractDetails)
+      }
+    )
+  })
+}
+
 module.exports = {
   createContractByAdmin,
   updateContractByAdmin,
   createContractDetailsByAdmin,
   updateContractDetailByAdmin,
   readContractByAdmin,
+  readContractDetailsByAdmin,
 }

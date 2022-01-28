@@ -22,6 +22,7 @@ where id = ?
 
 exports.READ_CONTRACT_BY_ADMIN = `
 select c.name,
+       c.id, 
        address,
        created_at,
        updated_at,
@@ -30,7 +31,7 @@ select c.name,
        gz.id          as zoneId,
        gr.id          as regionId,
        gc.id          as countryId,
-        mo.id as moneyId
+       mo.id           as currencyId
 from adm_account_contract c,
      geo_zone gz,
      geo_region gr,
@@ -43,4 +44,16 @@ where gz.id = c.id_geo_zone
   and gc.id = id_doc.id_int_countries
   and mo.id = id_doc.id_adm_money
   and id_adm_accounts = 1
+`
+
+exports.READ_CONTRACT_DETAILS_BY_ADMIN = `
+select detail.id, detail.id_int_items as itemId, quantity, name, cost.standard_cost as cost
+from adm_account_contract_detail detail,
+     int_items item,
+     adm_items_standard_costs cost
+where item.id = detail.id_int_items
+  and item.id = cost.id_int_items
+  and active = 1
+  and cost.down_date >= now()
+  and detail.id_adm_account_contract = ?;
 `

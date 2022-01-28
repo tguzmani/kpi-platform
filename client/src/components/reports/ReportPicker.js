@@ -36,7 +36,7 @@ const ReportPicker = () => {
 
   const reports = useReportsByWorkspace(dropdowns.workspace)
 
-  if (loading || !workspaces) return <div>Loading...</div>
+  if (loading || !workspaces) return <div>Cargando...</div>
 
   const sections = [{ id: uuidv4, name: 'Página 1' }]
 

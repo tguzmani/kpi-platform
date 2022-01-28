@@ -34,8 +34,8 @@ insert into adm_account_contract_detail (id_adm_account_contract, id_int_items, 
 values
     (1, 1, 5),
     (1, 2, 3),
-    (1, 3, 0.5),
-    (1, 5, 0.75);
+    (1, 3, 1),
+    (1, 5, 2);
 
 update adm_account_contract_detail
 set quantity = 6.5

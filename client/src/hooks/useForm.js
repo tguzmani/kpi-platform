@@ -13,9 +13,9 @@ const useForm = initialState => {
     name,
   })
 
-  const areFieldsEmpty = Object.values(fields).some(
-    credential => credential === ''
-  )
+  const areFieldsEmpty = fields
+    ? Object.values(fields).some(credential => credential === '')
+    : true
 
   const setFields = fields => {
     setFormFields(fields)

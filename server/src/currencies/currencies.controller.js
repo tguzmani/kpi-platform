@@ -2,9 +2,9 @@ const currenciesServices = require('./currencies.services')
 
 async function readCurrencies(req, res) {
   try {
-    const countries = await currenciesServices.readCurrencies()
+    const currencies = await currenciesServices.readCurrencies()
 
-    res.send(countries)
+    res.send(currencies)
   } catch (error) {
     return res.status(400).send(error)
   }

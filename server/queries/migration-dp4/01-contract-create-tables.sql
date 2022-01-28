@@ -1,5 +1,5 @@
 -- 23 ene 2022
--- Estas son las tablas que no fueron implementadas al momento de Roberto darme el proyecto\
+-- Estas son las tablas que no fueron implementadas al momento de Roberto darme el proyecto
 -- Por eso están acá todas las create tables
 
 -- adm_estados_pago
