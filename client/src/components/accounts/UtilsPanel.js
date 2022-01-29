@@ -7,6 +7,7 @@ import Paper from '@mui/material/Paper'
 import TabPanel from '../layout/TabPanel'
 import AccountReportsTable from './AccountReportsTable'
 import Contract from './../contracts/Contract'
+import Invoices from '../invoices/Invoices'
 
 const UtilsPanel = () => {
   const [value, setValue] = React.useState(0)
@@ -20,7 +21,7 @@ const UtilsPanel = () => {
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange}>
           <Tab label='Contrato' />
-          <Tab label='Historial Facturación' disabled />
+          <Tab label='Historial Facturación' />
           <Tab label='Reportes' />
         </Tabs>
       </Box>
@@ -29,7 +30,7 @@ const UtilsPanel = () => {
         <Contract />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Three
+        <Invoices />
       </TabPanel>
       <TabPanel value={value} index={2}>
         <AccountReportsTable />

@@ -41,7 +41,9 @@ routes = [
   'locations',
   'currencies',
   'identificationDocuments',
+  'invoices',
 ]
+
 routes.forEach(route => useRoute(route))
 
 // Listen
