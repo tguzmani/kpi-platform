@@ -44,7 +44,13 @@ const Contract = () => {
     setFields(contract)
   }, [contract])
 
-  if (!contract || currenciesLoading) return <div>Cargando...</div>
+  if (
+    !contract ||
+    regions.length === 0 ||
+    countries.length === 0 ||
+    zones.length === 0
+  )
+    return <div>Cargando...</div>
 
   const thisContractCurrency = currencies.find(
     currency => currency.id === contract.currencyId

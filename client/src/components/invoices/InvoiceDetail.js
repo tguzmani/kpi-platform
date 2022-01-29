@@ -1,4 +1,5 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Typography from '@mui/material/Typography'
@@ -9,66 +10,12 @@ import Table from '@mui/material/Table'
 import TableCell from '@mui/material/TableCell'
 import TableBody from '@mui/material/TableBody'
 import InvoiceDetailItem from './InvoiceDetailItem'
+import Loading from './../layout/Loading'
 
 const InvoiceDetail = ({ invoice }) => {
-  const invoiceDetails = [
-    {
-      invoiceId: 1,
-      name: 'Plataforma',
-      cost: 5,
-      quantity: 8,
-      totalValue: 40,
-    },
-    {
-      invoiceId: 1,
-      name: 'Reportes',
-      cost: 1,
-      quantity: 7,
-      totalValue: 7,
-    },
-    {
-      invoiceId: 1,
-      name: 'Usuarios',
-      cost: 0.3,
-      quantity: 3,
-      totalValue: 0.9,
-    },
-    {
-      invoiceId: 1,
-      name: 'Servicio B',
-      cost: 2,
-      quantity: 5,
-      totalValue: 10,
-    },
-    {
-      invoiceId: 2,
-      name: 'Plataforma',
-      cost: 5,
-      quantity: 2,
-      totalValue: 10,
-    },
-    {
-      invoiceId: 2,
-      name: 'Reportes',
-      cost: 1,
-      quantity: 5,
-      totalValue: 5,
-    },
-    {
-      invoiceId: 2,
-      name: 'Usuarios',
-      cost: 0.3,
-      quantity: 3,
-      totalValue: 0.9,
-    },
-    {
-      invoiceId: 2,
-      name: 'Servicio B',
-      cost: 2,
-      quantity: 4,
-      totalValue: 8,
-    },
-  ]
+  const { invoiceDetails, loading } = useSelector(state => state.invoices)
+
+  if (loading && invoiceDetails.length === 0) return <Loading />
 
   const thisInvoiceDetails = invoiceDetails.filter(
     invoiceDetail => invoiceDetail.invoiceId === invoice.id

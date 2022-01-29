@@ -10,11 +10,17 @@ import Box from '@mui/material/Box'
 import { useNavigate } from 'react-router-dom'
 import Image from './Image'
 
+import { useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
+
 const ApplicationBar = () => {
   const { user, isAuthenticated } = useSelector(state => state.auth)
   const { appBarLogo } = useSelector(state => state.admins)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const theme = useTheme()
+  const matches = useMediaQuery(theme.breakpoints.up('lg'))
 
   const handleSignOut = () => {
     navigate('/login')
@@ -29,7 +35,11 @@ const ApplicationBar = () => {
         </Typography> */}
 
         <Box sx={{ flexGrow: 1 }}>
-          <Image src={appBarLogo} alt='logo' />
+          <Image
+            src={appBarLogo}
+            alt='logo'
+            width={`${matches ? false : '120px'}`}
+          />
         </Box>
 
         {user && isAuthenticated && (

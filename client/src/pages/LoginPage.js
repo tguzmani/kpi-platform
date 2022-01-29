@@ -80,7 +80,7 @@ const LoginPage = () => {
       <AppBar />
       <Alerts />
       <Grid justifyContent='center' alignItems='center' container mt={4}>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={5} lg={4} p={2}>
           <Card>
             <CardContent>
               <Tabs value={userType} onChange={handleTabChange}>

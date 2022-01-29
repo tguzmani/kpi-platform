@@ -18,13 +18,13 @@ const initialState = {
 const locationsReducer = (state = initialState, action) => {
   switch (action.type) {
     case READ_COUNTRIES:
-      return { ...state, countries: action.payload }
+      return { ...state, countries: action.payload, loading: false }
 
     case READ_REGIONS:
-      return { ...state, regions: action.payload }
+      return { ...state, regions: action.payload, loading: false }
 
     case READ_ZONES:
-      return { ...state, zones: action.payload }
+      return { ...state, zones: action.payload, loading: false }
 
     case CLEAR_MESSAGE:
       return { ...state, message: null }

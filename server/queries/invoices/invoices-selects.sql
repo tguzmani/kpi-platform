@@ -28,3 +28,8 @@ where item.id = invoiceBody.id_int_items
   and invoice.id = invoiceBody.id_adm_invoices_header
   and contract.id = invoice.id_adm_account_contract
   and contract.id = 1;
+
+-- update de factura para test de front
+update adm_invoices_header
+set invoice_id = substring(uuid(), 1, 8)
+where id = 2;

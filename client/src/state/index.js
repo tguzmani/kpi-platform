@@ -11,6 +11,7 @@ import contractsReducer from './contracts/contractsReducer'
 import locationsReducer from './locations/locationsReducer'
 import identificationDocumentsReducer from './identificationDocuments/identificationDocumentsReducer'
 import currenciesReducer from './currencies/currenciesReducer'
+import invoicesReducer from './invoices/invoicesReducer'
 
 export default combineReducers({
   auth: authReducer,
@@ -24,4 +25,5 @@ export default combineReducers({
   locations: locationsReducer,
   identificationDocuments: identificationDocumentsReducer,
   currencies: currenciesReducer,
+  invoices: invoicesReducer,
 })
