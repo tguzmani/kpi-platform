@@ -42,6 +42,7 @@ routes = [
   'currencies',
   'identificationDocuments',
   'invoices',
+  'termsAndConditions',
 ]
 
 routes.forEach(route => useRoute(route))

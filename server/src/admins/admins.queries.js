@@ -19,3 +19,15 @@ select logo_address as logoAddress
 from adm_accounts
 where sub_domain = ?
 `
+
+exports.READ_ADMIN_TERMS_AND_CONDITIONS = `
+select tac.id
+from adm_accounts_has_adm_terms_and_conditions accepted, adm_accounts admin, adm_terms_and_conditions tac
+where admin.id = accepted.id_adm_accounts and tac.id = accepted.id_adm_terms_and_conditions
+and admin.id = ?;
+`
+
+exports.ACCEPT_TERMS_AND_CONDITIONS = `
+insert into adm_accounts_has_adm_terms_and_conditions (id_adm_accounts, id_adm_terms_and_conditions)
+values (?, ?);
+`

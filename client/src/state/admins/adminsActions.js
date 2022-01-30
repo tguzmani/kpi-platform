@@ -5,9 +5,11 @@ import {
   UPDATE_LOGO,
   READ_LOGO,
   READ_LOGO_BY_SUBDOMAIN,
+  ACCEPT_TERMS_AND_CONDITIONS,
 } from './adminsTypes'
 
 import axios from 'axios'
+import { config } from '../../util/state'
 
 export const handleError = (dispatch, error) => {
   dispatch({ type: ERROR, payload: error.response.data })
@@ -30,6 +32,22 @@ export const readLogo = () => async dispatch => {
     dispatch({ type: ERROR, payload: error.response.data.message })
   }
 }
+
+export const acceptTermsAndConditions =
+  termsAndConditions => async dispatch => {
+    setLoading()(dispatch)
+
+    try {
+      const res = await axios.post(
+        `/admins/termsAndConditions`,
+        { termsAndConditionsId: termsAndConditions.id },
+        config
+      )
+      dispatch({ type: ACCEPT_TERMS_AND_CONDITIONS, payload: res.data })
+    } catch (error) {
+      dispatch({ type: ERROR, payload: error.response.data.message })
+    }
+  }
 
 export const readLogoBySubdomain = subdomain => async dispatch => {
   setLoading()(dispatch)

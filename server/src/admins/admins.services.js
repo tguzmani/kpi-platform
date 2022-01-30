@@ -37,12 +37,15 @@ function areLogoDimensionsValid(logo) {
 
 async function readProfile(adminId) {
   const profile = await adminsRepository.readProfile(adminId)
+  const termsAndConditions = await adminsRepository.readAdminTermsAndConditions(
+    adminId
+  )
 
   profile.password = undefined
-
   profile.logoAddress = undefined
 
   profile.role = roles.ADMIN
+  profile.termsAndConditions = termsAndConditions
 
   return profile
 }
@@ -56,6 +59,10 @@ async function readLogo(adminId) {
   } catch (error) {
     return await fetchLogo('fallback-logo.png')
   }
+}
+
+async function acceptTermsAndConditions(adminId, termsAndConditionsId) {
+  await adminsRepository.acceptTermsAndConditions(adminId, termsAndConditionsId)
 }
 
 async function readLogoBySubdomain(subdomain) {
@@ -90,4 +97,5 @@ module.exports = {
   readLogo,
   updateLogo,
   readLogoBySubdomain,
+  acceptTermsAndConditions,
 }

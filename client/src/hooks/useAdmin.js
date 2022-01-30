@@ -8,13 +8,14 @@ const useAdmin = () => {
   const dispatch = useDispatch()
   const location = useLocation()
 
-  const { user, isAuthenticated } = useSelector(state => state.auth)
+  const { user, isAuthenticated, loading } = useSelector(state => state.auth)
 
-  const isAuth = user && isAuthenticated && user.role === roles.ADMIN
+  const isAuth =
+    (user && isAuthenticated && user.role === roles.ADMIN) || loading
 
-  useEffect(() => {
-    if (user) dispatch(readProfile(user.role))
-  }, [dispatch, location])
+  // useEffect(() => {
+  //   if (user) dispatch(readProfile(user.role))
+  // }, [dispatch, location])
 
   return isAuth
 }

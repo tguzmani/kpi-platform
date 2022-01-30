@@ -9,9 +9,8 @@ import {
   Card,
   CardActions,
   CardContent,
-  TextField,
+  Stack,
   Typography,
-  Box,
   Tabs,
   Tab,
 } from '@mui/material'
@@ -20,7 +19,9 @@ import AppBar from './../components/layout/AppBar'
 import Alerts from './../components/layout/Alerts'
 import roles from './../constants/roles'
 
-import { signIn } from './../state/auth/authActions'
+import { signIn, setLoading } from './../state/auth/authActions'
+import FormField from './../components/layout/FormField'
+import LoadingButton from '@mui/lab/LoadingButton'
 
 const initialCredentials = {
   name: '',
@@ -41,7 +42,7 @@ const LoginPage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { user, isAuthenticated } = useSelector(state => state.auth)
+  const { user, isAuthenticated, loading } = useSelector(state => state.auth)
 
   const [credentials, bindField, areFieldsEmpty, setCredentials] = useForm({})
 
@@ -62,7 +63,11 @@ const LoginPage = () => {
   }
 
   useEffect(() => {
-    if (isAuthenticated)
+    dispatch(setLoading(false))
+  }, [])
+
+  useEffect(() => {
+    if (isAuthenticated && !loading)
       userType === roles.ADMIN
         ? navigate('/admins/reports/groups')
         : navigate('/')
@@ -90,29 +95,33 @@ const LoginPage = () => {
               <Typography variant='h5' mb={2} mt={5} align='center'>
                 Iniciar sesión
               </Typography>
-              <TextField
-                fullWidth
-                label='Usuario'
-                margin='normal'
-                {...bindField('name')}
-              />
-              <TextField
-                fullWidth
-                label='Contraseña'
-                margin='normal'
-                {...bindField('password')}
-              />
+
+              <Grid container alignItems='center' component='form'>
+                <FormField label='Usuario '>
+                  <FormField.TextField {...bindField('name')} />
+                </FormField>
+
+                <FormField label='Contraseña '>
+                  <FormField.TextField
+                    type='password'
+                    autoComplete='on'
+                    {...bindField('name')}
+                  />
+                </FormField>
+              </Grid>
             </CardContent>
 
             <CardActions>
-              <Button
-                disabled={areFieldsEmpty}
-                fullWidth
-                variant='contained'
-                onClick={handleLogin}
-              >
-                Ingresar
-              </Button>
+              <Grid justifyContent='center' container>
+                <LoadingButton
+                  disabled={areFieldsEmpty}
+                  variant='contained'
+                  onClick={handleLogin}
+                  loading={loading}
+                >
+                  Ingresar
+                </LoadingButton>
+              </Grid>
             </CardActions>
           </Card>
         </Grid>

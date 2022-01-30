@@ -5,6 +5,7 @@ import {
   READ_LOGO,
   UPDATE_LOGO,
   READ_LOGO_BY_SUBDOMAIN,
+  ACCEPT_TERMS_AND_CONDITIONS,
 } from './adminsTypes'
 
 const initialState = {
@@ -17,13 +18,21 @@ const initialState = {
 const adminReducer = (state = initialState, action) => {
   switch (action.type) {
     case READ_LOGO:
-      return { ...state, userLogo: action.payload }
+      return { ...state, userLogo: action.payload, loading: false }
 
     case READ_LOGO_BY_SUBDOMAIN:
-      return { ...state, appBarLogo: action.payload }
+      return { ...state, appBarLogo: action.payload, loading: false }
+
+    case ACCEPT_TERMS_AND_CONDITIONS:
+      return { ...state, loading: false }
 
     case UPDATE_LOGO:
-      return { ...state, userLogo: action.payload, appBarLogo: action.payload }
+      return {
+        ...state,
+        userLogo: action.payload,
+        appBarLogo: action.payload,
+        loading: false,
+      }
 
     case CLEAR_MESSAGE:
       return { ...state, message: null }

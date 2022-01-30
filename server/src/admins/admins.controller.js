@@ -6,7 +6,7 @@ async function readProfile(req, res) {
 
     res.send(profile)
   } catch (error) {
-    return res.status(400).send(error.stack)
+    return res.status(400).send(error)
   }
 }
 
@@ -16,7 +16,22 @@ async function readLogo(req, res) {
 
     res.send(logo)
   } catch (error) {
-    return res.status(400).send(error.stack)
+    return res.status(400).send(error)
+  }
+}
+
+async function acceptTermsAndConditions(req, res) {
+  try {
+    await adminService.acceptTermsAndConditions(
+      req.userId,
+      req.body.termsAndConditionsId
+    )
+
+    const profile = await adminService.readProfile(req.userId)
+
+    res.send(profile)
+  } catch (error) {
+    return res.status(400).send(error)
   }
 }
 
@@ -30,7 +45,7 @@ async function updateLogo(req, res) {
 
     res.send({ message: 'Logo actualizado con éxito', logo })
   } catch (error) {
-    return res.status(400).send(error.stack)
+    return res.status(400).send(error)
   }
 }
 
@@ -40,8 +55,14 @@ async function readLogoBySubdomain(req, res) {
 
     res.send(logo)
   } catch (error) {
-    return res.status(400).send(error.message)
+    return res.status(400).send(error)
   }
 }
 
-module.exports = { readProfile, readLogo, updateLogo, readLogoBySubdomain }
+module.exports = {
+  readProfile,
+  readLogo,
+  updateLogo,
+  readLogoBySubdomain,
+  acceptTermsAndConditions,
+}

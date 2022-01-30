@@ -22,6 +22,8 @@ import CreateReport from './components/reports/CreateReport'
 import UserReportsPage from './pages/UserReportsPage'
 import { useDispatch } from 'react-redux'
 import { readLogoBySubdomain } from './state/admins/adminsActions'
+import { readTermsAndConditions } from './state/termsAndConditions/termsAndConditionsActions'
+import TermsAndConditions from './components/termsAndConditions/TermsAndConditionsPage'
 
 const adminsRoutes = [
   {
@@ -73,6 +75,7 @@ const Router = () => {
 
   React.useEffect(() => {
     dispatch(readLogoBySubdomain(subdomain))
+    dispatch(readTermsAndConditions())
     console.log('called readLogoBySubdomain')
   }, [])
 
@@ -101,6 +104,8 @@ const Router = () => {
             </PrivateRoute>
           }
         />
+
+        <Route path='/termsAndConditions' element={<TermsAndConditions />} />
 
         <Route path='*' element={<NotFoundPage />} />
       </Routes>

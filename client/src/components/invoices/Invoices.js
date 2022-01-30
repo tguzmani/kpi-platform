@@ -32,7 +32,8 @@ const Invoices = () => {
     { xs: 1, header: '' },
   ]
 
-  if (loading && invoices.length === 0) return <Loading />
+  if (loading && invoices.length === 0)
+    return <Loading number={4} height={60} />
 
   return (
     <List>

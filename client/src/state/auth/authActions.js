@@ -18,9 +18,11 @@ export const handleError = (dispatch, error) => {
   }, 3000)
 }
 
-export const setLoading = () => dispatch => {
-  return dispatch({ type: LOADING })
-}
+export const setLoading =
+  (loading = true) =>
+  dispatch => {
+    return dispatch({ type: LOADING, payload: loading })
+  }
 
 export const signIn = (userType, credentials) => async dispatch => {
   setLoading()(dispatch)

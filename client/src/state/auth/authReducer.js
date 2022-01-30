@@ -21,7 +21,7 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOADING:
-      return { ...state, loading: true }
+      return { ...state, loading: action.payload }
 
     case SIGN_IN:
       return {
@@ -47,7 +47,6 @@ const authReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         message: { id: uuidv4(), message: action.payload, severity: 'error' },
-        isAuthenticated: false,
       }
 
     case SIGN_OUT:

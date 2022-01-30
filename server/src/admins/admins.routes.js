@@ -11,6 +11,12 @@ router.get('/profile', [hasToken, isAdmin], adminsController.readProfile)
 
 router.get('/logo', [hasToken, isAdmin], adminsController.readLogo)
 
+router.post(
+  '/termsAndConditions',
+  [hasToken, isAdmin],
+  adminsController.acceptTermsAndConditions
+)
+
 router.put(
   '/logo',
   [hasToken, isAdmin, handleImageUpload],

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { signOut } from '../../state/auth/authActions'
 
@@ -30,10 +30,6 @@ const ApplicationBar = () => {
   return (
     <AppBar position='sticky' color='light'>
       <Toolbar>
-        {/* <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-          KPI Managers
-        </Typography> */}
-
         <Box sx={{ flexGrow: 1 }}>
           <Image
             src={appBarLogo}
