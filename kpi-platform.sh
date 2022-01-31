@@ -25,7 +25,7 @@ case $1 in
     ;;
 
   stop)
-    screen -X -S server quit
+    killall -9 node
     ;;
 
   show)
