@@ -66,8 +66,6 @@ const CreateReport = () => {
     sectionsIds: [7, 10, 8],
   }
 
-  console.log('thisReportsGroup', thisReportsGroup)
-
   const { workspaces } = useSelector(state => state.workspaces)
   const { sections } = useSelector(state => state.sections)
 
