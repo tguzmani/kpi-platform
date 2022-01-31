@@ -19,22 +19,20 @@ const Users = () => {
   ]
 
   return (
-    <Paper className='container'>
-      <List>
-        <Grid container alignItems='center' justifyContent='center' mb={3}>
-          {headers.map(header => (
-            <Grid item xs={header.xs}>
-              <Typography sx={{ fontWeight: 'bold' }} variant='body1'>
-                {header.header}
-              </Typography>
-            </Grid>
-          ))}
-        </Grid>
-        {users.map(user => (
-          <UsersItem user={user} key={user.id} />
+    <List>
+      <Grid container alignItems='center' justifyContent='center' mb={3}>
+        {headers.map(header => (
+          <Grid item xs={header.xs}>
+            <Typography sx={{ fontWeight: 'bold' }} variant='body1'>
+              {header.header}
+            </Typography>
+          </Grid>
         ))}
-      </List>
-    </Paper>
+      </Grid>
+      {users.map(user => (
+        <UsersItem user={user} key={user.id} />
+      ))}
+    </List>
   )
 }
 
