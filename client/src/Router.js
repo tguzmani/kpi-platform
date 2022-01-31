@@ -16,8 +16,7 @@ import NotFoundPage from './pages/NotFoundPage'
 // Page like Components
 import CreateUser from './components/users/CreateUser'
 import UpdateUser from './components/users/UpdateUser'
-import CreateReport from './components/reports/CreateReport'
-import UpdateReportsGroup from './components/reports/UpdateReportsGroup'
+import ManageReportsGroup from './components/reports/ManageReportsGroup'
 
 // User pages
 import UserReportsPage from './pages/UserReportsPage'
@@ -49,11 +48,11 @@ const adminsRoutes = [
   },
   {
     path: '/reports/create',
-    element: CreateReport,
+    element: ManageReportsGroup,
   },
   {
     path: '/reports/update/:reportsGroupId',
-    element: UpdateReportsGroup,
+    element: ManageReportsGroup,
   },
   {
     path: '/account',

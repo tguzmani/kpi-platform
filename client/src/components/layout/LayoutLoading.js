@@ -7,24 +7,22 @@ import useResponsive from '../../hooks/useResponsive'
 import { List, Card, CardContent, Paper } from '@mui/material'
 
 const LayoutLoading = () => {
-  const matchesLg = useResponsive('lg')
+  const matchMd = useResponsive('md')
 
   return (
     <>
       <AppBar />
 
-      <Grid sx={{ mx: 1, my: 1 }} container spacing={3}>
-        {matchesLg && (
+      <Grid my={5} container>
+        {matchMd && (
           <Grid item lg={2}>
-            <Card>
-              <CardContent>
-                {Array(4)
-                  .fill()
-                  .map(n => (
-                    <Skeleton height={60} />
-                  ))}
-              </CardContent>
-            </Card>
+            <Paper className='navigation'>
+              {Array(4)
+                .fill()
+                .map(n => (
+                  <Skeleton height={60} />
+                ))}
+            </Paper>
           </Grid>
         )}
 

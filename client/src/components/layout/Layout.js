@@ -16,13 +16,13 @@ const Layout = ({ children }) => {
     <>
       <AppBar />
 
-      <Grid sx={{ mx: 1, my: 1 }} container spacing={3}>
+      <Grid my={5} container>
         {isAdmin && userAcceptedTermsAndConditions && (
-          <Grid item xs={12} lg={2}>
+          <Grid item xs={12} md={2}>
             <Navigation />
           </Grid>
         )}
-        <Grid xs={12} lg={isAdmin ? 9 : 12} item>
+        <Grid xs={12} md={isAdmin ? 10 : 12} item>
           {/* <Alerts /> */}
           {children}
         </Grid>

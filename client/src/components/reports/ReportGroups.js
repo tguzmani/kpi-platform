@@ -4,9 +4,10 @@ import Typography from '@mui/material/Typography'
 import Grid from '@mui/material/Grid'
 
 import ReportGroupsItem from './ReportGroupsItem'
+import useResponsive from './../../hooks/useResponsive'
 
 const ReportsGroups = ({ reportsGroups }) => {
-  const headers = [
+  const headersMd = [
     { xs: 4, header: 'Código' },
     { xs: 4, header: 'Nombre' },
     { xs: 2, header: 'Secciones' },
@@ -14,11 +15,20 @@ const ReportsGroups = ({ reportsGroups }) => {
     { xs: 1, header: 'Acciones' },
   ]
 
+  const headersXs = [
+    { xs: 9, header: 'Nombre' },
+    { xs: 3, header: 'Acciones' },
+  ]
+
+  const matchMd = useResponsive('md')
+
+  const headers = matchMd ? headersMd : headersXs
+
   return (
     <List>
       <Grid container alignItems='center' justifyContent='center' mb={3}>
         {headers.map(header => (
-          <Grid item key={header.header} xs={header.xs}>
+          <Grid key={header} item key={header.header} xs={header.xs}>
             <Typography sx={{ fontWeight: 'bold' }} variant='body1'>
               {header.header}
             </Typography>

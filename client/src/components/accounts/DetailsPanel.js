@@ -1,6 +1,6 @@
 import React from 'react'
 import AccountPanel from './AccountPanel'
-import { Grid, Typography, Button, Box } from '@mui/material'
+import { Grid, Typography, Button, Box, Paper } from '@mui/material'
 import { useSelector } from 'react-redux'
 import ActiveIndicator from './../layout/ActiveIndicator'
 import KeyIcon from '@mui/icons-material/Key'
@@ -25,14 +25,12 @@ const DetailsPanel = () => {
                 {detail.name}
               </Typography>
             </Grid>
-
             <Grid item xs={6}>
               <Typography variant='body1'>{detail.value}</Typography>
             </Grid>
           </>
         ))}
       </Grid>
-
       <Box textAlign='center'>
         <Button startIcon={<KeyIcon />} variant='contained'>
           Cambiar contraseña

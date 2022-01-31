@@ -3,7 +3,7 @@ import MuiListItemButton from '@mui/material/ListItemButton'
 import React from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 
-const NavItem = ({ to, children }) => {
+const NavItem = ({ to, children, onClick }) => {
   const { pathname } = useLocation()
 
   const isSelected = pathname === to
@@ -25,7 +25,12 @@ const NavItem = ({ to, children }) => {
   }))
 
   return (
-    <ListItemButton selected={isSelected} component={NavLink} to={to}>
+    <ListItemButton
+      onClick={onClick}
+      selected={isSelected}
+      component={NavLink}
+      to={to}
+    >
       {children}
     </ListItemButton>
   )

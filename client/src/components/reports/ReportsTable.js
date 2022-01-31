@@ -1,5 +1,6 @@
 import React from 'react'
 import ReportsTableRow from './ReportsTableRow'
+import useResponsive from './../../hooks/useResponsive'
 
 import {
   TableContainer,
@@ -12,7 +13,13 @@ import {
 } from '@mui/material'
 
 const ReportsTable = ({ reports }) => {
-  const headers = ['Workspace', 'Reporte', 'Sección', 'Activo']
+  const headersMd = ['Workspace', 'Reporte', 'Sección', 'Activo']
+
+  const headersXs = ['Reporte', 'Sección', 'Activo']
+
+  const matchMd = useResponsive('md')
+
+  const headers = matchMd ? headersMd : headersXs
 
   return (
     <TableContainer component={Paper}>

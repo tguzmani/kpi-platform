@@ -2,11 +2,9 @@ import React from 'react'
 
 import useForm from '../../hooks/useForm'
 import useToggle from '../../hooks/useToggle'
-import useReportsByWorkspace from '../../hooks/useReportsByWorkspace'
 import { useSelector, useDispatch } from 'react-redux'
 
 import FormField from '../layout/FormField'
-import PositionedButton from '../layout/PositionedButton'
 
 import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
@@ -17,8 +15,9 @@ import ListItemText from '@mui/material/ListItemText'
 import ListItemButton from '@mui/material/ListItemButton'
 import List from '@mui/material/List'
 import Box from '@mui/material/Box'
-import Alert from '@mui/material/Alert'
-import AlertTitle from '@mui/material/AlertTitle'
+import Button from '@mui/material/Button'
+
+import { useNavigate } from 'react-router-dom'
 
 import _ from 'lodash'
 
@@ -34,8 +33,14 @@ import { readSectionsByAdmin } from '../../state/sections/sectionsActions'
 import { useParams } from 'react-router-dom'
 import ManageReportsGroupTable from './ManageReportsGroupTable'
 
-const ManageReport = () => {
+const ManageReportsGroup = () => {
+  const navigate = useNavigate()
   useRead(readReportGroupsHeadersByAdmin, readReportsByAdmin)
+
+  React.useEffect(() => {
+    dispatch(readWorkspacesByAdmin())
+    dispatch(readSectionsByAdmin())
+  }, [])
 
   const { reportsGroups, reports } = useSelector(state => state.reports)
   const { workspaces } = useSelector(state => state.workspaces)
@@ -50,23 +55,23 @@ const ManageReport = () => {
     report: '',
   }
 
+  let thisReportsGroup = undefined
+
   const { reportsGroupId } = useParams()
 
-  const thisReportsGroup = reportsGroups.find(
-    reportsGroup => reportsGroup.id === parseInt(reportsGroupId)
-  )
+  if (reportsGroupId) {
+    thisReportsGroup = reportsGroups.find(
+      reportsGroup => reportsGroup.id === parseInt(reportsGroupId)
+    )
+  }
 
   const [selectedSections, setSelectedSections] = React.useState(
-    thisReportsGroup.sectionsIds
+    reportsGroupId ? thisReportsGroup.sectionsIds : []
   )
 
-  React.useEffect(() => {
-    dispatch(readWorkspacesByAdmin())
-    dispatch(readSectionsByAdmin())
-  }, [])
-
-  const [reportGroup, bindField, areFieldsEmpty, setFields] =
-    useForm(thisReportsGroup)
+  const [reportGroup, bindField, areFieldsEmpty] = useForm(
+    reportsGroupId ? thisReportsGroup : initialState
+  )
 
   const handleChangeSection = sectionId => e => {
     if (selectedSections.includes(sectionId)) {
@@ -91,18 +96,15 @@ const ManageReport = () => {
     reports.find(report => report.sectionId === section)
   )
 
-  const handleCreateReport = () => {
-    const workspace = workspaces.find(
-      workspace => workspace.groupIdPBI === reportGroup.workspace
-    )
-
+  const handleManageReportsGroup = () => {
     console.log({
       ...reportGroup,
       active,
-      workspace: workspace.id,
+      workspace: reportGroup.workspace,
       sections: selectedSections,
     })
   }
+
   const [active, handleSwitchChange] = useToggle(true)
 
   return (
@@ -181,16 +183,20 @@ const ManageReport = () => {
         onChange={handleChangeSection}
       />
 
-      <PositionedButton
-        onClick={handleCreateReport}
-        variant='contained'
-        justifyContent='flex-end'
-        disabled={areFieldsEmpty || selectedSections.length === 0}
-      >
-        Guardar cambios
-      </PositionedButton>
+      <Grid mt={3} container justifyContent='space-between'>
+        <Button onClick={() => navigate('/admins/reports/groups')}>
+          Cancelar
+        </Button>
+        <Button
+          onClick={handleManageReportsGroup}
+          variant='contained'
+          disabled={areFieldsEmpty || selectedSections.length === 0}
+        >
+          {reportsGroupId ? 'Guardar cambios' : 'Crear grupo de reportes'}
+        </Button>
+      </Grid>
     </Paper>
   )
 }
 
-export default ManageReport
+export default ManageReportsGroup

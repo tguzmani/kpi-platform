@@ -106,7 +106,7 @@ const LoginPage = () => {
                 <FormField.TextField
                   type='password'
                   autoComplete='on'
-                  {...bindField('name')}
+                  {...bindField('password')}
                 />
               </FormField>
             </Grid>

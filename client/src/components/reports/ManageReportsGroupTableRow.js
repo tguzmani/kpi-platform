@@ -4,11 +4,14 @@ import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
 import IconButton from '@mui/material/IconButton'
 import HighlightOffIcon from '@mui/icons-material/HighlightOff'
+import useResponsive from './../../hooks/useResponsive'
 
 const ManageReportsGroupTableRow = ({ report, onChange }) => {
+  const matchMd = useResponsive('md')
+
   return (
     <TableRow>
-      <TableCell align='center'>{report.workspaceName}</TableCell>
+      {matchMd && <TableCell align='center'>{report.workspaceName}</TableCell>}
       <TableCell align='center'>{report.name}</TableCell>
       <TableCell align='center'>{report.section}</TableCell>
       <TableCell align='center'>

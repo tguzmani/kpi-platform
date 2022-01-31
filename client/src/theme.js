@@ -35,7 +35,18 @@ const theme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          '&.container': { padding: '3em', borderRadius },
+          '&.container': {
+            [muiTheme.breakpoints.up('md')]: {
+              padding: '3em',
+              borderRadius,
+              margin: '0 1.25rem',
+            },
+            [muiTheme.breakpoints.down('md')]: {
+              padding: '1.5em',
+              borderRadius,
+              margin: '0 1.25rem',
+            },
+          },
           '&.login': {
             padding: '3em',
             borderTopRightRadius: borderRadius,
@@ -43,7 +54,19 @@ const theme = createTheme({
             borderBottomLeftRadius: borderRadius,
             marginLeft: '0.15rem',
           },
-          '&.navigation': { padding: '20px', borderRadius },
+          '&.navigation': {
+            padding: '20px',
+            borderRadius,
+            margin: '0 1.25rem 1.25rem',
+          },
+          '&.navigation-mobile': {
+            borderRadius,
+            margin: '0 1.25rem 0.75rem',
+          },
+          '&.thin': {
+            borderRadius,
+            margin: '0 1.25rem 0.75rem',
+          },
         },
       },
     },

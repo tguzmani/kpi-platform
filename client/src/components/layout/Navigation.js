@@ -1,6 +1,16 @@
-import { List, Paper, CardContent, Typography } from '@mui/material'
+import {
+  List,
+  Paper,
+  Collapse,
+  Typography,
+  IconButton,
+  Grid,
+  Box,
+} from '@mui/material'
 import React from 'react'
 import NavItem from './NavItem'
+import useResponsive from './../../hooks/useResponsive'
+import MenuIcon from '@mui/icons-material/Menu'
 
 const Navigation = () => {
   const links = [
@@ -10,16 +20,52 @@ const Navigation = () => {
     { name: 'Cuenta', to: '/admins/account' },
   ]
 
+  const [open, setOpen] = React.useState(false)
+
+  const navigationItems = (
+    <List>
+      {links.map(link => (
+        <NavItem key={link.to} to={link.to} onClick={() => setOpen(false)}>
+          <Typography variant='body1'>{link.name}</Typography>
+        </NavItem>
+      ))}
+    </List>
+  )
+
+  const matchLg = useResponsive('md')
+
   return (
-    <Paper className='navigation'>
-      <List>
-        {links.map(link => (
-          <NavItem key={link.to} to={link.to}>
-            <Typography variant='body1'>{link.name}</Typography>
-          </NavItem>
-        ))}
-      </List>
-    </Paper>
+    <>
+      {matchLg ? (
+        <Paper className='navigation'>{navigationItems}</Paper>
+      ) : (
+        <>
+          <Paper className='navigation-mobile'>
+            <Grid container alignItems='center' justifyContent='space-between'>
+              <Grid item xs={10}>
+                <Typography align='center' variant='body2'>
+                  Navegación
+                </Typography>
+              </Grid>
+              <Grid item xs={2}>
+                <IconButton onClick={() => setOpen(!open)}>
+                  <MenuIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
+            <Collapse in={open} timeout='auto' unmountOnExit>
+              <Box
+                sx={{
+                  padding: '20px',
+                }}
+              >
+                {navigationItems}
+              </Box>
+            </Collapse>
+          </Paper>
+        </>
+      )}
+    </>
   )
 }
 

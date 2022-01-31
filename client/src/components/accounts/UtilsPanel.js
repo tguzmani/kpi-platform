@@ -17,9 +17,15 @@ const UtilsPanel = () => {
   }
 
   return (
-    <Paper sx={{ width: '100%' }}>
+    <Paper className='thin'>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange}>
+        <Tabs
+          scrollButton
+          variant='scrollable'
+          allowScrollButtonsMobile
+          value={value}
+          onChange={handleChange}
+        >
           <Tab label='Contrato' />
           <Tab label='Historial Facturación' />
           <Tab label='Reportes' />

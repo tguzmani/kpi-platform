@@ -14,6 +14,7 @@ import { readWorkspacesByAdmin } from './../../state/workspaces/workspacesAction
 import useReportsByWorkspace from './../../hooks/useReportsByWorkspace'
 import { getReportData } from './../../state/powerbi/powerbiActions'
 import Report from './Report'
+import Loading from './../layout/Loading'
 
 const ReportPicker = () => {
   const dispatch = useDispatch()
@@ -36,7 +37,20 @@ const ReportPicker = () => {
 
   const reports = useReportsByWorkspace(dropdowns.workspace)
 
-  if (loading || !workspaces) return <div>Cargando...</div>
+  if (loading || !workspaces)
+    return (
+      <Grid container spacing={4}>
+        <Grid item xs={12} md={4}>
+          <Loading height={80} />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Loading height={80} />
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Loading height={80} />
+        </Grid>
+      </Grid>
+    )
 
   const sections = [{ id: uuidv4, name: 'Página 1' }]
 

@@ -10,9 +10,12 @@ import Table from '@mui/material/Table'
 import TableCell from '@mui/material/TableCell'
 import TableBody from '@mui/material/TableBody'
 import ManageReportsGroupTableRow from './ManageReportsGroupTableRow'
+import useResponsive from './../../hooks/useResponsive'
 
 const ManageReportsGroupTable = ({ reports, onChange }) => {
   const headers = ['Workspace', 'Reporte', 'Sección', 'Quitar']
+
+  const matchMd = useResponsive('md')
 
   return (
     <Box mt={3}>
@@ -30,15 +33,13 @@ const ManageReportsGroupTable = ({ reports, onChange }) => {
             <Table size='small'>
               <TableHead>
                 <TableRow sx={{ fontWeight: 'bold' }}>
-                  {headers.map(header => (
-                    <TableCell
-                      key={header}
-                      sx={{ fontWeight: 'bold' }}
-                      align={header !== 'Nombre' ? 'center' : ''}
-                    >
-                      {header}
-                    </TableCell>
-                  ))}
+                  {headers.map(
+                    header =>
+                      !matchMd &&
+                      headers.indexOf(header) !== 0 && (
+                        <TableCell key={header}>{header}</TableCell>
+                      )
+                  )}
                 </TableRow>
               </TableHead>
 

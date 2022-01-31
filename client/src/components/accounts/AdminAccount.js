@@ -7,12 +7,12 @@ import UtilsPanel from './UtilsPanel'
 const AdminAccount = () => {
   return (
     <>
-      <Grid container spacing={3}>
-        <Grid xs={4} item>
+      <Grid container>
+        <Grid xs={12} md={4} item>
           <DetailsPanel />
         </Grid>
 
-        <Grid xs={4} item>
+        <Grid xs={12} md={4} item>
           <LogoPanel />
         </Grid>
       </Grid>
