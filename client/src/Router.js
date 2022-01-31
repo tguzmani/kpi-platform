@@ -17,6 +17,7 @@ import NotFoundPage from './pages/NotFoundPage'
 import CreateUser from './components/users/CreateUser'
 import UpdateUser from './components/users/UpdateUser'
 import CreateReport from './components/reports/CreateReport'
+import UpdateReportsGroup from './components/reports/UpdateReportsGroup'
 
 // User pages
 import UserReportsPage from './pages/UserReportsPage'
@@ -52,7 +53,7 @@ const adminsRoutes = [
   },
   {
     path: '/reports/update/:reportsGroupId',
-    element: CreateReport,
+    element: UpdateReportsGroup,
   },
   {
     path: '/account',
@@ -71,12 +72,9 @@ const Router = () => {
     subdomain = subdomain.split('.')[0]
   }
 
-  console.log('subdomain', subdomain)
-
   React.useEffect(() => {
     dispatch(readLogoBySubdomain(subdomain))
     dispatch(readTermsAndConditions())
-    console.log('called readLogoBySubdomain')
   }, [])
 
   return (

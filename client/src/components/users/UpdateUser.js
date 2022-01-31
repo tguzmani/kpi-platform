@@ -28,8 +28,6 @@ const UpdateUser = () => {
 
   const thisUser = users.find(user => user.id === parseInt(userId))
 
-  console.log(thisUser)
-
   const [user, bindField, areFieldsEmpty] = useForm({
     username: thisUser?.username || '',
     name: thisUser?.name || '',

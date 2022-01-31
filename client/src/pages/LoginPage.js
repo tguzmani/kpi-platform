@@ -3,17 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import useForm from '../hooks/useForm'
 
-import {
-  Grid,
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Stack,
-  Typography,
-  Tabs,
-  Tab,
-} from '@mui/material'
+import { Grid, Paper, Tabs, styled } from '@mui/material'
+
+import MuiTab from '@mui/material/Tab'
 
 import AppBar from './../components/layout/AppBar'
 import Alerts from './../components/layout/Alerts'
@@ -37,6 +29,19 @@ const testUser = {
   name: 'TestUser',
   password: 'testuser',
 }
+
+const Tab = styled(MuiTab)(({ theme }) => ({
+  marginTop: '0.75rem',
+  marginLeft: '0.15rem',
+  borderBottom: 'none',
+
+  '&.Mui-selected': {
+    backgroundColor: 'white',
+    borderTopLeftRadius: '0.75rem',
+    borderTopRightRadius: '0.75rem',
+    boxShadow: theme.shadows[1],
+  },
+}))
 
 const LoginPage = () => {
   const dispatch = useDispatch()
@@ -84,46 +89,39 @@ const LoginPage = () => {
     <>
       <AppBar />
       <Alerts />
+
       <Grid justifyContent='center' alignItems='center' container mt={4}>
         <Grid item xs={12} md={5} lg={4} p={2}>
-          <Card>
-            <CardContent>
-              <Tabs value={userType} onChange={handleTabChange}>
-                <Tab value={roles.USER} label='Usuarios' />
-                <Tab value={roles.ADMIN} label='Administradores' />
-              </Tabs>
-              <Typography variant='h5' mb={2} mt={5} align='center'>
-                Iniciar sesión
-              </Typography>
+          <Tabs value={userType} onChange={handleTabChange} indicatorColor={''}>
+            <Tab value={roles.USER} label='Usuarios' />
+            <Tab value={roles.ADMIN} label='Administradores' />
+          </Tabs>
+          <Paper sx={{ borderTopLeftRadius: 0 }} className='login'>
+            <Grid container alignItems='center' component='form'>
+              <FormField label='Usuario '>
+                <FormField.TextField {...bindField('name')} />
+              </FormField>
 
-              <Grid container alignItems='center' component='form'>
-                <FormField label='Usuario '>
-                  <FormField.TextField {...bindField('name')} />
-                </FormField>
+              <FormField label='Contraseña '>
+                <FormField.TextField
+                  type='password'
+                  autoComplete='on'
+                  {...bindField('name')}
+                />
+              </FormField>
+            </Grid>
 
-                <FormField label='Contraseña '>
-                  <FormField.TextField
-                    type='password'
-                    autoComplete='on'
-                    {...bindField('name')}
-                  />
-                </FormField>
-              </Grid>
-            </CardContent>
-
-            <CardActions>
-              <Grid justifyContent='center' container>
-                <LoadingButton
-                  disabled={areFieldsEmpty}
-                  variant='contained'
-                  onClick={handleLogin}
-                  loading={loading}
-                >
-                  Ingresar
-                </LoadingButton>
-              </Grid>
-            </CardActions>
-          </Card>
+            <Grid mt={4} justifyContent='center' container>
+              <LoadingButton
+                disabled={areFieldsEmpty}
+                variant='contained'
+                onClick={handleLogin}
+                loading={loading}
+              >
+                Ingresar
+              </LoadingButton>
+            </Grid>
+          </Paper>
         </Grid>
       </Grid>
     </>

@@ -36,7 +36,6 @@ const LoginPage = () => {
   const [userType, setUserType] = useState('admin')
 
   const handleLoginAdmin = () => {
-    console.log('admin login', credentials)
     dispatch(signIn(credentials))
   }
 
@@ -61,7 +60,6 @@ const LoginPage = () => {
 
     if (isAuthenticated) {
       navigateToHome()
-      console.log(1)
     }
   }, [isAuthenticated, navigate])
 

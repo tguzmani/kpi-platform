@@ -1,4 +1,4 @@
-import { List, Card, CardContent, Typography } from '@mui/material'
+import { List, Paper, CardContent, Typography } from '@mui/material'
 import React from 'react'
 import NavItem from './NavItem'
 
@@ -11,17 +11,15 @@ const Navigation = () => {
   ]
 
   return (
-    <Card>
-      <CardContent>
-        <List>
-          {links.map(link => (
-            <NavItem key={link.to} to={link.to}>
-              <Typography variant='body1'>{link.name}</Typography>
-            </NavItem>
-          ))}
-        </List>
-      </CardContent>
-    </Card>
+    <Paper className='navigation'>
+      <List>
+        {links.map(link => (
+          <NavItem key={link.to} to={link.to}>
+            <Typography variant='body1'>{link.name}</Typography>
+          </NavItem>
+        ))}
+      </List>
+    </Paper>
   )
 }
 

@@ -3,6 +3,7 @@ import { orange, grey } from '@mui/material/colors'
 
 const white = 'white'
 const fontSize = '0.875rem'
+const borderRadius = '0.75rem'
 const palette = {
   light: { main: white, contrastText: '#000' },
   secondary: { main: orange[500], dark: orange[700] },
@@ -34,7 +35,23 @@ const theme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          '&.container': { padding: '3em' },
+          '&.container': { padding: '3em', borderRadius },
+          '&.login': {
+            padding: '3em',
+            borderTopRightRadius: borderRadius,
+            borderBottomRightRadius: borderRadius,
+            borderBottomLeftRadius: borderRadius,
+            marginLeft: '0.15rem',
+          },
+          '&.navigation': { padding: '20px', borderRadius },
+        },
+      },
+    },
+
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius,
         },
       },
     },

@@ -2,7 +2,6 @@ import {
   ERROR,
   LOADING,
   READ_PROFILE,
-  READ_LOGO,
   SIGN_IN,
   CLEAR_MESSAGE,
   SIGN_OUT,
@@ -34,7 +33,6 @@ export const signIn = (userType, credentials) => async dispatch => {
     })
     dispatch({ type: SIGN_IN, payload: res.data })
   } catch (error) {
-    console.log(error.response.data.message)
     dispatch({ type: ERROR, payload: error.response.data.message })
   }
 }

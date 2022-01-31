@@ -68,14 +68,11 @@ const Contract = () => {
       identificationDocument.countryId === contractFields.countryId
   )
 
-  console.log('identificationDocuments', identificationDocuments)
-
   const handleUpdateContract = () => {
     dispatch(
       updateContract({ ...contractFields, contractName: contractFields.name })
     )
 
-    console.log(feedback)
     activateFeedback()
   }
 

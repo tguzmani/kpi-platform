@@ -26,7 +26,7 @@ const ReportsGroups = ({ reportsGroups }) => {
         ))}
       </Grid>
       {reportsGroups.map(reportsGroup => (
-        <ReportGroupsItem reportsGroup={reportsGroup} />
+        <ReportGroupsItem key={reportsGroup.id} reportsGroup={reportsGroup} />
       ))}
     </List>
   )

@@ -1,23 +1,58 @@
 exports.READ_REPORT_GROUPS_HEADERS_BY_ADMIN = `
-select gh.id, code, gh.name, count(code) as sections, gh.active
+select groupsHeader.id,
+       code,
+       groupsHeader.name,
+       count(code)  as sections,
+       groupsHeader.active,
+       workspace.id as workspace
 
-from pbi_reports_groups_headers gh, adm_accounts a, pbi_reports_groups_body gb
-where a.id = gh.id_adm_accounts and gh.id = gb.id_pbi_reports_groups_headers
-and a.id = ?
+from pbi_reports_groups_headers groupsHeader,
+     adm_accounts admin,
+     pbi_reports_groups_body groupsBody,
+     pbi_workspaces_reports_sections reportSection,
+     pbi_workspaces_reports workspacesReport,
+     pbi_workspaces workspace
 
-group by code, gh.id;
+where admin.id = groupsHeader.id_adm_accounts
+  and groupsHeader.id = groupsBody.id_pbi_reports_groups_headers
+  and reportSection.id = groupsBody.id_pbi_workspaces_reports_sections
+  and reportSection.id_pbi_workspaces_reports = workspacesReport.id
+  and workspacesReport.id_pbi_workspaces = workspace.id
+
+  and admin.id = ?
+
+group by code, groupsHeader.id, workspace.id;
+
 `
 
 exports.READ_REPORTS_BY_ADMIN = `
-select wr.id, gb.id as reportGroupBodyId, gh.id as reportGroupId, code, w.name as workspace, w.id_pbi as groupIdPBI, wr.name as name, wr.id_pbi as reportIdPBI, rs.name as section, wr.active
-from pbi_reports_groups_headers gh, adm_accounts a,
-     pbi_reports_groups_body gb, pbi_workspaces_reports_sections rs,
-     pbi_workspaces_reports wr, pbi_workspaces w
-where a.id = gh.id_adm_accounts and gh.id = gb.id_pbi_reports_groups_headers
-  and rs.id = gb.id_pbi_workspaces_reports_sections and wr.id = rs.id_pbi_workspaces_reports
+select wr.id,
+       gb.id     as reportGroupBodyId,
+       gh.id     as reportGroupId,
+       code,
+       w.name    as workspaceName,
+       w.id      as workspaceId,
+       w.id_pbi  as groupIdPBI,
+       wr.name   as name,
+       wr.id_pbi as reportIdPBI,
+       rs.id     as sectionId,
+       rs.name   as section,
+       wr.active
+from pbi_reports_groups_headers gh,
+     adm_accounts a,
+     pbi_reports_groups_body gb,
+     pbi_workspaces_reports_sections rs,
+     pbi_workspaces_reports wr,
+     pbi_workspaces w
+where a.id = gh.id_adm_accounts
+  and gh.id = gb.id_pbi_reports_groups_headers
+  and rs.id = gb.id_pbi_workspaces_reports_sections
+  and wr.id = rs.id_pbi_workspaces_reports
   and w.id = wr.id_pbi_workspaces
 
-and a.id = ? and wr.active = 1;
+  and a.id = ?
+  and wr.active = 1;
+
 `
 
 exports.READ_ACCOUNT_REPORTS_BY_ADMIN = `

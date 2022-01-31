@@ -26,8 +26,6 @@ const InvoiceDetail = ({ invoice }) => {
       .map(invoiceDetail => invoiceDetail.totalValue)
       .reduce((acc, value) => acc + value, 0)
 
-  console.log('invoiceTotal', invoiceTotal())
-
   const headers = ['Item', 'Valor Un.', 'Cantidad', 'Valor Total']
 
   return (

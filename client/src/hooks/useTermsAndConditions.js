@@ -7,9 +7,6 @@ const useTermsAndConditions = () => {
   const { user } = useSelector(state => state.auth)
   const { termsAndConditions } = useSelector(state => state.termsAndConditions)
 
-  console.log('user', user)
-  console.log('termsAndConditions', termsAndConditions)
-
   useEffect(() => {
     if (!termsAndConditions) dispatch(readTermsAndConditions())
   }, [])

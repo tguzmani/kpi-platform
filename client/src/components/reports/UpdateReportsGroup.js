@@ -1,12 +1,12 @@
 import React from 'react'
 
-import useForm from './../../hooks/useForm'
-import useToggle from './../../hooks/useToggle'
-import useReportsByWorkspace from './../../hooks/useReportsByWorkspace'
+import useForm from '../../hooks/useForm'
+import useToggle from '../../hooks/useToggle'
+import useReportsByWorkspace from '../../hooks/useReportsByWorkspace'
 import { useSelector, useDispatch } from 'react-redux'
 
-import FormField from './../layout/FormField'
-import PositionedButton from './../layout/PositionedButton'
+import FormField from '../layout/FormField'
+import PositionedButton from '../layout/PositionedButton'
 
 import Typography from '@mui/material/Typography'
 import Paper from '@mui/material/Paper'
@@ -20,6 +20,8 @@ import Box from '@mui/material/Box'
 import Alert from '@mui/material/Alert'
 import AlertTitle from '@mui/material/AlertTitle'
 
+import _ from 'lodash'
+
 import {
   readReportGroupsHeadersByAdmin,
   readReportsByAdmin,
@@ -27,14 +29,17 @@ import {
 
 import useRead from '../../hooks/useRead'
 
-import { readWorkspacesByAdmin } from './../../state/workspaces/workspacesActions'
+import { readWorkspacesByAdmin } from '../../state/workspaces/workspacesActions'
 import { readSectionsByAdmin } from '../../state/sections/sectionsActions'
 import { useParams } from 'react-router-dom'
+import ManageReportsGroupTable from './ManageReportsGroupTable'
 
-const CreateReport = () => {
+const ManageReport = () => {
   useRead(readReportGroupsHeadersByAdmin, readReportsByAdmin)
 
   const { reportsGroups, reports } = useSelector(state => state.reports)
+  const { workspaces } = useSelector(state => state.workspaces)
+  const { sections } = useSelector(state => state.sections)
 
   const dispatch = useDispatch()
 
@@ -45,42 +50,23 @@ const CreateReport = () => {
     report: '',
   }
 
-  let thisReportsGroup = undefined
-
   const { reportsGroupId } = useParams()
 
-  // if (reportsGroupId) {
-  //   thisReportsGroup = reportsGroups.find(
-  //     reportsGroup => reportsGroup.id === parseInt(reportsGroupId)
-  //   )
-  // }
+  const thisReportsGroup = reportsGroups.find(
+    reportsGroup => reportsGroup.id === parseInt(reportsGroupId)
+  )
 
-  thisReportsGroup = {
-    id: 2,
-    code: 'RP03',
-    name: 'Grupo Prueba',
-    sections: 3,
-    active: 1,
-    workspace: 4,
-    report: '',
-    sectionsIds: [7, 10, 8],
-  }
-
-  console.log('thisReportsGroup', thisReportsGroup)
-
-  const { workspaces } = useSelector(state => state.workspaces)
-  const { sections } = useSelector(state => state.sections)
-
-  const [selectedSections, setSelectedSections] = React.useState([])
+  const [selectedSections, setSelectedSections] = React.useState(
+    thisReportsGroup.sectionsIds
+  )
 
   React.useEffect(() => {
     dispatch(readWorkspacesByAdmin())
     dispatch(readSectionsByAdmin())
   }, [])
 
-  const [reportGroup, bindField, areFieldsEmpty, setFields] = useForm(
-    reportsGroupId ? thisReportsGroup : initialState
-  )
+  const [reportGroup, bindField, areFieldsEmpty, setFields] =
+    useForm(thisReportsGroup)
 
   const handleChangeSection = sectionId => e => {
     if (selectedSections.includes(sectionId)) {
@@ -92,9 +78,17 @@ const CreateReport = () => {
     }
   }
 
-  const thisWorkspaceReports = useReportsByWorkspace(reportGroup.workspace)
+  const thisWorkspaceReports = _.uniqBy(
+    reports.filter(report => (report.workspace = reportGroup.workspace)),
+    'name'
+  )
+
   const thisReportSections = sections.filter(
     section => section.reportId === reportGroup.report
+  )
+
+  const selectedSectionsReports = selectedSections.map(section =>
+    reports.find(report => report.sectionId === section)
   )
 
   const handleCreateReport = () => {
@@ -144,7 +138,7 @@ const CreateReport = () => {
               <FormField.Select
                 {...bindField('workspace')}
                 options={workspaces}
-                optionValue='groupIdPBI'
+                optionValue='id'
                 display='name'
               />
             </FormField>
@@ -167,7 +161,6 @@ const CreateReport = () => {
                     <ListItemButton
                       dense
                       key={section.id}
-                      disablePadding
                       onClick={handleChangeSection(section.id)}
                     >
                       <Checkbox
@@ -183,16 +176,21 @@ const CreateReport = () => {
         </Grid>
       </Grid>
 
+      <ManageReportsGroupTable
+        reports={selectedSectionsReports}
+        onChange={handleChangeSection}
+      />
+
       <PositionedButton
         onClick={handleCreateReport}
         variant='contained'
         justifyContent='flex-end'
         disabled={areFieldsEmpty || selectedSections.length === 0}
       >
-        Agregar nuevo grupo
+        Guardar cambios
       </PositionedButton>
     </Paper>
   )
 }
 
-export default CreateReport
+export default ManageReport

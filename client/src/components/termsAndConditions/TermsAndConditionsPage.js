@@ -40,7 +40,6 @@ const TermsAndConditions = () => {
   }, [])
 
   useCallback(() => {
-    console.log('hooksito')
     if (!userAcceptedTermsAndConditions && !loading)
       navigate('/admins/reports/groups')
   }, [userAcceptedTermsAndConditions, loading, navigate])
