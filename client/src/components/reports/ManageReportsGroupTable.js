@@ -35,9 +35,14 @@ const ManageReportsGroupTable = ({ reports, onChange }) => {
                 <TableRow sx={{ fontWeight: 'bold' }}>
                   {headers.map(
                     header =>
-                      !matchMd &&
-                      headers.indexOf(header) !== 0 && (
-                        <TableCell key={header}>{header}</TableCell>
+                      (matchMd || headers.indexOf(header) !== 0) && (
+                        <TableCell
+                          sx={{ fontWeight: 'bold' }}
+                          align='center'
+                          key={header}
+                        >
+                          {header}
+                        </TableCell>
                       )
                   )}
                 </TableRow>

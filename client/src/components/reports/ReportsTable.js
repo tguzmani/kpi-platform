@@ -30,7 +30,7 @@ const ReportsTable = ({ reports }) => {
               <TableCell
                 key={header}
                 sx={{ fontWeight: 'bold' }}
-                align={header !== 'Nombre' ? 'center' : ''}
+                align='center'
               >
                 {header}
               </TableCell>

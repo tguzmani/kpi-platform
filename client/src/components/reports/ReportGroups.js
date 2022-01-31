@@ -28,7 +28,7 @@ const ReportsGroups = ({ reportsGroups }) => {
     <List>
       <Grid container alignItems='center' justifyContent='center' mb={3}>
         {headers.map(header => (
-          <Grid key={header} item key={header.header} xs={header.xs}>
+          <Grid key={header.header} item xs={header.xs}>
             <Typography sx={{ fontWeight: 'bold' }} variant='body1'>
               {header.header}
             </Typography>
