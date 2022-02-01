@@ -48,7 +48,10 @@ const InvoiceDetail = ({ invoice }) => {
 
           <TableBody>
             {thisInvoiceDetails.map(invoiceDetail => (
-              <InvoiceDetailItem invoiceDetail={invoiceDetail} />
+              <InvoiceDetailItem
+                key={invoiceDetail.id}
+                invoiceDetail={invoiceDetail}
+              />
             ))}
 
             <TableRow>

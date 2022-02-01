@@ -15,16 +15,21 @@ import EditIcon from '@mui/icons-material/Edit'
 import UserReportsTable from './UserReportsTable'
 import ActiveIndicator from '../layout/ActiveIndicator'
 import VisibilityIcon from '@mui/icons-material/Visibility'
+import useResponsive from './../../hooks/useResponsive'
+import { useNavigate } from 'react-router-dom'
 
 const UsersTableRow = ({ user }) => {
   const [open, setOpen] = React.useState(false)
+  const navigate = useNavigate()
+
+  const matchMd = useResponsive('md')
 
   const handleToggleCollapse = () => {
     setOpen(!open)
   }
 
   const handleEdit = () => {
-    console.log('edit reportsGroup')
+    navigate(`/admins/users/update/${user.id}`)
   }
 
   const handleChangePassword = () => {
@@ -35,32 +40,39 @@ const UsersTableRow = ({ user }) => {
     <>
       <ListItem dense>
         <Grid container alignItems='center' justifyContent='center'>
-          <Grid item xs={3}>
-            <ListItemText>
-              <Typography variant='body1'>{user.name}</Typography>
-            </ListItemText>
-          </Grid>
-          <Grid item xs={3}>
+          {matchMd && (
+            <Grid item md={3}>
+              <ListItemText>
+                <Typography variant='body1'>{user.name} </Typography>
+              </ListItemText>
+            </Grid>
+          )}
+          <Grid item md={3} xs={9}>
             <ListItemText>
               <Typography variant='body1'>{user.username}</Typography>
             </ListItemText>
           </Grid>
-          <Grid item xs={3}>
-            <ListItemText>
-              <Typography variant='body1'>{user.mail}</Typography>
-            </ListItemText>
-          </Grid>
-          <Grid item xs={1}>
-            <ListItemText>
-              <Typography variant='body1'>{user.groups}</Typography>
-            </ListItemText>
-          </Grid>
-          <Grid item xs={1}>
-            <ListItemText>
-              <ActiveIndicator active={user.active} />
-            </ListItemText>
-          </Grid>
-          <Grid item xs={1}>
+          {matchMd && (
+            <>
+              <Grid item md={3}>
+                <ListItemText>
+                  <Typography variant='body1'>{user.mail}</Typography>
+                </ListItemText>
+              </Grid>
+              <Grid item md={1}>
+                <ListItemText>
+                  <Typography variant='body1'>{user.groups}</Typography>
+                </ListItemText>
+              </Grid>
+              <Grid item md={1}>
+                <ListItemText>
+                  <ActiveIndicator active={user.active} />
+                </ListItemText>
+              </Grid>
+            </>
+          )}
+
+          <Grid item md={1} xs={3}>
             <ListItemSecondaryAction>
               <IconButton onClick={handleToggleCollapse}>
                 <VisibilityIcon color='primary' />

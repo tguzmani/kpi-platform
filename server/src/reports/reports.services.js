@@ -6,9 +6,9 @@ function sectionsByReportsGroupHeader(sections, reportsGroupHeaderId) {
     .map(section => section.id)
 }
 
-async function readReportGroupsHeadersByAdmin(adminId) {
+async function readReportsGroupsHeadersByAdmin(adminId) {
   const reportsGroupHeaders =
-    await reportsRepository.readReportGroupsHeadersByAdmin(adminId)
+    await reportsRepository.readReportsGroupsHeadersByAdmin(adminId)
 
   const sections = await reportsRepository.readReportsGroupsHeadersSections()
 
@@ -23,6 +23,15 @@ async function readReportGroupsHeadersByAdmin(adminId) {
   )
 
   return reportsGroupsHeadersWithSections
+}
+
+async function readOneReportsGroupHeader(adminId, reportsGroupId) {
+  const reportsGroupsHeadersWithSections =
+    await readReportsGroupsHeadersByAdmin(adminId)
+
+  return reportsGroupsHeadersWithSections.find(
+    reportsGroup => reportsGroup.id === reportsGroupId
+  )
 }
 
 async function readReportsByAdmin(adminId) {
@@ -64,11 +73,38 @@ async function createReportsGroupByAdmin(
   })
 }
 
+async function updateReportsGroupByAdmin(
+  reportsGroupId,
+  code,
+  name,
+  active,
+  sections
+) {
+  await reportsRepository.updateReportsGroupsHeaders(
+    code,
+    name,
+    active,
+    reportsGroupId
+  )
+
+  await reportsRepository.deleteReportsGroupBody(reportsGroupId)
+
+  sections.forEach(async section => {
+    console.log('section', section)
+    await reportsRepository.createReportsGroupBodyByAdmin(
+      reportsGroupId,
+      section
+    )
+  })
+}
+
 module.exports = {
-  readReportGroupsHeadersByAdmin,
+  readReportsGroupsHeadersByAdmin,
   readReportsByAdmin,
   readAccountReportsByAdmin,
   readUsersReportsByAdmin,
   createReportsGroupByAdmin,
   updateReportActiveStateByAdmin,
+  updateReportsGroupByAdmin,
+  readOneReportsGroupHeader,
 }

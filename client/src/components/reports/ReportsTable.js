@@ -40,7 +40,7 @@ const ReportsTable = ({ reports }) => {
 
         <TableBody>
           {reports.map(report => (
-            <ReportsTableRow report={report} />
+            <ReportsTableRow key={report.sectionId} report={report} />
           ))}
         </TableBody>
       </Table>

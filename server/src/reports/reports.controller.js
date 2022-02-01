@@ -1,10 +1,9 @@
 const reportsServices = require('./reports.services')
 
-async function readReportGroupsHeadersByAdmin(req, res) {
+async function readReportsGroupsHeadersByAdmin(req, res) {
   try {
-    const reportsHeaders = await reportsServices.readReportGroupsHeadersByAdmin(
-      req.userId
-    )
+    const reportsHeaders =
+      await reportsServices.readReportsGroupsHeadersByAdmin(req.userId)
 
     res.send(reportsHeaders)
   } catch (error) {
@@ -62,6 +61,7 @@ async function updateReportActiveStateByAdmin(req, res) {
 async function createReportsGroupByAdmin(req, res) {
   try {
     const { code, name, active, sections } = req.body
+
     await reportsServices.createReportsGroupByAdmin(
       req.userId,
       code,
@@ -76,11 +76,36 @@ async function createReportsGroupByAdmin(req, res) {
   }
 }
 
+async function updateReportsGroupByAdmin(req, res) {
+  try {
+    const { code, name, active, sections } = req.body
+
+    await reportsServices.updateReportsGroupByAdmin(
+      req.params.reportsGroupId,
+      code,
+      name,
+      active,
+      sections
+    )
+
+    const reportsGroup = await reportsServices.readOneReportsGroupHeader(
+      req.userId,
+      parseInt(req.params.reportsGroupId)
+    )
+
+    console.log('reportsGroup', reportsGroup)
+    res.send(reportsGroup)
+  } catch (error) {
+    return res.status(400).send(error.stack)
+  }
+}
+
 module.exports = {
-  readReportGroupsHeadersByAdmin,
+  readReportsGroupsHeadersByAdmin,
   readReportsByAdmin,
   readAccountReportsByAdmin,
   readUsersReportsByAdmin,
   updateReportActiveStateByAdmin,
   createReportsGroupByAdmin,
+  updateReportsGroupByAdmin,
 }

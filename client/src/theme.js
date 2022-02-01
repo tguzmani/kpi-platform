@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material'
-import { orange, grey } from '@mui/material/colors'
+import { orange, grey, amber } from '@mui/material/colors'
 
 const white = 'white'
 const fontSize = '0.875rem'
@@ -66,6 +66,12 @@ const theme = createTheme({
           '&.thin': {
             borderRadius,
             margin: '0 1.25rem 0.75rem',
+          },
+          '&.construction': {
+            fontFamily: 'consolas',
+            padding: muiTheme.spacing(4),
+            textAlign: 'center',
+            backgroundColor: amber[200],
           },
         },
       },

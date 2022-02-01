@@ -4,35 +4,37 @@ import MuiAlert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Collapse from '@mui/material/Collapse'
-import { useSelector } from 'react-redux'
-import { v4 as uuidv4 } from 'uuid'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { clearMessage } from './../../state/auth/authActions'
 
 const Alerts = () => {
+  const dispatch = useDispatch()
   const { message, loading } = useSelector(state => state.auth)
-  const [alerts, setAlerts] = useState([])
-  const isMountRef = useRef(true)
+
+  const [show, setShow] = useState(false)
 
   useEffect(() => {
-    const alertId = uuidv4()
+    if (message && !show) {
+      setShow(true)
 
-    setAlerts([message, ...alerts])
+      setTimeout(() => setShow(false), 2500)
 
-    setTimeout(() => {
-      setAlerts(alerts.filter(alert => alert.id === alertId))
-    }, 2000)
+      setTimeout(() => dispatch(clearMessage()), 3000)
+    }
   }, [message])
-
-  const [show, setShow] = useState(true)
 
   return (
     <>
-      {/* <Collapse in={alerts.length > 0}>
+      <Collapse in={show}>
         <Box my={2}>
           <Stack alignItems='center'>
-            <MuiAlert severity='error'>{alerts[0]?.message}</MuiAlert>
+            {message && (
+              <MuiAlert severity={message.severity}>{message.text}</MuiAlert>
+            )}
           </Stack>
         </Box>
-      </Collapse> */}
+      </Collapse>
     </>
   )
 }

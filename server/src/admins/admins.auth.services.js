@@ -15,7 +15,9 @@ async function signIn(name, password) {
     throw new AdminsException('Contraseña no válida')
 
   if ((await isAdminLoggedIn(admin.id)) === admin.id) {
-    throw new AdminsException('Ya existe un usuario en el sistema')
+    throw new AdminsException(
+      'Ya existe un usuario en el sistema. Intente nuevamente en unos minutos'
+    )
   }
 
   adminsRedisRepository.addById(admin.id)

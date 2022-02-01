@@ -27,7 +27,7 @@ router.get('/logoBySubdomain', adminsController.readLogoBySubdomain)
 
 // Auth
 router.post('/signIn', adminsAuthController.signIn)
-router.post('/signOut', hasToken, adminsAuthController.signOut)
+router.post('/signOut', [hasToken, isAdmin], adminsAuthController.signOut)
 
 router.get('/secret', [hasToken, isAdmin], (req, res) =>
   res.send(`SUCCESS: Admin private route (id: ${req.userId})`)

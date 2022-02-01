@@ -1,4 +1,12 @@
 import React from 'react'
+import ReportsTable from '../reports/ReportsTable'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import ActiveIndicator from '../layout/ActiveIndicator'
+
+import VisibilityIcon from '@mui/icons-material/Visibility'
+import EditIcon from '@mui/icons-material/Edit'
+
 import {
   Grid,
   IconButton,
@@ -7,16 +15,20 @@ import {
   ListItemText,
   Typography,
   ListItemSecondaryAction,
+  Checkbox,
 } from '@mui/material'
-import ActiveIndicator from '../layout/ActiveIndicator'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import EditIcon from '@mui/icons-material/Edit'
-import ReportsTable from './ReportsTable'
-import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
-import useResponsive from './../../hooks/useResponsive'
 
-const ReportsGroupsTableRow = ({ reportsGroup }) => {
+import List from '@mui/material/List'
+
+import ReportGroupsItem from '../reports/ReportGroupsItem'
+import useResponsive from '../../hooks/useResponsive'
+import useSelectionList from './../../hooks/useSelectionList'
+
+const ManageUsersReportsGroupsItem = ({
+  reportsGroup,
+  toggleSelectedReportsGroup,
+  selectedReportsGroups,
+}) => {
   const { reports } = useSelector(state => state.reports)
   const navigate = useNavigate()
   const matchMd = useResponsive('md')
@@ -27,10 +39,6 @@ const ReportsGroupsTableRow = ({ reportsGroup }) => {
     setOpen(!open)
   }
 
-  const handleEdit = () => {
-    navigate(`/admins/reports-groups/update/${reportsGroup.id}`)
-  }
-
   const thisGroupReports = reports.filter(
     report => report.reportGroupId === reportsGroup.id
   )
@@ -39,6 +47,15 @@ const ReportsGroupsTableRow = ({ reportsGroup }) => {
     <>
       <ListItem dense>
         <Grid container alignItems='center' justifyContent='center'>
+          <Grid item xs={3} md={1}>
+            <ListItemText>
+              <Checkbox
+                checked={selectedReportsGroups.includes(reportsGroup.id)}
+                onClick={toggleSelectedReportsGroup(reportsGroup.id)}
+              />
+            </ListItemText>
+          </Grid>
+
           {matchMd && (
             <Grid item md={4}>
               <ListItemText>
@@ -46,14 +63,16 @@ const ReportsGroupsTableRow = ({ reportsGroup }) => {
               </ListItemText>
             </Grid>
           )}
+
           <Grid item xs={9} md={4}>
             <ListItemText>
               <Typography variant='body1'>{reportsGroup.name}</Typography>
             </ListItemText>
           </Grid>
+
           {matchMd && (
             <>
-              <Grid item md={2}>
+              <Grid item md={1}>
                 <ListItemText>
                   <Typography variant='body1'>
                     {reportsGroup.sections}
@@ -67,14 +86,11 @@ const ReportsGroupsTableRow = ({ reportsGroup }) => {
               </Grid>
             </>
           )}
-          <Grid item xs={3} md={1}>
+
+          <Grid item xs={2} md={1}>
             <ListItemSecondaryAction>
               <IconButton onClick={handleToggleCollapse}>
                 <VisibilityIcon color='primary' />
-              </IconButton>
-
-              <IconButton onClick={handleEdit}>
-                <EditIcon color='success' />
               </IconButton>
             </ListItemSecondaryAction>
           </Grid>
@@ -88,4 +104,4 @@ const ReportsGroupsTableRow = ({ reportsGroup }) => {
   )
 }
 
-export default ReportsGroupsTableRow
+export default ManageUsersReportsGroupsItem

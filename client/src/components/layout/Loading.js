@@ -8,7 +8,7 @@ const Loading = ({ number, ...props }) => {
       {Array(number || 1)
         .fill()
         .map(n => (
-          <Skeleton {...props} animation='wave' />
+          <Skeleton {...props} key={n} animation='wave' />
         ))}
     </>
   )

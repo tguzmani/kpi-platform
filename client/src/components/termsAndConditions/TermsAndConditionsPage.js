@@ -41,7 +41,7 @@ const TermsAndConditions = () => {
 
   useCallback(() => {
     if (!userAcceptedTermsAndConditions && !loading)
-      navigate('/admins/reports/groups')
+      navigate('/admins/reports-groups')
   }, [userAcceptedTermsAndConditions, loading, navigate])
 
   const handleCheck = () => {
@@ -58,7 +58,7 @@ const TermsAndConditions = () => {
   const handleAcceptTermsAndConditions = () => {
     dispatch(acceptTermsAndConditions(termsAndConditions))
     dispatch(readProfile(roles.ADMIN))
-    navigate('/admins/reports/groups')
+    navigate('/admins/reports-groups')
   }
 
   return (

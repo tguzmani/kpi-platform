@@ -6,7 +6,7 @@ const roles = require('./../constants/roles')
 const fs = require('fs')
 
 const MAX_LOGO_WIDTH = 300
-const MAX_LOGO_HEIGHT = 150
+const MAX_LOGO_HEIGHT = 70
 
 const publicPath = file => `./public/${file}`
 const tmpPath = file => `./public/tmp/${file}`

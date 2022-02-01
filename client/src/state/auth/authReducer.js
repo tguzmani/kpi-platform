@@ -46,7 +46,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        message: { id: uuidv4(), message: action.payload, severity: 'error' },
+        message: { text: action.payload, severity: 'error' },
       }
 
     case SIGN_OUT:

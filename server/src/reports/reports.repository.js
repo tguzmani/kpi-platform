@@ -1,7 +1,31 @@
 const connection = require('../../database')
 const reportsQueries = require('./reports.queries')
 
-async function readReportGroupsHeadersByAdmin(adminId) {
+async function createReportsGroupHeaderByAdmin(adminId, code, name, active) {
+  return new Promise(resolve => {
+    connection.query(
+      reportsQueries.CREATE_REPORTS_GROUP_HEADER_BY_ADMIN,
+      [adminId, code, name, active],
+      (error, result) => {
+        if (error) throw error
+
+        return resolve(result.insertId)
+      }
+    )
+  })
+}
+
+async function createReportsGroupBodyByAdmin(reportsGroupHeaderId, sectionId) {
+  connection.query(
+    reportsQueries.CREATE_REPORTS_GROUP_BODY_BY_ADMIN,
+    [reportsGroupHeaderId, sectionId, sectionId],
+    (error, result) => {
+      if (error) throw error
+    }
+  )
+}
+
+async function readReportsGroupsHeadersByAdmin(adminId) {
   return new Promise(resolve => {
     connection.query(
       reportsQueries.READ_REPORT_GROUPS_HEADERS_BY_ADMIN,
@@ -57,30 +81,6 @@ async function readUsersReportsByAdmin(adminId) {
   })
 }
 
-async function updateReportActiveStateByAdmin(active, reportId) {
-  connection.query(
-    reportsQueries.UPDATE_REPORT_ACTIVE_STATE_BY_ADMIN,
-    [active, reportId],
-    (error, result) => {
-      if (error) throw error
-    }
-  )
-}
-
-async function createReportsGroupHeaderByAdmin(adminId, code, name, active) {
-  return new Promise(resolve => {
-    connection.query(
-      reportsQueries.CREATE_REPORTS_GROUP_HEADER_BY_ADMIN,
-      [adminId, code, name, active],
-      (error, result) => {
-        if (error) throw error
-
-        return resolve(result.insertId)
-      }
-    )
-  })
-}
-
 async function readReportsGroupsHeadersSections() {
   return new Promise(resolve => {
     connection.query(
@@ -95,23 +95,48 @@ async function readReportsGroupsHeadersSections() {
   })
 }
 
-async function createReportsGroupBodyByAdmin(reportsGroupHeaderId, sectionId) {
+async function updateReportActiveStateByAdmin(active, reportId) {
   connection.query(
-    reportsQueries.CREATE_REPORTS_GROUP_BODY_BY_ADMIN,
-    [reportsGroupHeaderId, sectionId, sectionId],
+    reportsQueries.UPDATE_REPORT_ACTIVE_STATE_BY_ADMIN,
+    [active, reportId],
     (error, result) => {
       if (error) throw error
     }
   )
 }
 
+async function updateReportsGroupsHeaders(code, name, active, reportId) {
+  connection.query(
+    reportsQueries.UPDATE_REPORTS_GROUP_HEADER_BY_ADMIN,
+    [code, name, active, reportId],
+    (error, _) => {
+      if (error) throw error
+    }
+  )
+}
+
+async function deleteReportsGroupBody(reportId) {
+  connection.query(
+    reportsQueries.DELETE_REPORTS_GROUP_BODY,
+    [reportId],
+    (error, _) => {
+      if (error) throw error
+    }
+  )
+}
+
 module.exports = {
-  readReportGroupsHeadersByAdmin,
+  createReportsGroupHeaderByAdmin,
+  createReportsGroupBodyByAdmin,
+
+  readReportsGroupsHeadersByAdmin,
   readReportsByAdmin,
   readAccountReportsByAdmin,
   readUsersReportsByAdmin,
-  updateReportActiveStateByAdmin,
-  createReportsGroupHeaderByAdmin,
-  createReportsGroupBodyByAdmin,
   readReportsGroupsHeadersSections,
+
+  updateReportActiveStateByAdmin,
+  updateReportsGroupsHeaders,
+
+  deleteReportsGroupBody,
 }

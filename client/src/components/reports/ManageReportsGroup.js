@@ -24,6 +24,8 @@ import _ from 'lodash'
 import {
   readReportGroupsHeadersByAdmin,
   readReportsByAdmin,
+  updateReportsGroup,
+  createReportsGroup,
 } from '../../state/reports/reportsActions'
 
 import useRead from '../../hooks/useRead'
@@ -32,21 +34,31 @@ import { readWorkspacesByAdmin } from '../../state/workspaces/workspacesActions'
 import { readSectionsByAdmin } from '../../state/sections/sectionsActions'
 import { useParams } from 'react-router-dom'
 import ManageReportsGroupTable from './ManageReportsGroupTable'
+import useSelectionList from './../../hooks/useSelectionList'
+import LoadingButton from '@mui/lab/LoadingButton'
 
 const ManageReportsGroup = () => {
   const navigate = useNavigate()
-  useRead(readReportGroupsHeadersByAdmin, readReportsByAdmin)
+  const dispatch = useDispatch()
+  useRead(
+    readReportGroupsHeadersByAdmin,
+    readReportsByAdmin,
+    readWorkspacesByAdmin,
+    readSectionsByAdmin
+  )
 
-  React.useEffect(() => {
-    dispatch(readWorkspacesByAdmin())
-    dispatch(readSectionsByAdmin())
-  }, [])
+  // const dispatch = useDispatch()
+  const [buttonHasBeenClicked, toggleButtonHasBeenClicked] = useToggle(false)
 
-  const { reportsGroups, reports } = useSelector(state => state.reports)
+  const { reportsGroups, reports, loading } = useSelector(
+    state => state.reports
+  )
   const { workspaces } = useSelector(state => state.workspaces)
   const { sections } = useSelector(state => state.sections)
 
-  const dispatch = useDispatch()
+  React.useEffect(() => {
+    if (!loading && buttonHasBeenClicked) navigate('/admins/reports-groups')
+  }, [loading, buttonHasBeenClicked, navigate])
 
   const initialState = {
     code: '',
@@ -63,25 +75,24 @@ const ManageReportsGroup = () => {
     thisReportsGroup = reportsGroups.find(
       reportsGroup => reportsGroup.id === parseInt(reportsGroupId)
     )
+
+    thisReportsGroup = {
+      ...thisReportsGroup,
+      report: thisReportsGroup.sectionsIds[0],
+    }
   }
 
-  const [selectedSections, setSelectedSections] = React.useState(
+  console.log('thisReportsGroup', thisReportsGroup)
+
+  const [active, handleSwitchChange] = useToggle(true)
+
+  const [selectedSections, toggleSelectedSection] = useSelectionList(
     reportsGroupId ? thisReportsGroup.sectionsIds : []
   )
 
   const [reportGroup, bindField, areFieldsEmpty] = useForm(
     reportsGroupId ? thisReportsGroup : initialState
   )
-
-  const handleChangeSection = sectionId => e => {
-    if (selectedSections.includes(sectionId)) {
-      setSelectedSections(
-        selectedSections.filter(section => section !== sectionId)
-      )
-    } else {
-      setSelectedSections([sectionId, ...selectedSections])
-    }
-  }
 
   const thisWorkspaceReports = _.uniqBy(
     reports.filter(report => (report.workspace = reportGroup.workspace)),
@@ -97,15 +108,21 @@ const ManageReportsGroup = () => {
   )
 
   const handleManageReportsGroup = () => {
-    console.log({
+    const reportsGroupData = {
       ...reportGroup,
       active,
       workspace: reportGroup.workspace,
       sections: selectedSections,
-    })
-  }
+    }
 
-  const [active, handleSwitchChange] = useToggle(true)
+    dispatch(
+      reportsGroupId
+        ? updateReportsGroup(reportsGroupData)
+        : createReportsGroup(reportsGroupData)
+    )
+
+    toggleButtonHasBeenClicked()
+  }
 
   return (
     <Paper className='container'>
@@ -152,7 +169,6 @@ const ManageReportsGroup = () => {
                 options={thisWorkspaceReports}
                 optionValue='id'
                 display='name'
-                fallback=''
               />
             </FormField>
 
@@ -163,7 +179,7 @@ const ManageReportsGroup = () => {
                     <ListItemButton
                       dense
                       key={section.id}
-                      onClick={handleChangeSection(section.id)}
+                      onClick={toggleSelectedSection(section.id)}
                     >
                       <Checkbox
                         checked={selectedSections.includes(section.id)}
@@ -180,20 +196,21 @@ const ManageReportsGroup = () => {
 
       <ManageReportsGroupTable
         reports={selectedSectionsReports}
-        onChange={handleChangeSection}
+        onChange={toggleSelectedSection}
       />
 
       <Grid mt={3} container justifyContent='space-between'>
-        <Button onClick={() => navigate('/admins/reports/groups')}>
+        <Button onClick={() => navigate('/admins/reports-groups')}>
           Cancelar
         </Button>
-        <Button
+        <LoadingButton
+          loading={loading && buttonHasBeenClicked}
           onClick={handleManageReportsGroup}
           variant='contained'
           disabled={areFieldsEmpty || selectedSections.length === 0}
         >
           {reportsGroupId ? 'Guardar cambios' : 'Crear grupo de reportes'}
-        </Button>
+        </LoadingButton>
       </Grid>
     </Paper>
   )

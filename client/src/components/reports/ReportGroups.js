@@ -5,8 +5,13 @@ import Grid from '@mui/material/Grid'
 
 import ReportGroupsItem from './ReportGroupsItem'
 import useResponsive from './../../hooks/useResponsive'
+import { useSelector } from 'react-redux'
+
+import Loading from '../layout/Loading'
 
 const ReportsGroups = ({ reportsGroups }) => {
+  const { loading } = useSelector(state => state.reports)
+
   const headersMd = [
     { xs: 4, header: 'Código' },
     { xs: 4, header: 'Nombre' },
@@ -25,20 +30,29 @@ const ReportsGroups = ({ reportsGroups }) => {
   const headers = matchMd ? headersMd : headersXs
 
   return (
-    <List>
-      <Grid container alignItems='center' justifyContent='center' mb={3}>
-        {headers.map(header => (
-          <Grid key={header.header} item xs={header.xs}>
-            <Typography sx={{ fontWeight: 'bold' }} variant='body1'>
-              {header.header}
-            </Typography>
+    <>
+      {loading && reportsGroups.length === 0 ? (
+        <Loading number={4} height={80} />
+      ) : (
+        <List>
+          <Grid container alignItems='center' justifyContent='center' mb={3}>
+            {headers.map(header => (
+              <Grid key={header.header} item xs={header.xs}>
+                <Typography sx={{ fontWeight: 'bold' }} variant='body1'>
+                  {header.header}
+                </Typography>
+              </Grid>
+            ))}
           </Grid>
-        ))}
-      </Grid>
-      {reportsGroups.map(reportsGroup => (
-        <ReportGroupsItem key={reportsGroup.id} reportsGroup={reportsGroup} />
-      ))}
-    </List>
+          {reportsGroups.map(reportsGroup => (
+            <ReportGroupsItem
+              key={reportsGroup.id}
+              reportsGroup={reportsGroup}
+            />
+          ))}
+        </List>
+      )}
+    </>
   )
 }
 

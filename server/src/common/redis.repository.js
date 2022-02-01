@@ -21,6 +21,7 @@ class RedisRepository {
   }
 
   async removeById(entityId) {
+    console.log('this.entityKey(entityId)', this.entityKey(entityId))
     await redisClient.del(this.entityKey(entityId))
   }
 

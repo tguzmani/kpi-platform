@@ -89,7 +89,7 @@ where a.id = gh.id_adm_accounts
   and wr.id = rs.id_pbi_workspaces_reports
   and w.id = wr.id_pbi_workspaces
 
-  and a.id = 1
+  and a.id = 1;
 
 select table_schema as database_name,
        table_name,
@@ -104,4 +104,43 @@ order by update_time desc;
 
 select *
 from pbi_reports_groups_body
-order by id desc
+order by id desc;
+
+select *
+from pbi_reports_groups_headers;
+
+delete from pbi_reports_groups_headers
+where id = 9;
+
+select * from pbi_reports_groups_body
+where id_pbi_reports_groups_headers = 9;
+
+update pbi_reports_groups_headers
+set code   = ?,
+    name   = ?,
+    active = ?
+where id = ?;
+
+insert into pbi_reports_groups_body (id_pbi_reports_groups_headers, id_pbi_workspaces_reports_sections,
+                                     id_adm_accounts_reports)
+values (2, 17, fn_get_id_adm_account_reports_by_section_id(17)),
+       (2, 9, fn_get_id_adm_account_reports_by_section_id(9)),
+       (2, 20, fn_get_id_adm_account_reports_by_section_id(20));
+
+alter table pbi_reports_groups_body
+    drop foreign key fk__pbi_reports_groups_body__pbi_reports_groups_header;
+
+alter table pbi_reports_groups_body
+    add constraint fk__pbi_reports_groups_body__pbi_reports_groups_header foreign key (id_pbi_reports_groups_headers) references pbi_reports_groups_headers (id) on delete cascade;
+
+
+
+select s.id, wr.id_pbi as reportIdPBI, s.id_pbi_workspaces_reports as reportId, s.id_pbi as sectionIdPBI, s.name
+from adm_accounts a,
+     adm_accounts_reports ar,
+     pbi_workspaces_reports wr,
+     pbi_workspaces_reports_sections s
+where a.id = ar.id_adm_accounts
+  and wr.id = ar.id_pbi_workspaces_reports
+  and wr.id = s.id_pbi_workspaces_reports
+  and a.id = 1;

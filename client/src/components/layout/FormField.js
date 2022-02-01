@@ -46,12 +46,12 @@ const SelectChecked = ({
 const FormField = ({ label, children }) => {
   return (
     <>
-      <Grid item xs={4}>
+      <Grid item md={4} xs={12}>
         <Typography variant='accent' align='center'>
           {label}
         </Typography>
       </Grid>
-      <Grid item xs={8}>
+      <Grid item md={8} xs={12}>
         {children}
       </Grid>
     </>

@@ -8,7 +8,7 @@ const isAdmin = require('../middleware/isAdmin')
 router.get(
   '/headers',
   [hasToken, isAdmin],
-  reportsController.readReportGroupsHeadersByAdmin
+  reportsController.readReportsGroupsHeadersByAdmin
 )
 router.get('/', [hasToken, isAdmin], reportsController.readReportsByAdmin)
 
@@ -22,14 +22,21 @@ router.get(
   [hasToken, isAdmin],
   reportsController.readUsersReportsByAdmin
 )
+
 router.put(
   '/toggleActive/:reportId',
   [hasToken, isAdmin],
   reportsController.updateReportActiveStateByAdmin
 )
 
+router.put(
+  '/groups/:reportsGroupId',
+  [hasToken, isAdmin],
+  reportsController.updateReportsGroupByAdmin
+)
+
 router.post(
-  '/',
+  '/groups',
   [hasToken, isAdmin],
   reportsController.createReportsGroupByAdmin
 )

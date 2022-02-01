@@ -55,7 +55,10 @@ const ContractDetail = ({ contract }) => {
 
           <TableBody>
             {contractDetails.map(contractDetail => (
-              <ContractDetailsItem contractDetail={contractDetail} />
+              <ContractDetailsItem
+                key={contractDetail.id}
+                contractDetail={contractDetail}
+              />
             ))}
 
             <TableRow>

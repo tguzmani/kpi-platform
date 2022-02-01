@@ -13,16 +13,17 @@ import PositionedButton from './../components/layout/PositionedButton'
 
 const ReportGroupsPage = () => {
   useRead(readReportGroupsHeadersByAdmin, readReportsByAdmin)
+
   const navigate = useNavigate()
 
-  const { reportsGroups, reports } = useSelector(state => state.reports)
+  const { reportsGroups } = useSelector(state => state.reports)
 
   return (
     <Paper className='container'>
-      <ReportsGroups reports={reports} reportsGroups={reportsGroups} />
+      <ReportsGroups reportsGroups={reportsGroups} />
 
       <PositionedButton
-        onClick={() => navigate('/admins/reports/create')}
+        onClick={() => navigate('/admins/reports-groups/create')}
         startIcon={<AddIcon />}
         variant='contained'
         justifyContent='flex-end'

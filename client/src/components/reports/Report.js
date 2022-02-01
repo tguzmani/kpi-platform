@@ -21,12 +21,13 @@ const Report = ({ groupId, reportId }) => {
           settings: {
             panes: {
               filters: {
-                expanded: false,
-                visible: false,
+                expanded: true,
+                visible: true,
               },
             },
             background: models.BackgroundType.Transparent,
           },
+          // pageName: '1e83b026989557a82e3b',
         }}
         eventHandlers={
           new Map([

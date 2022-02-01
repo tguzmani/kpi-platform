@@ -16,9 +16,9 @@ const ContractDetail = ({ contractDetail }) => {
     if (e.target.value > 0) setQuantity(e.target.value)
   }
 
-  useEffect(() => {
-    dispatch(updateContractDetail({ ...contractDetail, quantity }))
-  }, [quantity])
+  // useEffect(() => {
+  //   dispatch(updateContractDetail({ ...contractDetail, quantity }))
+  // }, [quantity])
 
   const totalValue = (cost, quantity) => (cost * quantity).toFixed(2)
 
@@ -27,13 +27,14 @@ const ContractDetail = ({ contractDetail }) => {
       <TableCell align='center'>{contractDetail.name}</TableCell>
       <TableCell align='center'>{contractDetail.cost}</TableCell>
       <TableCell align='center'>
-        <TextField
+        {contractDetail.quantity}
+        {/* <TextField
           type='number'
           sx={{ maxWidth: '70px' }}
           size='small'
           value={quantity}
           onChange={handleQuantityChange}
-        />
+        /> */}
       </TableCell>
       <TableCell align='center'>
         {totalValue(contractDetail.cost, quantity)}

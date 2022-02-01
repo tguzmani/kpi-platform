@@ -15,23 +15,23 @@ const LayoutLoading = () => {
 
       <Grid my={5} container>
         {matchMd && (
-          <Grid item lg={2}>
+          <Grid item xs={12} md={2}>
             <Paper className='navigation'>
               {Array(4)
                 .fill()
                 .map(n => (
-                  <Skeleton height={60} />
+                  <Skeleton key={n} height={60} />
                 ))}
             </Paper>
           </Grid>
         )}
 
-        <Grid item lg={9} xs={12}>
+        <Grid item xs={12} md={10}>
           <Paper className='container'>
             {Array(5)
               .fill()
               .map(n => (
-                <Skeleton height={80} />
+                <Skeleton key={n} height={80} />
               ))}
           </Paper>
         </Grid>

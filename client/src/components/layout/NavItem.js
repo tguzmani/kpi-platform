@@ -6,7 +6,8 @@ import { NavLink, useLocation } from 'react-router-dom'
 const NavItem = ({ to, children, onClick }) => {
   const { pathname } = useLocation()
 
-  const isSelected = pathname === to
+  // const isSelected = pathname === to
+  const isSelected = pathname.includes(to)
 
   const ListItemButton = styled(MuiListItemButton)(({ theme }) => ({
     backgroundColor: theme.palette.primary.main,

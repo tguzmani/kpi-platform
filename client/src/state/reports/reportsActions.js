@@ -2,11 +2,13 @@ import {
   ERROR,
   LOADING,
   CLEAR_MESSAGE,
+  CREATE_REPORTS_GROUP,
   READ_REPORT_GROUPS_HEADERS_BY_ADMIN,
   READ_REPORTS_BY_ADMIN,
   READ_ACCOUNT_REPORTS_BY_ADMIN,
   READ_USERS_REPORTS_BY_ADMIN,
   UPDATE_REPORT_ACTIVE_STATE_BY_ADMIN,
+  UPDATE_REPORTS_GROUP,
 } from './reportsTypes'
 
 import axios from 'axios'
@@ -94,3 +96,29 @@ export const updateReportActiveStateByAdmin =
       dispatch({ type: ERROR, payload: error.response.data.message })
     }
   }
+
+export const updateReportsGroup = reportsGroup => async dispatch => {
+  setLoading()(dispatch)
+
+  try {
+    const res = await axios.put(
+      `/reports/groups/${reportsGroup.id}`,
+      reportsGroup,
+      config
+    )
+    dispatch({ type: UPDATE_REPORTS_GROUP, payload: res.data })
+  } catch (error) {
+    dispatch({ type: ERROR, payload: error.response.data.message })
+  }
+}
+
+export const createReportsGroup = reportsGroup => async dispatch => {
+  setLoading()(dispatch)
+
+  try {
+    const res = await axios.post(`/reports/groups/`, reportsGroup, config)
+    dispatch({ type: CREATE_REPORTS_GROUP, payload: res.data })
+  } catch (error) {
+    dispatch({ type: ERROR, payload: error.response.data.message })
+  }
+}

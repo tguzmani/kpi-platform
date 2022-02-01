@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `reporteria-test`.`adm_accounts_has_adm_terms_and_con
 -- el archivo es: legal-body-1.sql
 
 insert into adm_accounts_has_adm_terms_and_conditions (id_adm_accounts, id_adm_terms_and_conditions)
-values (1, 3);
+values (1, 1);
 
 select *
 from adm_accounts_has_adm_terms_and_conditions;
@@ -66,3 +66,8 @@ where a.id = gh.id_adm_accounts
 
   and a.id = ?
 group by wr.id;
+
+insert into pbi_reports_groups_body (id_pbi_reports_groups_headers, id_pbi_workspaces_reports_sections,
+                                     id_adm_accounts_reports)
+values (?, ?, fn_get_id_adm_account_reports_by_section_id(?))
+

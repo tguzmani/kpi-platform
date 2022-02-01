@@ -10,18 +10,14 @@ import axios from 'axios'
 
 import { config } from '../../util/state'
 
-export const handleError = (dispatch, error) => {
-  dispatch({ type: ERROR, payload: error.response.data.message })
-  setTimeout(() => {
-    dispatch({ type: CLEAR_MESSAGE, payload: error.response.data.message })
-  }, 3000)
+export const clearMessage = () => dispatch => {
+  dispatch({ type: CLEAR_MESSAGE })
 }
 
 export const setLoading =
   (loading = true) =>
-  dispatch => {
-    return dispatch({ type: LOADING, payload: loading })
-  }
+  dispatch =>
+    dispatch({ type: LOADING, payload: loading })
 
 export const signIn = (userType, credentials) => async dispatch => {
   setLoading()(dispatch)

@@ -54,6 +54,7 @@ const LoginPage = () => {
   const [userType, setUserType] = useState(roles.ADMIN)
 
   const handleLoginAdmin = () => {
+    // dispatch(signIn(roles.ADMIN, testAdmin))
     dispatch(signIn(roles.ADMIN, testAdmin))
   }
 
@@ -74,7 +75,7 @@ const LoginPage = () => {
   useEffect(() => {
     if (isAuthenticated && !loading)
       userType === roles.ADMIN
-        ? navigate('/admins/reports/groups')
+        ? navigate('/admins/reports-groups')
         : navigate('/')
   }, [isAuthenticated, navigate])
 
@@ -92,7 +93,11 @@ const LoginPage = () => {
 
       <Grid justifyContent='center' alignItems='center' container mt={4}>
         <Grid item xs={12} md={5} lg={4} p={2}>
-          <Tabs value={userType} onChange={handleTabChange} indicatorColor={''}>
+          <Tabs
+            value={userType}
+            onChange={handleTabChange}
+            TabIndicatorProps={{ style: { backgroundColor: '#fff' } }}
+          >
             <Tab value={roles.USER} label='Usuarios' />
             <Tab value={roles.ADMIN} label='Administradores' />
           </Tabs>
