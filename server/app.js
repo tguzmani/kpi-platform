@@ -58,10 +58,9 @@ app.listen(port, '0.0.0.0', () => {
 function keepMySQLAlive() {
   connection.query('select 1', [], (error, result) => {
     if (error) throw error
-    console.log(`Ping to MySQL (${result})`)
   })
 }
 
 const ONE_SECOND = 1000
 
-setInterval(keepMySQLAlive, ONE_SECOND * 10)
+setInterval(keepMySQLAlive, ONE_SECOND * 3600)
