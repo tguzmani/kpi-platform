@@ -35,6 +35,7 @@ const ApplicationBar = () => {
             src={appBarLogo}
             alt='logo'
             width={`${matches ? false : '120px'}`}
+            style={{ maxHeight: '70px' }}
           />
         </Box>
 

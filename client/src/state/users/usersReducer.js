@@ -1,5 +1,5 @@
-import { 
-  ERROR, 
+import {
+  ERROR,
   LOADING,
   CLEAR_MESSAGE,
   CREATE,
@@ -9,9 +9,9 @@ import {
   DELETE,
 } from './usersTypes'
 
-const initialState = { 
-  loading: false, 
-  message: null, 
+const initialState = {
+  loading: false,
+  message: null,
   users: [],
 }
 
@@ -32,7 +32,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         users: state.users.map(user =>
-          user._id === action.payload._id ? action.payload : user
+          user.id === action.payload.id ? action.payload : user
         ),
       }
 
@@ -40,16 +40,14 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        users: state.users.filter(
-          user => user._id !== action.payload._id
-        ),
+        users: state.users.filter(user => user._id !== action.payload._id),
       }
 
     case CLEAR_MESSAGE:
       return { ...state, message: null }
 
     case LOADING:
-        return { ...state, loading: true }
+      return { ...state, loading: true }
 
     case ERROR:
       return { ...state, loading: false, message: action.payload }
@@ -60,4 +58,3 @@ const userReducer = (state = initialState, action) => {
 }
 
 export default userReducer
-

@@ -1,24 +1,54 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 import { models } from 'powerbi-client'
 import { PowerBIEmbed } from 'powerbi-client-react'
 
-const Report = ({ groupId, reportId }) => {
+import { getReportData } from './../../state/powerbi/powerbiActions'
+
+const Report = ({ workspaceId, reportId, sectionId }) => {
+  const dispatch = useDispatch()
+
   const { accessToken, embedUrl, loading } = useSelector(state => state.powerbi)
 
+  const { workspaces } = useSelector(state => state.workspaces)
+  const { sections } = useSelector(state => state.sections)
+  const { reports } = useSelector(state => state.reports)
+
+  const pbiGroupId = workspaces.find(
+    workspace => workspace.id === workspaceId
+  ).pbiGroupId
+
+  const pbiReportId = reports.find(report => report.id === reportId).pbiReportId
+
+  const pbiSectionId = sections.find(
+    section => section.id === sectionId
+  ).pbiSectionId
+
+  const pbiSectionName = sections.find(
+    section => section.id === sectionId
+  ).pbiSectionId
+
+  useEffect(() => {
+    dispatch(getReportData(pbiGroupId, pbiReportId))
+  }, [pbiGroupId, pbiReportId])
+
   if (!accessToken || !embedUrl || loading) return <div>Cargando...</div>
+
+  console.log('pbiReportId', pbiReportId)
 
   return (
     <>
       <PowerBIEmbed
         embedConfig={{
           type: 'report',
-          id: reportId,
+          id: pbiReportId,
           embedUrl,
           accessToken,
           tokenType: models.TokenType.Aad,
           settings: {
+            filterPaneEnabled: false,
+            navContentPaneEnabled: false,
             panes: {
               filters: {
                 expanded: true,
@@ -27,7 +57,7 @@ const Report = ({ groupId, reportId }) => {
             },
             background: models.BackgroundType.Transparent,
           },
-          // pageName: '1e83b026989557a82e3b',
+          pageName: `ReportSection${pbiSectionId}`,
         }}
         eventHandlers={
           new Map([

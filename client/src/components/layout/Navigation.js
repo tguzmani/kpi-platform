@@ -15,8 +15,9 @@ import MenuIcon from '@mui/icons-material/Menu'
 const Navigation = () => {
   const links = [
     { name: 'Grupos de reporte', to: '/admins/reports-groups' },
-    { name: 'Usuarios', to: '/admins/users' },
     { name: 'Reportes', to: '/admins/show-report' },
+    { name: 'Grupos de usuario', to: '/admins/user-groups' },
+    { name: 'Usuarios', to: '/admins/users' },
     { name: 'Cuenta', to: '/admins/account' },
   ]
 

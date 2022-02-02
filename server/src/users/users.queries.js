@@ -3,7 +3,7 @@ select u.id, u.name, username, mail, count(u.name) as 'groups', u.active
 from adm_accounts a, adm_users u, adm_users_reports_groups rp
 where u.id_adm_accounts = a.id
 and u.id = rp.id_adm_users
-and a.id = 1
+and a.id = ?
 group by a.id, u.name, u.username, u.mail, u.active, u.id
 order by a.id;
 `
@@ -20,7 +20,7 @@ values ?;
 
 exports.DELETE_CONNECTION_USER_TO_REPORT_GROUPS = `
 delete from adm_users_reports_groups
-where id_adm_users = 2;
+where id_adm_users = ?;
 `
 
 exports.UPDATE_USER = `

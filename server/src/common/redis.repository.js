@@ -1,6 +1,7 @@
 const redisClient = require('../../redis')
+const TIMEOUT = require('../constants/timeout')
 
-const SESSION_DURATION = 600
+const SESSION_DURATION = TIMEOUT
 
 class RedisRepository {
   constructor(entity) {

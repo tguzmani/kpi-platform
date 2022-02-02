@@ -43,7 +43,7 @@ async function createUserByAdmin(req, res) {
 
 async function updateUser(req, res) {
   try {
-    const user = [
+    let user = [
       req.userId,
       req.body.username,
       req.body.name,
@@ -58,7 +58,12 @@ async function updateUser(req, res) {
       req.body.reportGroups
     )
 
-    res.send({ message: 'Usuario actualizado exitosamente' })
+    user = await usersServices.readOneUserByAdmin(
+      parseInt(req.params.userId),
+      req.userId
+    )
+
+    res.send(user)
   } catch (error) {
     return res.status(400).send(error.stack)
   }

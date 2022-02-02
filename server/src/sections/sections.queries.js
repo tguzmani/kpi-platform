@@ -1,5 +1,5 @@
 exports.READ_SECTIONS_BY_ADMIN = `
-select s.id, wr.id_pbi as reportIdPBI, s.id_pbi_workspaces_reports as reportId, s.id_pbi as sectionIdPBI, s.name
+select s.id, wr.id_pbi as reportIdPBI, s.id_pbi_workspaces_reports as reportId, s.id_pbi as pbiSectionId, s.name
 
 from adm_accounts a,
      adm_accounts_reports ar,

@@ -8,10 +8,9 @@ import {
 
 import useForm from '../../hooks/useForm'
 import { useDispatch } from 'react-redux'
-import { createUser } from '../../state/users/usersActions'
+import { createUser, updateUser } from '../../state/users/usersActions'
 import { useParams } from 'react-router-dom'
 
-import useSelectReportGroups from '../../hooks/useSelectReportGroups'
 import { useNavigate } from 'react-router-dom'
 import useToggle from '../../hooks/useToggle'
 import useRead from '../../hooks/useRead'
@@ -19,14 +18,16 @@ import ManageUsersReportsGroups from './ManageUsersReportsGroups'
 
 import { useSelector } from 'react-redux'
 import useSelectionList from '../../hooks/useSelectionList'
+import useNavigateAfterAction from './../../hooks/useNavigateAfterAction'
+import LoadingButton from '@mui/lab/LoadingButton'
 
 const ManageUser = () => {
   useRead(readReportGroupsHeadersByAdmin, readReportsByAdmin)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const { reportsGroups, reports } = useSelector(state => state.reports)
-  const { users } = useSelector(state => state.users)
+  const { reportsGroups } = useSelector(state => state.reports)
+  const { users, loading } = useSelector(state => state.users)
 
   const initialState = {
     username: '',
@@ -47,6 +48,8 @@ const ManageUser = () => {
     thisUser = { ...thisUser, confirmMail: thisUser.mail }
   }
 
+  const buttonHasBeenClicked = useNavigateAfterAction(loading, '/admins/users')
+
   const [user, bindField, areFieldsEmpty] = useForm(
     userId ? thisUser : initialState
   )
@@ -56,6 +59,15 @@ const ManageUser = () => {
   )
 
   const [active, handleSwitchChange] = useToggle(true)
+
+  const handleManageUser = () => {
+    const userData = { ...user, active, reportGroups: selectedReportsGroups }
+
+    dispatch(userId ? updateUser(userData) : createUser(userData))
+    // userId ? console.log('update', userData) : console.log('create', userData)
+
+    buttonHasBeenClicked()
+  }
 
   const handleCreateUser = () => {
     dispatch(
@@ -136,14 +148,14 @@ const ManageUser = () => {
       />
       <Grid mt={3} container justifyContent='space-between'>
         <Button onClick={() => navigate('/admins/users')}>Cancelar</Button>
-        <Button
-          // onClick={handleManageReportsGroup}
+        <LoadingButton
+          onClick={handleManageUser}
           variant='contained'
-          // disabled={areFieldsEmpty || selectedSections.length === 0}
+          loading={loading}
+          disabled={areFieldsEmpty || selectedReportsGroups.length === 0}
         >
-          {/* {reportsGroupId ? 'Guardar cambios' : 'Crear usuario'} */}
           {userId ? 'Guardar cambios' : 'Crear usuario'}
-        </Button>
+        </LoadingButton>
       </Grid>
     </Paper>
   )

@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+
 import {
   FormControl,
   InputLabel,
@@ -7,35 +9,44 @@ import {
   Grid,
   Button,
 } from '@mui/material'
-import { v4 as uuidv4 } from 'uuid'
 import useForm from './../../hooks/useForm'
-import { useSelector, useDispatch } from 'react-redux'
+
 import { readWorkspacesByAdmin } from './../../state/workspaces/workspacesActions'
-import useReportsByWorkspace from './../../hooks/useReportsByWorkspace'
-import { getReportData } from './../../state/powerbi/powerbiActions'
+import { readSectionsByAdmin } from './../../state/sections/sectionsActions'
+import { readReportsByAdmin } from './../../state/reports/reportsActions'
+
 import Report from './Report'
 import Loading from './../layout/Loading'
+import FormField from './../layout/FormField'
+import useRead from './../../hooks/useRead'
+
+import _ from 'lodash'
 
 const ReportPicker = () => {
-  const dispatch = useDispatch()
+  useRead(readWorkspacesByAdmin, readSectionsByAdmin, readReportsByAdmin)
+
   const { workspaces, loading } = useSelector(state => state.workspaces)
-  const { embedUrl } = useSelector(state => state.powerbi)
+  const { sections } = useSelector(state => state.sections)
+  const { reports } = useSelector(state => state.reports)
 
-  useEffect(() => {
-    dispatch(readWorkspacesByAdmin())
-  }, [])
-
-  const [dropdowns, bindDropdowns] = useForm({
-    workspace: '',
-    report: '',
-    section: '',
+  const [dropdowns, bindField, areAnyDropdownsEmpty, setDropdowns] = useForm({
+    workspaceId: '',
+    reportId: '',
+    sectionId: '',
   })
 
   useEffect(() => {
-    dispatch(getReportData(dropdowns.workspace, dropdowns.report))
-  }, [dropdowns.report])
+    setDropdowns({ ...dropdowns, sectionId: '' })
+  }, [dropdowns.reportId])
 
-  const reports = useReportsByWorkspace(dropdowns.workspace)
+  const thisWorkspaceReports = _.uniqBy(
+    reports.filter(report => report.workspaceId === dropdowns.workspaceId),
+    'id'
+  )
+
+  const thisReportSections = sections.filter(
+    section => section.reportId === dropdowns.reportId
+  )
 
   if (loading || !workspaces)
     return (
@@ -52,61 +63,48 @@ const ReportPicker = () => {
       </Grid>
     )
 
-  const sections = [{ id: uuidv4, name: 'Página 1' }]
-
   return (
     <>
-      <Grid container spacing={3} mb={4}>
-        <Grid item xs={4}>
-          <FormControl fullWidth>
-            <InputLabel>Workspace</InputLabel>
-            <Select
-              labelId='workspace-dropdown'
-              label='Workspace'
-              {...bindDropdowns('workspace')}
-            >
-              {workspaces.map(workspace => (
-                <MenuItem key={workspace.id} value={workspace.groupIdPBI}>
-                  {workspace.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+      <Grid container spacing={3} mb={4} alignItems='center'>
+        <Grid item xs={12} md={4}>
+          <FormField label='Workspace'>
+            <FormField.Select
+              {...bindField('workspaceId')}
+              options={workspaces}
+              optionValue='id'
+              display='name'
+            />
+          </FormField>
         </Grid>
 
-        <Grid item xs={4}>
-          <FormControl fullWidth>
-            <InputLabel id='report-dropdown'>Reporte</InputLabel>
-            <Select
-              labelId='report-dropdown'
-              label='Reporte'
-              {...bindDropdowns('report')}
-            >
-              {reports.map(report => (
-                <MenuItem key={report.id} value={report.reportIdPBI}>
-                  {report.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+        <Grid item xs={12} md={4}>
+          <FormField label='Reporte'>
+            <FormField.Select
+              {...bindField('reportId')}
+              options={thisWorkspaceReports}
+              optionValue='id'
+              display='name'
+            />
+          </FormField>
         </Grid>
-
-        <Grid item xs={4}>
-          <FormControl fullWidth>
-            <InputLabel>Sección</InputLabel>
-            <Select label='Sección' {...bindDropdowns('section')}>
-              {sections.map(section => (
-                <MenuItem key={section.id} value={section.id}>
-                  {section.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
+        <Grid item xs={12} md={4}>
+          <FormField label='Sección'>
+            <FormField.Select
+              {...bindField('sectionId')}
+              options={thisReportSections}
+              optionValue='id'
+              display='name'
+            />
+          </FormField>
         </Grid>
       </Grid>
 
-      {embedUrl && dropdowns.report !== '' && (
-        <Report groupId={dropdowns.workspace} reportId={dropdowns.report} />
+      {!areAnyDropdownsEmpty && (
+        <Report
+          workspaceId={dropdowns.workspaceId}
+          reportId={dropdowns.reportId}
+          sectionId={dropdowns.sectionId}
+        />
       )}
     </>
   )

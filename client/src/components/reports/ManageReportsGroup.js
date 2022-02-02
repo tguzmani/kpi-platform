@@ -36,6 +36,7 @@ import { useParams } from 'react-router-dom'
 import ManageReportsGroupTable from './ManageReportsGroupTable'
 import useSelectionList from './../../hooks/useSelectionList'
 import LoadingButton from '@mui/lab/LoadingButton'
+import useNavigateAfterAction from './../../hooks/useNavigateAfterAction'
 
 const ManageReportsGroup = () => {
   const navigate = useNavigate()
@@ -47,18 +48,16 @@ const ManageReportsGroup = () => {
     readSectionsByAdmin
   )
 
-  // const dispatch = useDispatch()
-  const [buttonHasBeenClicked, toggleButtonHasBeenClicked] = useToggle(false)
-
   const { reportsGroups, reports, loading } = useSelector(
     state => state.reports
   )
   const { workspaces } = useSelector(state => state.workspaces)
   const { sections } = useSelector(state => state.sections)
 
-  React.useEffect(() => {
-    if (!loading && buttonHasBeenClicked) navigate('/admins/reports-groups')
-  }, [loading, buttonHasBeenClicked, navigate])
+  const buttonHasBeenClicked = useNavigateAfterAction(
+    loading,
+    '/admins/reports-groups'
+  )
 
   const initialState = {
     code: '',
@@ -81,8 +80,6 @@ const ManageReportsGroup = () => {
       report: thisReportsGroup.sectionsIds[0],
     }
   }
-
-  console.log('thisReportsGroup', thisReportsGroup)
 
   const [active, handleSwitchChange] = useToggle(true)
 
@@ -121,7 +118,7 @@ const ManageReportsGroup = () => {
         : createReportsGroup(reportsGroupData)
     )
 
-    toggleButtonHasBeenClicked()
+    buttonHasBeenClicked()
   }
 
   return (

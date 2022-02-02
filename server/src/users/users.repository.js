@@ -43,11 +43,11 @@ async function readUsersByAdminId(adminId) {
   })
 }
 
-async function readUsersReportsGroupsByAdmin(userId) {
+async function readUsersReportsGroupsByAdmin(adminId) {
   return new Promise(resolve => {
     connection.query(
       usersQueries.READ_USERS_REPORTS_GROUPS_BY_ADMIN,
-      [userId],
+      [adminId],
       (error, result) => {
         if (error) throw error
 

@@ -37,6 +37,12 @@ async function readUsersByAdminId(adminId) {
   return usersWithReportGroups
 }
 
+async function readOneUserByAdmin(userId, adminId) {
+  const users = await readUsersByAdminId(adminId)
+
+  return users.find(user => user.id === userId)
+}
+
 async function createUserByAdmin(user) {
   return await usersRepository.createUserByAdmin(user)
 }
@@ -64,6 +70,7 @@ const adminFunctions = {
   connectUserToReportGroups,
   updateConnectionUserToReportGroup,
   updateUser,
+  readOneUserByAdmin,
 }
 
 module.exports = { ...userFunctions, ...adminFunctions }

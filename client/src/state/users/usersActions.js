@@ -26,6 +26,7 @@ export const setLoading = () => dispatch => {
 
 export const createUser = user => async dispatch => {
   setLoading()(dispatch)
+
   try {
     const res = await axios.post(`/users`, user, config)
     dispatch({ type: CREATE, payload: res.data })
@@ -36,6 +37,7 @@ export const createUser = user => async dispatch => {
 
 export const readUsers = () => async dispatch => {
   setLoading()(dispatch)
+
   try {
     const res = await axios.get('/users')
     dispatch({ type: READ_ALL, payload: res.data })
@@ -46,6 +48,7 @@ export const readUsers = () => async dispatch => {
 
 export const updateUser = user => async dispatch => {
   setLoading()(dispatch)
+
   try {
     const res = await axios.put(`/users/${user.id}`, user, config)
     dispatch({ type: UPDATE, payload: res.data })
@@ -53,13 +56,3 @@ export const updateUser = user => async dispatch => {
     handleError(dispatch, error)
   }
 }
-
-// export const deleteUser = user => async dispatch => {
-//   setLoading()(dispatch)
-//   try {
-//     const res = await axios.delete(`/users/${user._id}`)
-//     dispatch({ type: DELETE, payload: res.data })
-//   } catch (error) {
-//     handleError(dispatch, error)
-//   }
-// }
