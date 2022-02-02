@@ -4,11 +4,12 @@ import { TableCell, TableRow, Switch, CircularProgress } from '@mui/material'
 import { updateReportActiveStateByAdmin } from '../../state/reports/reportsActions'
 import { useDispatch } from 'react-redux'
 import { readAccountReportsByAdmin } from './../../state/reports/reportsActions'
+import useResponsive from './../../hooks/useResponsive'
 
 const AccountReportsTableRow = ({ report }) => {
-  const [checked, setChecked] = React.useState(report.active === 1)
-  const { loading } = useSelector(state => state.reports)
   const dispatch = useDispatch()
+  const matchMd = useResponsive('md')
+  const [checked, setChecked] = React.useState(report.active === 1)
 
   const handleChange = event => {
     setChecked(event.target.checked)
@@ -20,7 +21,7 @@ const AccountReportsTableRow = ({ report }) => {
 
   return (
     <TableRow>
-      <TableCell align='center'>{report.workspace}</TableCell>
+      {matchMd && <TableCell align='center'>{report.workspace}</TableCell>}
 
       <TableCell align='center'>{report.name}</TableCell>
       <TableCell align='center'>

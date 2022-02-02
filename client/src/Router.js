@@ -9,6 +9,7 @@ import AdminRoute from './components/routing/AdminRoute'
 import LoginPage from './pages/LoginPage'
 import ReportGroupsPage from './pages/ReportGroupsPage'
 import UsersPage from './pages/UsersPage'
+import UsersGroupsPage from './pages/UsersGroupsPage'
 import ReportsPage from './pages/ReportsPage'
 import AccountPage from './pages/AccountPage'
 import NotFoundPage from './pages/NotFoundPage'
@@ -23,6 +24,7 @@ import { useDispatch } from 'react-redux'
 import { readLogoBySubdomain } from './state/admins/adminsActions'
 import { readTermsAndConditions } from './state/termsAndConditions/termsAndConditionsActions'
 import TermsAndConditions from './components/termsAndConditions/TermsAndConditionsPage'
+import ManageUsersGroups from './components/usersGroups/ManageUsersGroups'
 
 const adminsRoutes = [
   {
@@ -36,6 +38,18 @@ const adminsRoutes = [
   {
     path: '/users/create',
     element: ManageUser,
+  },
+  {
+    path: '/user-groups',
+    element: UsersGroupsPage,
+  },
+  {
+    path: '/user-groups/create',
+    element: ManageUsersGroups,
+  },
+  {
+    path: '/user-groups/update/:usersGroupId',
+    element: ManageUsersGroups,
   },
   {
     path: '/users/update/:userId',

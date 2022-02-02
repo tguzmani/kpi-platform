@@ -6,13 +6,17 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import InvoiceItem from './InvoiceItem'
 import Loading from './../layout/Loading'
+
 import {
   readInvoicesByContract,
   readInvoicesDetailByContract,
 } from './../../state/invoices/invoicesActions'
 
+import useResponsive from './../../hooks/useResponsive'
+
 const Invoices = () => {
   const dispatch = useDispatch()
+  const matchMd = useResponsive('md')
 
   const { invoices, loading } = useSelector(state => state.invoices)
   const { contract } = useSelector(state => state.contracts)
@@ -22,7 +26,7 @@ const Invoices = () => {
     dispatch(readInvoicesDetailByContract(contract))
   }, [])
 
-  const headers = [
+  const headersMd = [
     { xs: 3, header: 'Factura' },
     { xs: 3, header: 'Fecha Emisión' },
     { xs: 2, header: 'Valor' },
@@ -32,12 +36,21 @@ const Invoices = () => {
     { xs: 1, header: '' },
   ]
 
+  const headersXs = [
+    { xs: 3, header: 'Factura' },
+    { xs: 4, header: 'Emisión' },
+    { xs: 4, header: 'Estado' },
+    { xs: 1, header: '' },
+  ]
+
+  const headers = matchMd ? headersMd : headersXs
+
   if (loading && invoices.length === 0)
     return <Loading number={4} height={60} />
 
   return (
     <List>
-      <Grid container alignItems='center' justifyContent='center' mb={3}>
+      <Grid container alignItems='center' justifyContent='space-around' mb={3}>
         {headers.map(header => (
           <Grid item xs={header.xs}>
             <Typography sx={{ fontWeight: 'bold' }} variant='body1'>

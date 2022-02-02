@@ -16,7 +16,7 @@ const Navigation = () => {
   const links = [
     { name: 'Grupos de reporte', to: '/admins/reports-groups' },
     { name: 'Reportes', to: '/admins/show-report' },
-    { name: 'Grupos de usuario', to: '/admins/user-groups' },
+    { name: 'Grupos de usuarios', to: '/admins/user-groups' },
     { name: 'Usuarios', to: '/admins/users' },
     { name: 'Cuenta', to: '/admins/account' },
   ]
@@ -26,7 +26,12 @@ const Navigation = () => {
   const navigationItems = (
     <List>
       {links.map(link => (
-        <NavItem key={link.to} to={link.to} onClick={() => setOpen(false)}>
+        <NavItem
+          key={link.to}
+          to={link.to}
+          onClick={() => setOpen(false)}
+          disabled={link.disabled}
+        >
           <Typography variant='body1'>{link.name}</Typography>
         </NavItem>
       ))}

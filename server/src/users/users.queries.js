@@ -42,6 +42,7 @@ select id, username, name, mail, password, active
 from adm_users
 where id = ?
 `
+
 exports.READ_BY_NAME = `
 select id, username, name, mail, password, active
 from adm_users

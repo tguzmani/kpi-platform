@@ -118,6 +118,7 @@ const Contract = () => {
             </FormField>
           </Grid>
         </Grid>
+
         <Grid lg={7} md={12} item mt={2}>
           <Grid container>
             <Grid item xs={12} md>
@@ -149,7 +150,8 @@ const Contract = () => {
               </Stack>
             </Grid>
           </Grid>
-          <Grid item xs={12}>
+
+          <Grid item xs={12} md>
             <ContractDetail contract={contract} />
           </Grid>
         </Grid>

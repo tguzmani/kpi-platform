@@ -11,9 +11,15 @@ import {
   TableBody,
 } from '@mui/material'
 import { useSelector } from 'react-redux'
+import useResponsive from './../../hooks/useResponsive'
 
 const AccountReportsTable = () => {
-  const headers = ['Workspace', 'Reporte', 'Activar/Desactivar']
+  const matchMd = useResponsive('md')
+  const headersMd = ['Workspace', 'Reporte', 'Activar/Desactivar']
+  const headersXs = ['Reporte', 'Activar/Desactivar']
+
+  const headers = matchMd ? headersMd : headersXs
+
   const accountReports = useSelector(state => state.reports.accountReports)
 
   return (

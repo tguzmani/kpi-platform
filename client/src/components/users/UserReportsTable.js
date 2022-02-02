@@ -11,9 +11,17 @@ import {
   TableBody,
 } from '@mui/material'
 import { useSelector } from 'react-redux'
+import useResponsive from './../../hooks/useResponsive'
 
 const UserReportsTable = ({ userId }) => {
-  const headers = ['Código', 'Nombre Grupo', 'Secciones', 'Activo']
+  const matchMd = useResponsive('md')
+
+  const headersMd = ['Código', 'Nombre Grupo', 'Secciones', 'Activo']
+
+  const headersXs = ['Nombre Grupo']
+
+  const headers = matchMd ? headersMd : headersXs
+
   const { usersReports } = useSelector(state => state.reports)
 
   const thisUserReports = usersReports.filter(
