@@ -17,3 +17,16 @@ where usersGroup.id = usersGroupsHasUser.id_adm_users_groups
 group by usersGroup.id;
 
 `
+
+exports.READ_USERS_GROUPS_USERS = `
+select user.id
+from adm_users_groups usersGroup,
+     adm_users_groups_has_users usersGroupsHasUser,
+     adm_users user,
+     adm_accounts admin
+where usersGroup.id = usersGroupsHasUser.id_adm_users_groups
+  and usersGroupsHasUser.id_adm_users_id = user.id
+  and user.id_adm_accounts = admin.id
+
+  and admin.id = ? and usersGroup.id = ?;
+`

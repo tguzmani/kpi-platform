@@ -11,16 +11,22 @@ import {
   Box,
 } from '@mui/material'
 
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+
 import EditIcon from '@mui/icons-material/Edit'
 import ActiveIndicator from '../layout/ActiveIndicator'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import useResponsive from '../../hooks/useResponsive'
-import { useNavigate } from 'react-router-dom'
 import useToggle from './../../hooks/useToggle'
 import UnderConstruction from './../layout/UnderConstruction'
+import UsersGroupsUsers from './UsersGroupsUsers'
 
 const UsersGroupsItem = ({ usersGroup }) => {
   const [open, handleToggleCollapse] = useToggle(false)
+
+  const { users } = useSelector(state => state.users)
+
   const navigate = useNavigate()
 
   const matchMd = useResponsive('md')
@@ -32,6 +38,15 @@ const UsersGroupsItem = ({ usersGroup }) => {
   const handleChangePassword = () => {
     console.log('change user password')
   }
+
+  const thisUsersGroupUsers = usersGroup.usersIds.map(userId =>
+    users.find(user => user.id === userId)
+  )
+
+  console.log(
+    `thisUsersGroupUsers (grupo ${usersGroup.name})`,
+    thisUsersGroupUsers
+  )
 
   return (
     <>
@@ -80,7 +95,9 @@ const UsersGroupsItem = ({ usersGroup }) => {
       </ListItem>
 
       <Collapse in={open} timeout='auto' unmountOnExit>
-        <UnderConstruction>Desplegable Grupo de usuarios</UnderConstruction>
+        <UsersGroupsUsers users={thisUsersGroupUsers} />
+        <UnderConstruction>Grupos de reportes</UnderConstruction>
+        <UnderConstruction>Secciones</UnderConstruction>
       </Collapse>
     </>
   )

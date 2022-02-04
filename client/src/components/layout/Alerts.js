@@ -8,6 +8,8 @@ import { useSelector, useDispatch } from 'react-redux'
 
 import { clearMessage } from './../../state/auth/authActions'
 
+const TIMEOUT = 4500
+
 const Alerts = () => {
   const dispatch = useDispatch()
   const { message, loading } = useSelector(state => state.auth)
@@ -18,9 +20,9 @@ const Alerts = () => {
     if (message && !show) {
       setShow(true)
 
-      setTimeout(() => setShow(false), 2500)
+      setTimeout(() => setShow(false), TIMEOUT - 500)
 
-      setTimeout(() => dispatch(clearMessage()), 3000)
+      setTimeout(() => dispatch(clearMessage()), TIMEOUT)
     }
   }, [message])
 

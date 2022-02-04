@@ -72,6 +72,7 @@ const theme = createTheme({
             padding: muiTheme.spacing(4),
             textAlign: 'center',
             backgroundColor: amber[200],
+            margin: '1rem 0',
           },
         },
       },

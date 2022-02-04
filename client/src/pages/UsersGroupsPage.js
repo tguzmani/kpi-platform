@@ -14,6 +14,7 @@ import UsersGroups from '../components/usersGroups/UsersGroups'
 
 const UsersPage = () => {
   // useRead(readUsers, readReportGroupsHeadersByAdmin, readUsersReportsByAdmin)
+  useRead(readUsers)
 
   const navigate = useNavigate()
 

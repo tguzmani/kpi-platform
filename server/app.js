@@ -56,11 +56,12 @@ app.listen(port, '0.0.0.0', () => {
 })
 
 function keepMySQLAlive() {
-  connection.query('select 1', [], (error, result) => {
+  connection.query('select 1', [], (error, _) => {
     if (error) throw error
+    console.log('...')
   })
 }
 
 const ONE_SECOND = 1000
 
-setInterval(keepMySQLAlive, ONE_SECOND * 3600)
+setInterval(keepMySQLAlive, ONE_SECOND * 1800)

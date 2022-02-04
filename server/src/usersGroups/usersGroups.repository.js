@@ -15,6 +15,21 @@ async function readUsersGroups(adminId) {
   })
 }
 
+async function readUsersGroupsUsers(adminId, usersGroupId) {
+  return new Promise(resolve => {
+    connection.query(
+      { sql: usersGroupsQueries.READ_USERS_GROUPS_USERS, rowsAsArray: true },
+      [adminId, usersGroupId],
+      (error, result) => {
+        if (error) throw error
+
+        return resolve(result.flat())
+      }
+    )
+  })
+}
+
 module.exports = {
   readUsersGroups,
+  readUsersGroupsUsers,
 }

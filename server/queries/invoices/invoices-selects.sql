@@ -33,3 +33,5 @@ where item.id = invoiceBody.id_int_items
 update adm_invoices_header
 set invoice_id = substring(uuid(), 1, 8)
 where id = 2;
+
+select * from pbi_workspaces_reports;

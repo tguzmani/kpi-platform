@@ -16,7 +16,7 @@ async function signIn(name, password) {
 
   if ((await isAdminLoggedIn(admin.id)) === admin.id) {
     throw new AdminsException(
-      'Ya existe un usuario en el sistema. Intente nuevamente en unos minutos'
+      `El usuario ${admin.name} ya está utilizando el sistema, intente con otro usuario o bien contáctelo para que libere la sesión`
     )
   }
 

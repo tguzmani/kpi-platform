@@ -201,7 +201,7 @@ const ManageReportsGroup = () => {
           Cancelar
         </Button>
         <LoadingButton
-          loading={loading && buttonHasBeenClicked}
+          loading={loading}
           onClick={handleManageReportsGroup}
           variant='contained'
           disabled={areFieldsEmpty || selectedSections.length === 0}
