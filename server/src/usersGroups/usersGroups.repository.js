@@ -29,7 +29,25 @@ async function readUsersGroupsUsers(adminId, usersGroupId) {
   })
 }
 
+async function readUsersGroupsReportsGroups(adminId, reportsGroupId) {
+  return new Promise(resolve => {
+    connection.query(
+      {
+        sql: usersGroupsQueries.READ_USERS_GROUPS_REPORTS_GROUPS,
+        rowsAsArray: true,
+      },
+      [adminId, reportsGroupId],
+      (error, result) => {
+        if (error) throw error
+
+        return resolve(result.flat())
+      }
+    )
+  })
+}
+
 module.exports = {
   readUsersGroups,
   readUsersGroupsUsers,
+  readUsersGroupsReportsGroups,
 }

@@ -9,23 +9,23 @@ import TableCell from '@mui/material/TableCell'
 import Paper from '@mui/material/Paper'
 import TableBody from '@mui/material/TableBody'
 
-import UsersGroupsUsersTableRow from './UsersGroupsUsersTableRow'
+import UsersGroupsReportsGroupsTableRow from './UsersGroupsReportsGroupsTableRow'
 
 import useResponsive from './../../hooks/useResponsive'
 
-const UsersGroupsUsers = ({ users }) => {
+const UsersGroupsReportsGroups = ({ reportsGroups }) => {
   const matchMd = useResponsive('md')
 
-  const headersMd = ['Nombre', 'Usuario', 'Email', 'Activo']
+  const headersMd = ['Código', 'Nombre', 'Secciones', 'Activo']
 
-  const headersXs = ['Nombre', 'Usuario']
+  const headersXs = ['Código', 'Nombre']
 
   const headers = matchMd ? headersMd : headersXs
 
   return (
     <>
-      <Typography my={2} variant='h6' align='center'>
-        Usuarios asociados a este grupo:
+      <Typography my={3} mt={4} variant='h6' align='center'>
+        Grupos de reportes asociados a este grupo:
       </Typography>
 
       <TableContainer component={Paper}>
@@ -45,8 +45,11 @@ const UsersGroupsUsers = ({ users }) => {
           </TableHead>
 
           <TableBody>
-            {users.map(user => (
-              <UsersGroupsUsersTableRow key={user.id} user={user} />
+            {reportsGroups.map(reportsGroup => (
+              <UsersGroupsReportsGroupsTableRow
+                key={reportsGroup.id}
+                reportsGroup={reportsGroup}
+              />
             ))}
           </TableBody>
         </Table>
@@ -55,4 +58,4 @@ const UsersGroupsUsers = ({ users }) => {
   )
 }
 
-export default UsersGroupsUsers
+export default UsersGroupsReportsGroups

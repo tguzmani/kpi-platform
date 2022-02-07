@@ -3,6 +3,7 @@ import { readUsers } from '../state/users/usersActions'
 import {
   readReportGroupsHeadersByAdmin,
   readUsersReportsByAdmin,
+  readReportsByAdmin,
 } from '../state/reports/reportsActions'
 import useRead from '../hooks/useRead'
 import { useNavigate } from 'react-router-dom'
@@ -13,8 +14,7 @@ import PositionedButton from '../components/layout/PositionedButton'
 import UsersGroups from '../components/usersGroups/UsersGroups'
 
 const UsersPage = () => {
-  // useRead(readUsers, readReportGroupsHeadersByAdmin, readUsersReportsByAdmin)
-  useRead(readUsers)
+  useRead(readUsers, readReportsByAdmin, readReportGroupsHeadersByAdmin)
 
   const navigate = useNavigate()
 

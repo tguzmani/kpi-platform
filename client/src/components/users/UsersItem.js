@@ -33,7 +33,7 @@ const UsersTableRow = ({ user }) => {
   }
 
   const handleChangePassword = () => {
-    console.log('change user password')
+    navigate(`/admins/users/change-password/${user.id}`)
   }
 
   return (

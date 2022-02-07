@@ -21,11 +21,13 @@ import useResponsive from '../../hooks/useResponsive'
 import useToggle from './../../hooks/useToggle'
 import UnderConstruction from './../layout/UnderConstruction'
 import UsersGroupsUsers from './UsersGroupsUsers'
+import UsersGroupsReportsGroups from './UsersGroupsReportsGroups'
 
 const UsersGroupsItem = ({ usersGroup }) => {
   const [open, handleToggleCollapse] = useToggle(false)
 
   const { users } = useSelector(state => state.users)
+  const { reportsGroups } = useSelector(state => state.reports)
 
   const navigate = useNavigate()
 
@@ -43,10 +45,15 @@ const UsersGroupsItem = ({ usersGroup }) => {
     users.find(user => user.id === userId)
   )
 
-  console.log(
-    `thisUsersGroupUsers (grupo ${usersGroup.name})`,
-    thisUsersGroupUsers
+  const thisUsersGroupReportsGroups = usersGroup.reportsGroupsIds.map(
+    reportsGroupId =>
+      reportsGroups.find(reportGroup => reportGroup.id === reportsGroupId)
   )
+
+  // console.log(
+  //   `thisUsersGroupUsers (grupo ${usersGroup.name})`,
+  //   thisUsersGroupUsers
+  // )
 
   return (
     <>
@@ -96,7 +103,9 @@ const UsersGroupsItem = ({ usersGroup }) => {
 
       <Collapse in={open} timeout='auto' unmountOnExit>
         <UsersGroupsUsers users={thisUsersGroupUsers} />
-        <UnderConstruction>Grupos de reportes</UnderConstruction>
+        <UsersGroupsReportsGroups reportsGroups={thisUsersGroupReportsGroups}>
+          Grupos de reportes
+        </UsersGroupsReportsGroups>
         <UnderConstruction>Secciones</UnderConstruction>
       </Collapse>
     </>

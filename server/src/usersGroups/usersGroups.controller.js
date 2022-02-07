@@ -6,7 +6,7 @@ async function readUsersGroups(req, res) {
 
     res.send(usersGroups)
   } catch (error) {
-    return res.status(400).send(error)
+    return res.status(400).send(error.message)
   }
 }
 

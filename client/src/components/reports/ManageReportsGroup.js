@@ -100,9 +100,9 @@ const ManageReportsGroup = () => {
     section => section.reportId === reportGroup.report
   )
 
-  const selectedSectionsReports = selectedSections.map(section =>
-    reports.find(report => report.sectionId === section)
-  )
+  const selectedSectionsReports = selectedSections
+    .map(section => reports.find(report => report.sectionId === section))
+    .filter(report => report)
 
   const handleManageReportsGroup = () => {
     const reportsGroupData = {
@@ -120,6 +120,8 @@ const ManageReportsGroup = () => {
 
     buttonHasBeenClicked()
   }
+
+  // return <div>{JSON.stringify(selectedSectionsReports)}</div>
 
   return (
     <Paper className='container'>

@@ -30,3 +30,16 @@ where usersGroup.id = usersGroupsHasUser.id_adm_users_groups
 
   and admin.id = ? and usersGroup.id = ?;
 `
+
+exports.READ_USERS_GROUPS_REPORTS_GROUPS = `
+select groupsHeader.id
+from adm_users_groups usersGroup,
+     adm_users_groups_has_reports_groups_headers usersGroupsHasReportsGroup,
+     pbi_reports_groups_headers groupsHeader,
+     adm_accounts admin
+where usersGroup.id = usersGroupsHasReportsGroup.id_adm_users_groups
+and usersGroupsHasReportsGroup.id_pbi_reports_groups_headers = groupsHeader.id
+and groupsHeader.id_adm_accounts = admin.id
+
+and admin.id = ? and usersGroup.id = ?;
+`

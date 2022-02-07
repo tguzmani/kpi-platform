@@ -17,8 +17,9 @@ const UsersGroups = () => {
         name: 'Grupo Alpha',
         active: 1,
         numUsers: 3,
-        numSections: 1,
+        numSections: 5,
         usersIds: [1, 2, 5],
+        reportsGroupsIds: [2, 3, 8, 15],
       },
       {
         id: 2,
@@ -26,8 +27,9 @@ const UsersGroups = () => {
         name: 'Grupo Legends',
         active: 1,
         numUsers: 4,
-        numSections: 3,
+        numSections: 1,
         usersIds: [5, 7, 8, 16],
+        reportsGroupsIds: [14, 15],
       },
       {
         id: 3,
@@ -35,8 +37,9 @@ const UsersGroups = () => {
         name: 'Grupo Xpress',
         active: 1,
         numUsers: 3,
-        numSections: 2,
+        numSections: 4,
         usersIds: [1, 8, 9],
+        reportsGroupsIds: [7, 8, 11, 12],
       },
     ],
   }

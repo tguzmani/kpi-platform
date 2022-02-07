@@ -28,14 +28,47 @@ where usersGroup.id = usersGroupsHasUser.id_adm_users_groups
 
   and admin.id = 1;
 
-select *
-from adm_users;
+-- READ_USERS_GROUPS_REPORTS_GROUPS
+select groupsHeader.id
+from adm_users_groups usersGroup,
+     adm_users_groups_has_reports_groups_headers usersGroupsHasReportsGroup,
+     pbi_reports_groups_headers groupsHeader,
+     adm_accounts admin
+where usersGroup.id = usersGroupsHasReportsGroup.id_adm_users_groups
+and usersGroupsHasReportsGroup.id_pbi_reports_groups_headers = groupsHeader.id
+and groupsHeader.id_adm_accounts = admin.id
 
+and admin.id = 1 and usersGroup.id = 1;
 
-select u.id, u.name, username, mail, count(u.name) as 'groups', u.active
-from adm_accounts a,
-     adm_users u
-where u.id_adm_accounts = a.id
-  and a.id = 1
-group by a.id, u.name, u.username, u.mail, u.active, u.id
-order by a.id asc;
+select * from pbi_workspaces_reports_sections;
+
+select wr.id,
+       gb.id     as reportGroupBodyId,
+       gh.id     as reportGroupId,
+       code,
+       w.name    as workspaceName,
+       w.id      as workspaceId,
+       w.id_pbi  as pbiGroupId,
+       wr.name   as name,
+       wr.id_pbi as pbiReportId,
+       rs.id     as sectionId,
+       rs.name   as section,
+       wr.active
+
+from pbi_reports_groups_headers gh,
+     adm_accounts a,
+     pbi_reports_groups_body gb,
+     pbi_workspaces_reports_sections rs,
+     pbi_workspaces_reports wr,
+     pbi_workspaces w
+
+where a.id = gh.id_adm_accounts
+  and gh.id = gb.id_pbi_reports_groups_headers
+  and rs.id = gb.id_pbi_workspaces_reports_sections
+  and wr.id = rs.id_pbi_workspaces_reports
+  and w.id = wr.id_pbi_workspaces
+
+  and a.id = ?
+  and wr.active = 1;
+
+select * from pbi_reports_groups_body;

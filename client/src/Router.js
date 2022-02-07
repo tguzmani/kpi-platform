@@ -16,15 +16,18 @@ import NotFoundPage from './pages/NotFoundPage'
 
 // Page like Components
 import ManageUser from './components/users/ManageUser'
+import ChangeUserPassword from './components/users/ChangeUserPassword'
 import ManageReportsGroup from './components/reports/ManageReportsGroup'
+import TermsAndConditions from './components/termsAndConditions/TermsAndConditionsPage'
+import ManageUsersGroups from './components/usersGroups/ManageUsersGroups'
 
 // User pages
 import UserReportsPage from './pages/UserReportsPage'
-import { useDispatch } from 'react-redux'
-import { readLogoBySubdomain } from './state/admins/adminsActions'
+
+// Actions
 import { readTermsAndConditions } from './state/termsAndConditions/termsAndConditionsActions'
-import TermsAndConditions from './components/termsAndConditions/TermsAndConditionsPage'
-import ManageUsersGroups from './components/usersGroups/ManageUsersGroups'
+import { readLogoBySubdomain } from './state/admins/adminsActions'
+import { useDispatch } from 'react-redux'
 
 const adminsRoutes = [
   {
@@ -54,6 +57,10 @@ const adminsRoutes = [
   {
     path: '/users/update/:userId',
     element: ManageUser,
+  },
+  {
+    path: '/users/change-password/:userId',
+    element: ChangeUserPassword,
   },
   {
     path: '/show-report',

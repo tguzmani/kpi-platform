@@ -14,6 +14,7 @@ import roles from './../constants/roles'
 import { signIn, setLoading } from './../state/auth/authActions'
 import FormField from './../components/layout/FormField'
 import LoadingButton from '@mui/lab/LoadingButton'
+import Footer from '../components/layout/Footer'
 
 const initialCredentials = {
   name: '',
@@ -129,6 +130,8 @@ const LoginPage = () => {
           </Paper>
         </Grid>
       </Grid>
+
+      <Footer />
     </>
   )
 }
