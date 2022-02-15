@@ -27,62 +27,96 @@ order by groupsHeader.id;
 
 `
 
+// exports.READ_REPORTS_BY_ADMIN = `
+// select wr.id,
+//        gb.id     as reportGroupBodyId,
+//        gh.id     as reportGroupId,
+//        code,
+//        w.name    as workspaceName,
+//        w.id      as workspaceId,
+//        w.id_pbi  as pbiGroupId,
+//        wr.name   as name,
+//        wr.id_pbi as pbiReportId,
+//        rs.id     as sectionId,
+//        rs.name   as section,
+//        wr.active
+
+// from pbi_reports_groups_headers gh,
+//      adm_accounts a,
+//      pbi_reports_groups_body gb,
+//      pbi_workspaces_reports_sections rs,
+//      pbi_workspaces_reports wr,
+//      pbi_workspaces w
+
+// where a.id = gh.id_adm_accounts
+//   and gh.id = gb.id_pbi_reports_groups_headers
+//   and rs.id = gb.id_pbi_workspaces_reports_sections
+//   and wr.id = rs.id_pbi_workspaces_reports
+//   and w.id = wr.id_pbi_workspaces
+
+//   and a.id = ?
+//   and wr.active = 1;
+
+// `
+
 exports.READ_REPORTS_BY_ADMIN = `
-select wr.id,
-       gb.id     as reportGroupBodyId,
-       gh.id     as reportGroupId,
+select report.id,
+       groupsHeader.id     as reportGroupId,
        code,
-       w.name    as workspaceName,
-       w.id      as workspaceId,
-       w.id_pbi  as pbiGroupId,
-       wr.name   as name,
-       wr.id_pbi as pbiReportId,
-       rs.id     as sectionId,
-       rs.name   as section,
-       wr.active
+       workspace.name    as workspaceName,
+       workspace.id      as workspaceId,
+       workspace.id_pbi  as pbiGroupId,
+       report.name   as name,
+       report.id_pbi as pbiReportId,
+       section.id     as sectionId,
+       section.name   as section,
+       report.active
 
-from pbi_reports_groups_headers gh,
-     adm_accounts a,
-     pbi_reports_groups_body gb,
-     pbi_workspaces_reports_sections rs,
-     pbi_workspaces_reports wr,
-     pbi_workspaces w
+from pbi_reports_groups_headers groupsHeader,
+     adm_accounts admin,
+     pbi_reports_groups_body groupsBody,
+     pbi_workspaces_reports_sections section,
+     pbi_workspaces_reports report,
+     pbi_workspaces workspace,
+     adm_accounts_reports accountsReport
 
-where a.id = gh.id_adm_accounts
-  and gh.id = gb.id_pbi_reports_groups_headers
-  and rs.id = gb.id_pbi_workspaces_reports_sections
-  and wr.id = rs.id_pbi_workspaces_reports
-  and w.id = wr.id_pbi_workspaces
+where admin.id = groupsHeader.id_adm_accounts
+  and groupsHeader.id = groupsBody.id_pbi_reports_groups_headers
+  and section.id = groupsBody.id_pbi_workspaces_reports_sections
+  and report.id = section.id_pbi_workspaces_reports
+  and workspace.id = report.id_pbi_workspaces
+  and accountsReport.id_pbi_workspaces_reports = report.id
+  and accountsReport.id_adm_accounts = admin.id
 
-  and a.id = ?
-  and wr.active = 1;
+  and admin.id = ?
+  and report.active = 1;
 
 `
 
 exports.READ_ACCOUNT_REPORTS_BY_ADMIN = `
-select wr.id, w.name as workspace, wr.name as name, wr.active, w.id_pbi as groupId, wr.id_pbi as reportId
+select report.id,
+       workspace.name   as workspace,
+       report.name      as name,
+       accountReports.active,
+       workspace.id_pbi as groupId,
+       report.id_pbi    as reportId
 
-from pbi_reports_groups_headers gh,
-     adm_accounts a,
-     pbi_reports_groups_body gb,
-     pbi_workspaces_reports_sections rs,
-     pbi_workspaces_reports wr,
-     pbi_workspaces w
-     
-where a.id = gh.id_adm_accounts
-  and gh.id = gb.id_pbi_reports_groups_headers
-  and rs.id = gb.id_pbi_workspaces_reports_sections
-  and wr.id = rs.id_pbi_workspaces_reports
-  and w.id = wr.id_pbi_workspaces
+from adm_accounts admin,
+     pbi_workspaces_reports report,
+     pbi_workspaces workspace,
+     adm_accounts_reports accountReports
 
-  and a.id = ?
-group by wr.id;
+where workspace.id = report.id_pbi_workspaces
+  and accountReports.id_adm_accounts = admin.id
+  and accountReports.id_pbi_workspaces_reports = report.id
+
+  and admin.id = ?;
 `
 
 exports.UPDATE_REPORT_ACTIVE_STATE_BY_ADMIN = `
-update pbi_workspaces_reports
+update adm_accounts_reports
 set active = ?
-where id = ?;
+where id_adm_accounts = ? and id_pbi_workspaces_reports = ?;
 `
 
 exports.READ_USERS_REPORTS_BY_ADMIN = `

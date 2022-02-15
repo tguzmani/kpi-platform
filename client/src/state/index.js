@@ -13,6 +13,7 @@ import identificationDocumentsReducer from './identificationDocuments/identifica
 import currenciesReducer from './currencies/currenciesReducer'
 import invoicesReducer from './invoices/invoicesReducer'
 import termsAndConditionsReducer from './termsAndConditions/termsAndConditionsReducer'
+import usersGroupsReducer from './usersGroups/usersGroupsReducer'
 
 export default combineReducers({
   auth: authReducer,
@@ -28,4 +29,5 @@ export default combineReducers({
   currencies: currenciesReducer,
   invoices: invoicesReducer,
   termsAndConditions: termsAndConditionsReducer,
+  usersGroups: usersGroupsReducer,
 })

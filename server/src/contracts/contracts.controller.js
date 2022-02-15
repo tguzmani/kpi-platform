@@ -13,6 +13,7 @@ async function readContractByAdmin(req, res) {
 async function readContractDetailsByAdmin(req, res) {
   try {
     const contractDetails = await contractsServices.readContractDetailsByAdmin(
+      req.userId,
       req.params.contractId
     )
 

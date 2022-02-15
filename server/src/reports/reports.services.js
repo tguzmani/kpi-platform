@@ -42,8 +42,12 @@ async function readAccountReportsByAdmin(adminId) {
   return await reportsRepository.readAccountReportsByAdmin(adminId)
 }
 
-async function updateReportActiveStateByAdmin(active, reportId) {
-  await reportsRepository.updateReportActiveStateByAdmin(active, reportId)
+async function updateReportActiveStateByAdmin(adminId, reportId, active) {
+  await reportsRepository.updateReportActiveStateByAdmin(
+    adminId,
+    reportId,
+    active
+  )
 }
 
 async function readUsersReportsByAdmin(adminId) {

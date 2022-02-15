@@ -18,13 +18,7 @@ async function getReportData(req, res) {
   try {
     const { groupId, reportId } = req.body
 
-    const accessToken = await powerbiServices.getAccessToken()
-
-    const embedUrl = await powerbiServices.getEmbedUrl(
-      bearerToken(accessToken),
-      groupId,
-      reportId
-    )
+    const embedUrl = await powerbiServices.getEmbedUrl(groupId, reportId)
 
     res.send({ accessToken, embedUrl })
   } catch (error) {
@@ -32,4 +26,33 @@ async function getReportData(req, res) {
   }
 }
 
-module.exports = { getAccessToken, getReportData }
+async function getReportsInGroup(req, res) {
+  try {
+    const { groupId } = req.query
+
+    const reports = await powerbiServices.getReportsInGroup(groupId)
+
+    res.send(reports)
+  } catch (error) {
+    return res.status(400).send(error)
+  }
+}
+
+async function getPagesInReport(req, res) {
+  try {
+    const { reportId } = req.query
+
+    const reports = await powerbiServices.getPagesInReport(reportId)
+
+    res.send(reports)
+  } catch (error) {
+    return res.status(400).send(error)
+  }
+}
+
+module.exports = {
+  getAccessToken,
+  getReportData,
+  getReportsInGroup,
+  getPagesInReport,
+}

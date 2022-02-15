@@ -44,8 +44,9 @@ async function readAccountReportsByAdmin(req, res) {
 async function updateReportActiveStateByAdmin(req, res) {
   try {
     await reportsServices.updateReportActiveStateByAdmin(
-      req.body.active,
-      req.params.reportId
+      req.userId,
+      req.params.reportId,
+      req.body.active
     )
 
     const adminReports = await reportsServices.readAccountReportsByAdmin(

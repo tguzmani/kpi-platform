@@ -46,6 +46,7 @@ const TermsAndConditions = () => {
 
   const handleCheck = () => {
     setTermsAndConditionsAccepted(!termsAndConditionsAccepted)
+    dispatch(acceptTermsAndConditions(termsAndConditions))
   }
 
   const isScrolledToBottom = () => {
@@ -56,7 +57,6 @@ const TermsAndConditions = () => {
   }
 
   const handleAcceptTermsAndConditions = () => {
-    dispatch(acceptTermsAndConditions(termsAndConditions))
     dispatch(readProfile(roles.ADMIN))
     navigate('/admins/reports-groups')
   }
@@ -100,7 +100,7 @@ const TermsAndConditions = () => {
           <Grid item xs={12} md={6}>
             <Grid container direction='row-reverse' px={2}>
               <LoadingButton
-                disabled={!termsAndConditionsAccepted}
+                disabled={!termsAndConditionsAccepted || loading}
                 variant='contained'
                 onClick={handleAcceptTermsAndConditions}
                 loading={loading}

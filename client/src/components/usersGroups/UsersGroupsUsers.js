@@ -13,45 +13,47 @@ import UsersGroupsUsersTableRow from './UsersGroupsUsersTableRow'
 
 import useResponsive from './../../hooks/useResponsive'
 
-const UsersGroupsUsers = ({ users }) => {
+const UsersGroupsUsers = ({ users, onChange, readOnly, selectedUsers }) => {
   const matchMd = useResponsive('md')
 
-  const headersMd = ['Nombre', 'Usuario', 'Email', 'Activo']
+  const checkboxHeader = readOnly ? [] : ['Seleccionar']
 
-  const headersXs = ['Nombre', 'Usuario']
+  const headersMd = [...checkboxHeader, 'Nombre', 'Usuario', 'Email', 'Activo']
+
+  const headersXs = [...checkboxHeader, 'Nombre', 'Usuario']
 
   const headers = matchMd ? headersMd : headersXs
 
   return (
-    <>
-      <Typography my={2} variant='h6' align='center'>
-        Usuarios asociados a este grupo:
-      </Typography>
-
-      <TableContainer component={Paper}>
-        <Table size='small'>
-          <TableHead>
-            <TableRow sx={{ fontWeight: 'bold' }}>
-              {headers.map(header => (
-                <TableCell
-                  key={header}
-                  sx={{ fontWeight: 'bold' }}
-                  align='center'
-                >
-                  {header}
-                </TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-
-          <TableBody>
-            {users.map(user => (
-              <UsersGroupsUsersTableRow key={user.id} user={user} />
+    <TableContainer component={Paper} sx={{ maxHeight: 248, overflow: 'auto' }}>
+      <Table stickyHeader size='small'>
+        <TableHead>
+          <TableRow sx={{ fontWeight: 'bold' }}>
+            {headers.map(header => (
+              <TableCell
+                key={header}
+                sx={{ fontWeight: 'bold' }}
+                align='center'
+              >
+                {header}
+              </TableCell>
             ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </>
+          </TableRow>
+        </TableHead>
+
+        <TableBody>
+          {users.map(user => (
+            <UsersGroupsUsersTableRow
+              onChange={onChange}
+              selectedUsers={selectedUsers}
+              readOnly={readOnly}
+              key={user.id}
+              user={user}
+            />
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
   )
 }
 

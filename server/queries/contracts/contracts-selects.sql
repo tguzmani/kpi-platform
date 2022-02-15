@@ -28,6 +28,54 @@ where gz.id = c.id_geo_zone
   and mo.id = id_doc.id_adm_money
   and id_adm_accounts = 1;
 
--- TODO agregar pais, rut, region, comuna
+create procedure sp_contract_details_by_admin(in contract_id int, in admin_id int)
+begin
+    select *
+    from adm_account_contract_detail;
 
--- TODO mandar los items
+    select detail.id, quantity, name, cost.standard_cost as cost
+    from adm_account_contract_detail detail,
+         int_items item,
+         adm_items_standard_costs cost
+    where item.id = detail.id_int_items
+      and item.id = cost.id_int_items
+      and active = 1
+      and cost.down_date = (select max(down_date) from adm_items_standard_costs sc where sc.id_int_items = item.id)
+      and detail.id_adm_account_contract = contract_id
+
+    union
+
+    select uuid(), count(admin.id), 'Usuarios', 1 as cost
+    from adm_users user,
+         adm_accounts admin
+    where user.id_adm_accounts = admin.id
+      and user.active = 1
+      and admin.id = admin_id
+    group by admin.id
+
+    union
+
+    select uuid(), count(admin.id), 'Reportes', 1 as cost
+    from adm_accounts admin,
+         adm_accounts_reports accountsReport
+    where accountsReport.id_adm_accounts = admin.id
+      and accountsReport.active = 1
+      and admin.id = admin_id
+    group by admin.id
+
+    union
+
+    select uuid(), count(distinct workspace.id), 'Workspaces', 1 as cost
+    from adm_accounts admin,
+         adm_accounts_reports accountsReport,
+         pbi_workspaces_reports report,
+         pbi_workspaces workspace
+    where accountsReport.id_adm_accounts = admin.id
+      and accountsReport.active = 1
+      and accountsReport.id_pbi_workspaces_reports = report.id
+      and report.active = 1
+      and report.id_pbi_workspaces = workspace.id
+      and admin.id = admin_id;
+end;
+
+call sp_contract_details_by_admin(1, 1);

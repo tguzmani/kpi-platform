@@ -47,13 +47,5 @@ where gz.id = c.id_geo_zone
 `
 
 exports.READ_CONTRACT_DETAILS_BY_ADMIN = `
-select detail.id, detail.id_int_items as itemId, quantity, name, cost.standard_cost as cost
-from adm_account_contract_detail detail,
-     int_items item,
-     adm_items_standard_costs cost
-where item.id = detail.id_int_items
-  and item.id = cost.id_int_items
-  and active = 1
-  and cost.down_date >= now()
-  and detail.id_adm_account_contract = ?;
+call sp_contract_details_by_admin(?, ?)
 `

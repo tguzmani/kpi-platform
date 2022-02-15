@@ -95,10 +95,10 @@ async function readReportsGroupsHeadersSections() {
   })
 }
 
-async function updateReportActiveStateByAdmin(active, reportId) {
+async function updateReportActiveStateByAdmin(adminId, reportId, active) {
   connection.query(
     reportsQueries.UPDATE_REPORT_ACTIVE_STATE_BY_ADMIN,
-    [active, reportId],
+    [active, adminId, reportId],
     (error, result) => {
       if (error) throw error
     }

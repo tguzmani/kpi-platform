@@ -5,6 +5,9 @@ import {
   readUsersReportsByAdmin,
   readReportsByAdmin,
 } from '../state/reports/reportsActions'
+
+import { readSectionsByAdmin } from '../state/sections/sectionsActions'
+import { readUsersGroups } from '../state/usersGroups/usersGroupsActions'
 import useRead from '../hooks/useRead'
 import { useNavigate } from 'react-router-dom'
 
@@ -14,7 +17,13 @@ import PositionedButton from '../components/layout/PositionedButton'
 import UsersGroups from '../components/usersGroups/UsersGroups'
 
 const UsersPage = () => {
-  useRead(readUsers, readReportsByAdmin, readReportGroupsHeadersByAdmin)
+  useRead(
+    readUsers,
+    readReportsByAdmin,
+    readReportGroupsHeadersByAdmin,
+    readUsersGroups,
+    readSectionsByAdmin
+  )
 
   const navigate = useNavigate()
 

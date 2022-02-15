@@ -193,7 +193,7 @@ const ManageReportsGroup = () => {
         </Grid>
       </Grid>
 
-      <ManageReportsGroupTable
+    <ManageReportsGroupTable
         reports={selectedSectionsReports}
         onChange={toggleSelectedSection}
       />

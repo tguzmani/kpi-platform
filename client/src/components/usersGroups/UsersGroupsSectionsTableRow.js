@@ -4,11 +4,11 @@ import { TableCell, TableRow, Checkbox } from '@mui/material'
 import ActiveIndicator from '../layout/ActiveIndicator'
 import useResponsive from '../../hooks/useResponsive'
 
-const UsersGroupsReportsGroupsTableRow = ({
-  reportsGroup,
-  readOnly,
+const UsersGroupsSectionsTableRow = ({
+  section,
   onChange,
-  selectedReportsGroups,
+  readOnly,
+  selectedSections,
 }) => {
   const matchMd = useResponsive('md')
 
@@ -18,21 +18,22 @@ const UsersGroupsReportsGroupsTableRow = ({
         <TableCell align='center'>
           <Checkbox
             sx={{ padding: 0, margin: 0 }}
-            onChange={onChange(reportsGroup.id)}
-            checked={selectedReportsGroups.includes(reportsGroup.id)}
+            onChange={onChange(section.id)}
+            checked={selectedSections.includes(section.id)}
           />
         </TableCell>
       )}
-      <TableCell align='center'>{reportsGroup.code}</TableCell>
 
-      <TableCell align='center'>{reportsGroup.name}</TableCell>
+      <TableCell align='center'>{section.workspaceName}</TableCell>
 
-      <TableCell align='center'>{reportsGroup.sections}</TableCell>
+      <TableCell align='center'>{section.reportName}</TableCell>
+
+      <TableCell align='center'>{section.name}</TableCell>
       <TableCell align='center'>
-        <ActiveIndicator active={reportsGroup.active} />
+        <ActiveIndicator active={section.reportActive} />
       </TableCell>
     </TableRow>
   )
 }
 
-export default UsersGroupsReportsGroupsTableRow
+export default UsersGroupsSectionsTableRow

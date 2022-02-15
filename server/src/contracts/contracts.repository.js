@@ -76,15 +76,15 @@ async function readContractByAdmin(adminId) {
   })
 }
 
-async function readContractDetailsByAdmin(contractId) {
+async function readContractDetailsByAdmin(adminId, contractId) {
   return new Promise(resolve => {
     connection.query(
       contractsQueries.READ_CONTRACT_DETAILS_BY_ADMIN,
-      [contractId],
+      [contractId, adminId],
       (error, results) => {
         if (error) throw error
 
-        const contractDetails = results.map(result => ({
+        const contractDetails = results[1].map(result => ({
           ...result,
           quantity: parseInt(result.quantity),
           cost: parseFloat(result.cost),

@@ -1,3 +1,3 @@
-array = [...Array(3).keys()]
+const arraysito = [...(true ? ['True!'] : []), 1, 2, 3]
 
-console.log(array)
+console.log(arraysito)

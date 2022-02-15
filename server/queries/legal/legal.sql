@@ -71,3 +71,4 @@ insert into pbi_reports_groups_body (id_pbi_reports_groups_headers, id_pbi_works
                                      id_adm_accounts_reports)
 values (?, ?, fn_get_id_adm_account_reports_by_section_id(?))
 
+select * from adm_accounts_has_adm_terms_and_conditions;

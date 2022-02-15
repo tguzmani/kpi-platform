@@ -1,13 +1,22 @@
 exports.READ_SECTIONS_BY_ADMIN = `
-select s.id, wr.id_pbi as reportIdPBI, s.id_pbi_workspaces_reports as reportId, s.id_pbi as pbiSectionId, s.name
+select section.id,
+       report.id_pbi                     as reportIdPBI,
+       section.id_pbi_workspaces_reports as reportId,
+       section.id_pbi                    as pbiSectionId,
+       section.name,
+       report.name                       as reportName,
+       workspace.name                    as workspaceName,
+       report.active                     as reportActive
 
-from adm_accounts a,
-     adm_accounts_reports ar,
-     pbi_workspaces_reports wr,
-     pbi_workspaces_reports_sections s
+from adm_accounts admin,
+     adm_accounts_reports accountsReport,
+     pbi_workspaces_reports report,
+     pbi_workspaces_reports_sections section,
+     pbi_workspaces workspace
 
-where a.id = ar.id_adm_accounts
-  and wr.id = ar.id_pbi_workspaces_reports
-  and wr.id = s.id_pbi_workspaces_reports
-  and a.id = ?;
+where admin.id = accountsReport.id_adm_accounts
+  and report.id = accountsReport.id_pbi_workspaces_reports
+  and report.id = section.id_pbi_workspaces_reports
+  and report.id_pbi_workspaces = workspace.id
+  and admin.id = ?;
 `

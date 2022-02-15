@@ -5,8 +5,11 @@ async function readContractByAdmin(adminId) {
   return await contractsRepository.readContractByAdmin(adminId)
 }
 
-async function readContractDetailsByAdmin(contractId) {
-  return await contractsRepository.readContractDetailsByAdmin(contractId)
+async function readContractDetailsByAdmin(adminId, contractId) {
+  return await contractsRepository.readContractDetailsByAdmin(
+    adminId,
+    contractId
+  )
 }
 
 async function createContractByAdmin(

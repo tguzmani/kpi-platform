@@ -9,29 +9,24 @@ import TableCell from '@mui/material/TableCell'
 import Paper from '@mui/material/Paper'
 import TableBody from '@mui/material/TableBody'
 
-import UsersGroupsReportsGroupsTableRow from './UsersGroupsReportsGroupsTableRow'
+import UsersGroupsUsersTableRow from './UsersGroupsUsersTableRow'
 
-import useResponsive from './../../hooks/useResponsive'
+import useResponsive from '../../hooks/useResponsive'
+import UsersGroupsSectionsTableRow from './UsersGroupsSectionsTableRow'
 
-const UsersGroupsReportsGroups = ({
-  reportsGroups,
+const UsersGroupsSections = ({
+  sections,
   onChange,
   readOnly,
-  selectedReportsGroups,
+  selectedSections,
 }) => {
   const matchMd = useResponsive('md')
 
   const checkboxHeader = readOnly ? [] : ['Seleccionar']
 
-  const headersMd = [
-    ...checkboxHeader,
-    'Código',
-    'Nombre',
-    'Secciones',
-    'Activo',
-  ]
+  const headersMd = [...checkboxHeader, 'Nombre', 'Usuario', 'Email', 'Activo']
 
-  const headersXs = [...checkboxHeader, 'Código', 'Nombre']
+  const headersXs = [...checkboxHeader, 'Nombre', 'Usuario']
 
   const headers = matchMd ? headersMd : headersXs
 
@@ -53,13 +48,13 @@ const UsersGroupsReportsGroups = ({
         </TableHead>
 
         <TableBody>
-          {reportsGroups.map(reportsGroup => (
-            <UsersGroupsReportsGroupsTableRow
+          {sections.map(section => (
+            <UsersGroupsSectionsTableRow
               onChange={onChange}
               readOnly={readOnly}
-              key={reportsGroup.id}
-              reportsGroup={reportsGroup}
-              selectedReportsGroups={selectedReportsGroups}
+              selectedSections={selectedSections}
+              key={section.id}
+              section={section}
             />
           ))}
         </TableBody>
@@ -68,4 +63,4 @@ const UsersGroupsReportsGroups = ({
   )
 }
 
-export default UsersGroupsReportsGroups
+export default UsersGroupsSections

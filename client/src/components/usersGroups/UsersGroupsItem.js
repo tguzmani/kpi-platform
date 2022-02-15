@@ -22,12 +22,15 @@ import useToggle from './../../hooks/useToggle'
 import UnderConstruction from './../layout/UnderConstruction'
 import UsersGroupsUsers from './UsersGroupsUsers'
 import UsersGroupsReportsGroups from './UsersGroupsReportsGroups'
+import ReportsTable from './../reports/ReportsTable'
+import UsersGroupsSections from './UsersGroupsSections'
 
 const UsersGroupsItem = ({ usersGroup }) => {
   const [open, handleToggleCollapse] = useToggle(false)
 
   const { users } = useSelector(state => state.users)
-  const { reportsGroups } = useSelector(state => state.reports)
+  const { reportsGroups, reports } = useSelector(state => state.reports)
+  const { sections } = useSelector(state => state.sections)
 
   const navigate = useNavigate()
 
@@ -37,10 +40,6 @@ const UsersGroupsItem = ({ usersGroup }) => {
     navigate(`/admins/user-groups/update/${usersGroup.id}`)
   }
 
-  const handleChangePassword = () => {
-    console.log('change user password')
-  }
-
   const thisUsersGroupUsers = usersGroup.usersIds.map(userId =>
     users.find(user => user.id === userId)
   )
@@ -48,6 +47,10 @@ const UsersGroupsItem = ({ usersGroup }) => {
   const thisUsersGroupReportsGroups = usersGroup.reportsGroupsIds.map(
     reportsGroupId =>
       reportsGroups.find(reportGroup => reportGroup.id === reportsGroupId)
+  )
+
+  const thisUsersGroupSections = usersGroup.sectionsIds.map(sectionId =>
+    sections.find(sections => sections.id === sectionId)
   )
 
   // console.log(
@@ -102,11 +105,23 @@ const UsersGroupsItem = ({ usersGroup }) => {
       </ListItem>
 
       <Collapse in={open} timeout='auto' unmountOnExit>
-        <UsersGroupsUsers users={thisUsersGroupUsers} />
-        <UsersGroupsReportsGroups reportsGroups={thisUsersGroupReportsGroups}>
-          Grupos de reportes
-        </UsersGroupsReportsGroups>
-        <UnderConstruction>Secciones</UnderConstruction>
+        <Box p={matchMd ? 6 : 0} mb={matchMd ? 0 : 3}>
+          <Typography mb={3} variant='h6' align='center'>
+            Usuarios
+          </Typography>
+          <UsersGroupsUsers readOnly users={thisUsersGroupUsers} />
+          <Typography my={3} mt={4} variant='h6' align='center'>
+            Grupos de reportes
+          </Typography>
+          <UsersGroupsReportsGroups
+            readOnly
+            reportsGroups={thisUsersGroupReportsGroups}
+          />
+          <Typography my={3} mt={4} variant='h6' align='center'>
+            Secciones
+          </Typography>
+          <UsersGroupsSections readOnly sections={thisUsersGroupSections} />
+        </Box>
       </Collapse>
     </>
   )

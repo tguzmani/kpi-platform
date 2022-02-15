@@ -64,4 +64,4 @@ function keepMySQLAlive() {
 
 const ONE_SECOND = 1000
 
-setInterval(keepMySQLAlive, ONE_SECOND * 1800)
+setInterval(keepMySQLAlive, ONE_SECOND * 10)

@@ -1,42 +1,24 @@
-const axios = require('axios')
-const adal = require('adal-node')
 const powerbiRepository = require('./powerbi.repository')
 
 const getAccessToken = async () => {
-  const config = {
-    username: process.env.POWER_BI_USERNAME,
-    password: process.env.POWER_BI_PASSWORD,
-    clientId: process.env.POWER_BI_CLIENT_ID,
-    resource: process.env.POWER_BI_RESOURCE,
-  }
-
-  const authority = 'https://login.windows.net/common/oauth2/token'
-
-  let context = new adal.AuthenticationContext(authority, true)
-
-  return new Promise((resolve, reject) => {
-    context.acquireTokenWithUsernamePassword(
-      config.resource,
-      config.username,
-      config.password,
-      config.clientId,
-
-      (err, accessToken) => {
-        if (!err) {
-          resolve(accessToken.accessToken)
-        } else {
-          reject(err)
-        }
-      }
-    )
-  })
+  return await powerbiRepository.getAccessToken()
 }
 
-async function getEmbedUrl(accessToken, groupId, reportId) {
-  return await powerbiRepository.getEmbedUrl(accessToken, groupId, reportId)
+async function getEmbedUrl(groupId, reportId) {
+  return await powerbiRepository.getEmbedUrl(groupId, reportId)
+}
+
+async function getReportsInGroup(groupId) {
+  return await powerbiRepository.getReportsInGroup(groupId)
+}
+
+async function getPagesInReport(groupId) {
+  return await powerbiRepository.getPagesInReport(groupId)
 }
 
 module.exports = {
   getAccessToken,
   getEmbedUrl,
+  getReportsInGroup,
+  getPagesInReport,
 }
