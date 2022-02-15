@@ -18,9 +18,11 @@ import { updateContract } from '../../state/contracts/contractsActions'
 
 import useTimeout from '../../hooks/useTimeout'
 import ContractDetail from './ContractDetail'
+import useResponsive from './../../hooks/useResponsive'
 
 const Contract = () => {
   const dispatch = useDispatch()
+  const matchMd = useResponsive('md')
   const { countries, regions, zones } = useSelector(state => state.locations)
   const { currencies, loading: currenciesLoading } = useSelector(
     state => state.currencies
@@ -78,7 +80,7 @@ const Contract = () => {
 
   return (
     <>
-      <Grid container spacing={8}>
+      <Grid container spacing={matchMd ? 8 : 3}>
         <Grid lg={5} md={12} item>
           <Grid container alignItems='center'>
             <FormField label='País'>
@@ -150,11 +152,11 @@ const Contract = () => {
               </Stack>
             </Grid>
           </Grid>
-
-          <Grid item xs={12} md>
-            <ContractDetail contract={contract} />
-          </Grid>
         </Grid>
+      </Grid>
+
+      <Grid item xs={12} md>
+        <ContractDetail contract={contract} />
       </Grid>
 
       <Grid container justifyContent='flex-end'>

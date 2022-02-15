@@ -23,11 +23,11 @@ const UsersGroupsReportsGroupsTableRow = ({
           />
         </TableCell>
       )}
-      <TableCell align='center'>{reportsGroup.code}</TableCell>
+      {matchMd && <TableCell align='center'>{reportsGroup.code}</TableCell>}
 
       <TableCell align='center'>{reportsGroup.name}</TableCell>
 
-      <TableCell align='center'>{reportsGroup.sections}</TableCell>
+      {matchMd && <TableCell align='center'>{reportsGroup.sections}</TableCell>}
       <TableCell align='center'>
         <ActiveIndicator active={reportsGroup.active} />
       </TableCell>

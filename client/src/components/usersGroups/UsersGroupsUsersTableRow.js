@@ -28,10 +28,14 @@ const UsersGroupsUsersTableRow = ({
 
       <TableCell align='center'>{user.username}</TableCell>
 
-      <TableCell align='center'>{user.mail}</TableCell>
-      <TableCell align='center'>
-        <ActiveIndicator active={user.active} />
-      </TableCell>
+      {matchMd && (
+        <>
+          <TableCell align='center'>{user.mail}</TableCell>
+          <TableCell align='center'>
+            <ActiveIndicator active={user.active} />
+          </TableCell>
+        </>
+      )}
     </TableRow>
   )
 }

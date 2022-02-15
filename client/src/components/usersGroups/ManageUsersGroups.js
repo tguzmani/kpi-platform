@@ -128,7 +128,6 @@ const ManageUsersGroups = () => {
 
       <Typography variant='h6' align='center' my={3}>
         Usuarios: {selectedCountString(selectedUsers)}
-        {JSON.stringify(selectedUsers)}
       </Typography>
 
       <UsersGroupsUsers
@@ -139,7 +138,6 @@ const ManageUsersGroups = () => {
 
       <Typography variant='h6' align='center' my={3}>
         Grupos de reporte: {selectedCountString(selectedReportsGroups)}
-        {JSON.stringify(selectedReportsGroups)}
       </Typography>
       <UsersGroupsReportsGroups
         onChange={toggleSelectedReportsGroups}
@@ -149,7 +147,6 @@ const ManageUsersGroups = () => {
 
       <Typography variant='h6' align='center' my={3}>
         Secciones: {selectedCountString(selectedSections)}
-        {JSON.stringify(selectedSections)}
       </Typography>
 
       <UsersGroupsSections

@@ -26,7 +26,7 @@ const InvoiceDetail = ({ invoice }) => {
       .map(invoiceDetail => invoiceDetail.totalValue)
       .reduce((acc, value) => acc + value, 0)
 
-  const headers = ['Item', 'Valor Un.', 'Cantidad', 'Valor Total']
+  const headers = ['Item', 'Valor', 'Cantidad', 'Total']
 
   return (
     <Box my={1} mb={3}>

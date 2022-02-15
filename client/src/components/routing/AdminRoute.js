@@ -7,9 +7,13 @@ import useTermsAndConditions from './../../hooks/useTermsAndConditions'
 import roles from './../../constants/roles'
 import { readProfile } from '../../state/auth/authActions'
 import LayoutLoading from '../layout/LayoutLoading'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 const AdminRoute = ({ children }) => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+
   const isAdmin = useAdmin()
   const userAcceptedTermsAndConditions = useTermsAndConditions()
 
@@ -19,8 +23,12 @@ const AdminRoute = ({ children }) => {
   )
 
   useEffect(() => {
+    if (!isAdmin) navigate('/login')
+  }, [isAdmin])
+
+  useEffect(() => {
     dispatch(readProfile(roles.ADMIN))
-  }, [dispatch])
+  }, [pathname])
 
   if (authLoading || termsAndConditionsLoading) return <LayoutLoading />
 

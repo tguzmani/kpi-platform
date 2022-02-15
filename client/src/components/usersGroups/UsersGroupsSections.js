@@ -22,11 +22,17 @@ const UsersGroupsSections = ({
 }) => {
   const matchMd = useResponsive('md')
 
-  const checkboxHeader = readOnly ? [] : ['Seleccionar']
+  const checkboxHeader = readOnly ? [] : ['']
 
-  const headersMd = [...checkboxHeader, 'Nombre', 'Usuario', 'Email', 'Activo']
+  const headersMd = [
+    ...checkboxHeader,
+    'Workspace',
+    'Reporte',
+    'Sección',
+    'Activo',
+  ]
 
-  const headersXs = [...checkboxHeader, 'Nombre', 'Usuario']
+  const headersXs = [...checkboxHeader, 'Reporte', 'Sección', 'Activo']
 
   const headers = matchMd ? headersMd : headersXs
 

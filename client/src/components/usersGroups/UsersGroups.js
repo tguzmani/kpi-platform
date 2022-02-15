@@ -22,7 +22,7 @@ const UsersGroups = () => {
   ]
 
   const headersXs = [
-    { xs: 9, header: 'Usuario' },
+    { xs: 9, header: 'Nombre' },
     { xs: 3, header: 'Acciones' },
   ]
 

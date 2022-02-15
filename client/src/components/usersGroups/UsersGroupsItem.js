@@ -53,20 +53,17 @@ const UsersGroupsItem = ({ usersGroup }) => {
     sections.find(sections => sections.id === sectionId)
   )
 
-  // console.log(
-  //   `thisUsersGroupUsers (grupo ${usersGroup.name})`,
-  //   thisUsersGroupUsers
-  // )
-
   return (
     <>
       <ListItem dense>
         <Grid container alignItems='center' justifyContent='center'>
-          <Grid item md={3}>
-            <ListItemText>
-              <Typography variant='body1'>{usersGroup.code} </Typography>
-            </ListItemText>
-          </Grid>
+          {matchMd && (
+            <Grid item md={3}>
+              <ListItemText>
+                <Typography variant='body1'>{usersGroup.code} </Typography>
+              </ListItemText>
+            </Grid>
+          )}
 
           <Grid item md={4} xs={9}>
             <ListItemText>
@@ -74,21 +71,27 @@ const UsersGroupsItem = ({ usersGroup }) => {
             </ListItemText>
           </Grid>
 
-          <Grid item md={1}>
-            <ListItemText>
-              <Typography variant='body1'>{usersGroup.numUsers}</Typography>
-            </ListItemText>
-          </Grid>
-          <Grid item md={1}>
-            <ListItemText>
-              <Typography variant='body1'>{usersGroup.numSections}</Typography>
-            </ListItemText>
-          </Grid>
-          <Grid item md={2}>
-            <ListItemText>
-              <ActiveIndicator active={usersGroup.active} />
-            </ListItemText>
-          </Grid>
+          {matchMd && (
+            <>
+              <Grid item md={1}>
+                <ListItemText>
+                  <Typography variant='body1'>{usersGroup.numUsers}</Typography>
+                </ListItemText>
+              </Grid>
+              <Grid item md={1}>
+                <ListItemText>
+                  <Typography variant='body1'>
+                    {usersGroup.numSections}
+                  </Typography>
+                </ListItemText>
+              </Grid>
+              <Grid item md={2}>
+                <ListItemText>
+                  <ActiveIndicator active={usersGroup.active} />
+                </ListItemText>
+              </Grid>
+            </>
+          )}
 
           <Grid item md={1} xs={3}>
             <ListItemSecondaryAction>

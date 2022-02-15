@@ -13,7 +13,13 @@ async function isAdmin(req, res, next) {
     const isAdminIsLoggedIn =
       (await adminsAuthServices.isAdminLoggedIn(decoded.id)) === decoded.id
 
-    if (!isAdminIsLoggedIn || !isAdmin) {
+    if (!isAdminIsLoggedIn) {
+      return res
+        .status(401)
+        .json({ message: 'Sesión vencida. Inicie sesión nuevamente' })
+    }
+
+    if (!isAdmin) {
       return res.status(401).json({ message: 'No autorizado' })
     }
 

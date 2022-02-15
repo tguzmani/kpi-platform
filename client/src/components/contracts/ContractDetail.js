@@ -29,7 +29,7 @@ const ContractDetail = ({ contract }) => {
       .map(contractDetail => contractDetail.quantity * contractDetail.cost)
       .reduce((acc, value) => acc + value, 0)
 
-  const headers = ['Item', 'Valor Un.', 'Cantidad', 'Valor Total']
+  const headers = ['Item', 'Valor', 'Cantidad', 'Total']
 
   return (
     <Box mt={3}>

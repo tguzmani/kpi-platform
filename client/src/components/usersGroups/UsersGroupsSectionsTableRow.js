@@ -24,7 +24,7 @@ const UsersGroupsSectionsTableRow = ({
         </TableCell>
       )}
 
-      <TableCell align='center'>{section.workspaceName}</TableCell>
+      {matchMd && <TableCell align='center'>{section.workspaceName}</TableCell>}
 
       <TableCell align='center'>{section.reportName}</TableCell>
 
