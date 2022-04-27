@@ -9,14 +9,14 @@ async function isAdmin(req, res, next) {
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
     const isAdmin = decoded.role === roles.ADMIN
-
-    const isAdminIsLoggedIn =
-      (await adminsAuthServices.isAdminLoggedIn(decoded.id)) === decoded.id
+    const isAdminIsLoggedIn = await adminsAuthServices.compareAdminsIds(
+      decoded.id
+    )
 
     if (!isAdminIsLoggedIn) {
-      return res
-        .status(401)
-        .json({ message: 'Sesión vencida. Inicie sesión nuevamente' })
+      return res.status(401).json({
+        message: 'Su sesión ha caducado, por favor ingrese nuevamente',
+      })
     }
 
     if (!isAdmin) {

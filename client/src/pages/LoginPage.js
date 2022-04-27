@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import useForm from '../hooks/useForm'
+import { useCookies } from 'react-cookie'
 
 import { Grid, Paper, Tabs, styled } from '@mui/material'
 
@@ -28,7 +29,7 @@ const testAdmin = {
 
 const testUser = {
   name: 'TestUser',
-  password: 'testuser',
+  password: 'nueva',
 }
 
 const Tab = styled(MuiTab)(({ theme }) => ({
@@ -47,15 +48,17 @@ const Tab = styled(MuiTab)(({ theme }) => ({
 const LoginPage = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [cookies] = useCookies()
+  const userRole = cookies.r
 
   const { user, isAuthenticated, loading } = useSelector(state => state.auth)
 
-  const [credentials, bindField, areFieldsEmpty, setCredentials] = useForm({})
+  const [credentials, bindField, areFieldsEmpty, setCredentials] =
+    useForm(testAdmin)
 
   const [userType, setUserType] = useState(roles.ADMIN)
 
   const handleLoginAdmin = () => {
-    // dispatch(signIn(roles.ADMIN, testAdmin))
     dispatch(signIn(roles.ADMIN, testAdmin))
   }
 
@@ -77,14 +80,21 @@ const LoginPage = () => {
     if (isAuthenticated && !loading)
       userType === roles.ADMIN
         ? navigate('/admins/reports-groups')
-        : navigate('/')
+        : navigate('/users/reports')
   }, [isAuthenticated, navigate])
 
-  const handleTabChange = e => {
-    if (userType === roles.ADMIN) setUserType(roles.USER)
-    else setUserType(roles.ADMIN)
+  useEffect(() => {
+    console.log(userRole)
+  })
 
-    setCredentials(initialCredentials)
+  const handleTabChange = e => {
+    if (userType === roles.ADMIN) {
+      setUserType(roles.USER)
+      setCredentials(testUser)
+    } else {
+      setUserType(roles.ADMIN)
+      setCredentials(testAdmin)
+    }
   }
 
   return (

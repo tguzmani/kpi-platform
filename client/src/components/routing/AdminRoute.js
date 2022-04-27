@@ -17,7 +17,7 @@ const AdminRoute = ({ children }) => {
   const isAdmin = useAdmin()
   const userAcceptedTermsAndConditions = useTermsAndConditions()
 
-  const { loading: authLoading } = useSelector(state => state.auth)
+  const { loading: authLoading, user } = useSelector(state => state.auth)
   const { loading: termsAndConditionsLoading } = useSelector(
     state => state.auth
   )
@@ -30,7 +30,8 @@ const AdminRoute = ({ children }) => {
     dispatch(readProfile(roles.ADMIN))
   }, [pathname])
 
-  if (authLoading || termsAndConditionsLoading) return <LayoutLoading />
+  if ((authLoading || termsAndConditionsLoading) && !user)
+    return <LayoutLoading />
 
   return isAdmin ? (
     !userAcceptedTermsAndConditions ? (

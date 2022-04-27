@@ -6,6 +6,7 @@ import {
   READ_LOGO,
   READ_LOGO_BY_SUBDOMAIN,
   ACCEPT_TERMS_AND_CONDITIONS,
+  CHANGE_USER_PASSWORD,
 } from './adminsTypes'
 
 import axios from 'axios'
@@ -20,6 +21,21 @@ export const handleError = (dispatch, error) => {
 
 export const setLoading = () => dispatch => {
   return dispatch({ type: LOADING })
+}
+
+export const changeUserPassword = (userId, password) => async dispatch => {
+  setLoading()(dispatch)
+
+  try {
+    const res = await axios.put(
+      `/admins/changeUserPassword`,
+      { userId, password },
+      config
+    )
+    dispatch({ type: CHANGE_USER_PASSWORD })
+  } catch (error) {
+    handleError(dispatch, error)
+  }
 }
 
 export const readLogo = () => async dispatch => {

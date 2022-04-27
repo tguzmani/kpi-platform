@@ -22,6 +22,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:3000',
+      'http://localhost:3001',
       'http://testclient.kpi.com',
       'http://testclientqa.kpimanagers.com',
     ],

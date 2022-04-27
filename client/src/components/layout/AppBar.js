@@ -1,30 +1,50 @@
 import React, { useCallback } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+import AppBar from '@mui/material/AppBar'
+import Typography from '@mui/material/Typography'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import Box from '@mui/material/Box'
+import Menu from '@mui/material/Menu'
+import Divider from '@mui/material/Divider'
+import MenuItem from '@mui/material/MenuItem'
+import { useTheme } from '@mui/material/styles'
+import SettingsIcon from '@mui/icons-material/Settings'
+
+import ListItemIcon from '@mui/material/ListItemIcon'
+import KeyIcon from '@mui/icons-material/Key'
+import LogoutIcon from '@mui/icons-material/Logout'
+
 import { useSelector, useDispatch } from 'react-redux'
 import { signOut } from '../../state/auth/authActions'
 
-import AppBar from '@mui/material/AppBar'
-import Toolbar from '@mui/material/Toolbar'
-import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import Box from '@mui/material/Box'
-import { useNavigate } from 'react-router-dom'
 import Image from './Image'
 
-import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import roles from './../../constants/roles'
+import { MuiTab } from '@mui/material/Tab'
+import useMenu from './../../hooks/useMenu'
 
 const ApplicationBar = () => {
   const { user, isAuthenticated } = useSelector(state => state.auth)
   const { appBarLogo } = useSelector(state => state.admins)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
   const theme = useTheme()
   const matches = useMediaQuery(theme.breakpoints.up('lg'))
+  const [anchorEl, handleOpenMenu, handleCloseMenu] = useMenu()
 
   const handleSignOut = () => {
     navigate('/login')
     dispatch(signOut(user?.role))
+  }
+
+  const handleChangePassword = () => {
+    navigate('/users/changePassword')
+    handleCloseMenu()
   }
 
   return (
@@ -41,8 +61,42 @@ const ApplicationBar = () => {
 
         {user && isAuthenticated && (
           <>
+            <Typography mr={1} variant='body1' color='secondary'>
+              Usuario:
+            </Typography>
             <Typography sx={{ mr: 2 }}>{user.name}</Typography>
-            <Button onClick={handleSignOut} color='inherit'>
+            {user?.role === roles.USER && (
+              <>
+                <IconButton onClick={handleOpenMenu} color='inherit'>
+                  <SettingsIcon />
+                </IconButton>
+
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleCloseMenu}
+                >
+                  <MenuItem onClick={handleChangePassword}>
+                    <ListItemIcon>
+                      <KeyIcon fontSize='small' />
+                    </ListItemIcon>
+                    Cambiar contraseña
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem onClick={handleSignOut}>
+                    <ListItemIcon>
+                      <LogoutIcon fontSize='small' />
+                    </ListItemIcon>
+                    Salir
+                  </MenuItem>
+                </Menu>
+              </>
+            )}
+            <Button
+              endIcon={<LogoutIcon fontSize='small' />}
+              onClick={handleSignOut}
+              color='primary'
+            >
               Salir
             </Button>
           </>

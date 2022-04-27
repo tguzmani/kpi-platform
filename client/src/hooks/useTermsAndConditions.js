@@ -11,7 +11,7 @@ const useTermsAndConditions = () => {
     if (!termsAndConditions) dispatch(readTermsAndConditions())
   }, [])
 
-  const userAcceptedTermsAndConditions = user?.termsAndConditions.includes(
+  const userAcceptedTermsAndConditions = user?.termsAndConditions?.includes(
     termsAndConditions?.id
   )
 

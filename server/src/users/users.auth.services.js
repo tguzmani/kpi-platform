@@ -1,10 +1,12 @@
 const usersRepository = require('./users.repository')
-
 const usersRedisRepository = require('./users.redis.repository')
 const UsersException = require('./users.exception')
+const encrypt = require('../common/encrypt')
 
-async function isUserLoggedIn(userId) {
-  return await usersRedisRepository.getById(userId)
+async function compareUsersIds(userId) {
+  const sessionUserId = await usersRedisRepository.getById(userId)
+
+  return sessionUserId === userId
 }
 
 async function signIn(name, password) {
@@ -12,11 +14,15 @@ async function signIn(name, password) {
 
   if (!user) throw new UsersException('El usuario no existe')
 
-  if (password !== user.password)
-    throw new UsersException('Contraseña no válida')
+  const passwordsMatch = await encrypt.compare(password, user.password)
+  const sessionIsActive = await compareUsersIds(user.id)
 
-  if ((await isUserLoggedIn(user.id)) === user.id) {
-    throw new UsersException('Ya existe un usuario en el sistema')
+  if (!passwordsMatch) throw new UsersException('Contraseña no válida')
+
+  if (sessionIsActive) {
+    throw new UsersException(
+      `El usuario ${user.name} ya está utilizando el sistema, intente con otro usuario o bien contáctelo para que libere la sesión`
+    )
   }
 
   usersRedisRepository.addById(user.id)
@@ -29,7 +35,7 @@ async function signOut(userId) {
 }
 
 async function refreshSession(userId) {
-  await adminsRedisRepository.setExpirationById(userId)
+  await usersRedisRepository.setExpirationById(userId)
 }
 
-module.exports = { signIn, signOut, isUserLoggedIn, refreshSession }
+module.exports = { signIn, signOut, compareUsersIds, refreshSession }

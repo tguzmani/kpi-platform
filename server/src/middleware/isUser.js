@@ -10,10 +10,15 @@ async function isUser(req, res, next) {
 
     const isUser = decoded.role === roles.USER
 
-    const isUserIsLoggedIn =
-      (await usersAuthServices.isUserLoggedIn(decoded.id)) === decoded.id
+    const isUserIsLoggedIn = await usersAuthServices.compareUsersIds(decoded.id)
 
-    if (!isUserIsLoggedIn || !isUser) {
+    if (!isUserIsLoggedIn) {
+      return res.status(401).json({
+        message: 'Su sesión ha caducado, por favor ingrese nuevamente',
+      })
+    }
+
+    if (!isUser) {
       return res.status(401).json({ message: 'No autorizado' })
     }
 

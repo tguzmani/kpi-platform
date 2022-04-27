@@ -1,22 +1,24 @@
 import React from 'react'
-import { readUsers } from '../../state/users/usersActions'
+import { readUsers } from '../state/users/usersActions'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
-import Loading from '../layout/Loading'
-import FormField from '../layout/FormField'
 import { Paper, Typography, Grid, Button, Collapse } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton'
-import useForm from './../../hooks/useForm'
 
 import { useNavigate } from 'react-router-dom'
-import useToggle from './../../hooks/useToggle'
-import useNavigateAfterAction from './../../hooks/useNavigateAfterAction'
-import { changeUserPassword } from './../../state/admins/adminsActions'
+import useNavigateAfterAction from '../hooks/useNavigateAfterAction'
+import useToggle from '../hooks/useToggle'
+import useForm from '../hooks/useForm'
+import Loading from '../components/layout/Loading'
+import { changeUserPassword } from '../state/admins/adminsActions'
+import FormField from '../components/layout/FormField'
+import roles from '../constants/roles'
 
-const ChangeUserPassword = () => {
+const ChangePassword = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { user } = useSelector(state => state.auth)
   const { users } = useSelector(state => state.users)
   const { loading } = useSelector(state => state.admins)
 
@@ -63,6 +65,12 @@ const ChangeUserPassword = () => {
     }
   }
 
+  const handleGoBack = () => {
+    navigate(
+      user.role === roles.USER ? '/users/reports' : '/admins/reports-groups'
+    )
+  }
+
   return (
     <Paper className='container'>
       <Grid container justifyContent='center' spacing={3}>
@@ -101,7 +109,7 @@ const ChangeUserPassword = () => {
       </Grid>
 
       <Grid mt={3} container justifyContent='space-between'>
-        <Button onClick={() => navigate('/admins/users')}>Cancelar</Button>
+        <Button onClick={handleGoBack}>Cancelar</Button>
         <LoadingButton
           onClick={handleChangeUserPassword}
           variant='contained'
@@ -115,4 +123,4 @@ const ChangeUserPassword = () => {
   )
 }
 
-export default ChangeUserPassword
+export default ChangePassword

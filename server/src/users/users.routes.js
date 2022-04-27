@@ -17,7 +17,7 @@ router.put('/:userId', [hasToken, isAdmin], usersController.updateUser)
 
 // Auth
 router.post('/signIn', usersAuthController.signIn)
-router.post('/signOut', usersAuthController.signOut)
+router.post('/signOut', [hasToken, isUser], usersAuthController.signOut)
 
 router.get('/secret', [hasToken, isUser], (req, res) =>
   res.send(`SUCCESS: User private route (id: ${req.userId})`)

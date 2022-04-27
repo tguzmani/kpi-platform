@@ -6,6 +6,7 @@ import {
   UPDATE_LOGO,
   READ_LOGO_BY_SUBDOMAIN,
   ACCEPT_TERMS_AND_CONDITIONS,
+  CHANGE_USER_PASSWORD,
 } from './adminsTypes'
 
 const initialState = {
@@ -43,6 +44,7 @@ const adminReducer = (state = initialState, action) => {
     case ERROR:
       return { ...state, loading: false, message: action.payload }
 
+    case CHANGE_USER_PASSWORD:
     default:
       return state
   }

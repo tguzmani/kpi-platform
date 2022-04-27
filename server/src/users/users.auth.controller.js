@@ -13,9 +13,11 @@ async function signIn(req, res) {
     const token = signToken({ id: userId, role: roles.USER })
 
     res.cookie('t', token)
+    res.cookie('r', roles.USER)
+
     res.send(user)
   } catch (error) {
-    return res.status(400).send(error.message)
+    return res.status(400).send(error)
   }
 }
 
@@ -23,6 +25,7 @@ async function signOut(req, res) {
   await usersAuthServices.signOut(req.userId)
 
   res.clearCookie('t')
+
   res.send({ message: 'Sesión finalizada de forma exitosa' })
 }
 

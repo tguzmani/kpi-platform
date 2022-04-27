@@ -31,3 +31,15 @@ exports.ACCEPT_TERMS_AND_CONDITIONS = `
 insert into adm_accounts_has_adm_terms_and_conditions (id_adm_accounts, id_adm_terms_and_conditions)
 values (?, ?);
 `
+
+exports.UPDATE_PASSWORD = `
+update adm_accounts
+set password = ?
+where id = ?
+`
+
+exports.UPDATE_USER_PASSWORD = `
+update adm_users
+set password = ?
+where id = ?
+`

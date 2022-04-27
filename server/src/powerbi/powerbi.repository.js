@@ -22,7 +22,7 @@ async function generateHeaders() {
   }
 }
 
-async function getAccessToken(config) {
+async function getAccessToken() {
   const authority = 'https://login.windows.net/common/oauth2/token'
 
   let context = new adal.AuthenticationContext(authority, true)

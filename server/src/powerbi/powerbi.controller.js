@@ -18,11 +18,12 @@ async function getReportData(req, res) {
   try {
     const { groupId, reportId } = req.body
 
+    const accessToken = await powerbiServices.getAccessToken()
     const embedUrl = await powerbiServices.getEmbedUrl(groupId, reportId)
 
     res.send({ accessToken, embedUrl })
   } catch (error) {
-    return res.status(400).send(error)
+    return res.status(400).send(error.stack)
   }
 }
 

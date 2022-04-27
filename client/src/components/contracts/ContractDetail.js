@@ -65,7 +65,7 @@ const ContractDetail = ({ contract }) => {
               <TableCell colSpan={2} align='right' />
 
               <TableCell sx={{ fontWeight: 'bold' }} align='center'>
-                Total Contrato:
+                Total
               </TableCell>
               <TableCell sx={{ fontWeight: 'bold' }} align='center'>
                 {contractTotal()}

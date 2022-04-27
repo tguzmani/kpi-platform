@@ -53,6 +53,26 @@ async function acceptTermsAndConditions(adminId, termsAndConditionsId) {
   )
 }
 
+async function updatePassword(adminId, newPassword) {
+  connection.query(
+    adminsQueries.UPDATE_PASSWORD,
+    [newPassword, adminId],
+    async (error, rows) => {
+      if (error) throw error
+    }
+  )
+}
+
+async function updateUserPassword(userId, newPassword) {
+  connection.query(
+    adminsQueries.UPDATE_USER_PASSWORD,
+    [newPassword, userId],
+    async (error, rows) => {
+      if (error) throw error
+    }
+  )
+}
+
 async function readLogoBySubdomain(subdomain) {
   return new Promise((resolve, reject) =>
     connection.query(
@@ -92,4 +112,6 @@ module.exports = {
   readLogoBySubdomain,
   readAdminTermsAndConditions,
   acceptTermsAndConditions,
+  updatePassword,
+  updateUserPassword,
 }

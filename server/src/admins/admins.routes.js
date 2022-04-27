@@ -23,6 +23,18 @@ router.put(
   adminsController.updateLogo
 )
 
+router.put(
+  '/changePassword',
+  [hasToken, isAdmin],
+  adminsController.changePassword
+)
+
+router.put(
+  '/changeUserPassword',
+  [hasToken, isAdmin],
+  adminsController.changeUserPassword
+)
+
 router.get('/logoBySubdomain', adminsController.readLogoBySubdomain)
 
 // Auth

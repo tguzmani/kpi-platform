@@ -4,6 +4,7 @@ const AdminsException = require('./admins.exception')
 const sizeOf = require('image-size')
 const roles = require('./../constants/roles')
 const fs = require('fs')
+const encrypt = require('../common/encrypt')
 
 const MAX_LOGO_WIDTH = 300
 const MAX_LOGO_HEIGHT = 70
@@ -92,10 +93,24 @@ async function updateLogo(logo, adminId) {
   await adminsRepository.updateLogo(logo, adminId)
 }
 
+async function changePassword(adminId, newPassword) {
+  const hashedPassword = await encrypt.hash(newPassword)
+
+  await adminsRepository.updatePassword(adminId, hashedPassword)
+}
+
+async function changeUserPassword(userId, newPassword) {
+  const hashedPassword = await encrypt.hash(newPassword)
+
+  await adminsRepository.updateUserPassword(userId, hashedPassword)
+}
+
 module.exports = {
   readProfile,
   readLogo,
   updateLogo,
   readLogoBySubdomain,
   acceptTermsAndConditions,
+  changePassword,
+  changeUserPassword,
 }
